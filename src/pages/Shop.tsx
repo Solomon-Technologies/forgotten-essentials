@@ -68,6 +68,60 @@ export default function Shop() {
         {/* Sidebar */}
         <aside className={`shop-sidebar ${isFilterOpen ? 'open' : ''}`}>
           <div className="sidebar-section">
+            <h3>Categories</h3>
+            <ul className="filter-list">
+              <li>
+                <Link
+                  to="/shop"
+                  className={!categoryParam ? 'active' : ''}
+                >
+                  All Products
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/shop?category=jackets"
+                  className={categoryParam === 'jackets' ? 'active' : ''}
+                >
+                  Jackets
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/shop?category=shirts"
+                  className={categoryParam === 'shirts' ? 'active' : ''}
+                >
+                  Shirts
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/shop?category=tees"
+                  className={categoryParam === 'tees' ? 'active' : ''}
+                >
+                  Tees
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/shop?category=pants"
+                  className={categoryParam === 'pants' ? 'active' : ''}
+                >
+                  Pants
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/shop?category=accessories"
+                  className={categoryParam === 'accessories' ? 'active' : ''}
+                >
+                  Accessories
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className="sidebar-section">
             <h3>Sort By</h3>
             <ul className="filter-list">
               <li>

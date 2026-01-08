@@ -99,7 +99,8 @@
   margin-bottom: 0.35rem;
 }
 
-.filter-list button {
+.filter-list button,
+.filter-list a {
   background: none;
   border: none;
   padding: 0.25rem 0;
@@ -108,10 +109,14 @@
   cursor: pointer;
   text-align: left;
   width: 100%;
+  text-decoration: none;
+  display: block;
 }
 
 .filter-list button:hover,
-.filter-list button.active {
+.filter-list button.active,
+.filter-list a:hover,
+.filter-list a.active {
   color: var(--color-text);
   text-decoration: underline;
 }
