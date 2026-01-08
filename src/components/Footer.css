@@ -1,12 +1,12 @@
 .footer {
   background: var(--color-bg);
-  padding: 4rem 2rem 2rem;
+  padding: 4rem 3rem 2rem;
   margin-top: auto;
-  border-top: 1px solid var(--color-border);
+  border-top: 2px solid var(--color-border);
 }
 
 .footer-container {
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -15,7 +15,7 @@
   grid-template-columns: 1.5fr repeat(3, 1fr) 1.5fr;
   gap: 2rem;
   padding-bottom: 3rem;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 2px solid var(--color-border);
 }
 
 .footer-brand {
@@ -23,9 +23,9 @@
 }
 
 .footer-logo {
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0;
   text-transform: uppercase;
   margin: 0 0 1rem;
 }
@@ -44,18 +44,13 @@
 
 .footer-social a {
   color: var(--color-text);
-  transition: opacity 0.2s ease;
-}
-
-.footer-social a:hover {
-  opacity: 0.6;
 }
 
 .footer-links h3,
 .footer-newsletter h3 {
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0;
   text-transform: uppercase;
   margin: 0 0 1rem;
 }
@@ -71,14 +66,13 @@
 }
 
 .footer-links a {
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   color: var(--color-muted);
   text-decoration: none;
-  transition: color 0.2s ease;
 }
 
 .footer-links a:hover {
-  color: var(--color-text);
+  text-decoration: underline;
 }
 
 .footer-newsletter p {
@@ -116,18 +110,12 @@
   padding: 0.75rem 1rem;
   background: var(--color-text);
   color: var(--color-bg);
-  border: 1px solid var(--color-text);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
+  border: 2px solid var(--color-text);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.newsletter-form button:hover {
-  background: transparent;
-  color: var(--color-text);
 }
 
 .footer-bottom {
@@ -151,11 +139,10 @@
   font-size: 0.75rem;
   color: var(--color-muted);
   text-decoration: none;
-  transition: color 0.2s ease;
 }
 
 .footer-legal a:hover {
-  color: var(--color-text);
+  text-decoration: underline;
 }
 
 @media (max-width: 1024px) {

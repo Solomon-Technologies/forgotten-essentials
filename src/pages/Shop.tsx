@@ -46,6 +46,11 @@ export default function Shop() {
       <div className="shop-header">
         <h1>{categoryParam ? categories.find(c => c.slug === categoryParam)?.name || 'All Products' : 'All Products'}</h1>
         <p>{filteredProducts.length} {filteredProducts.length === 1 ? 'piece' : 'pieces'}</p>
+        {categoryParam && (
+          <button onClick={() => handleCategoryChange(null)} className="view-all-btn">
+            View All Collections
+          </button>
+        )}
       </div>
 
       <div className="shop-container">

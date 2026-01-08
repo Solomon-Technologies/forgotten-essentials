@@ -3,26 +3,26 @@ import { Product, Category } from '../types';
 export const categories: Category[] = [
   {
     id: '1',
-    name: 'Outerwear',
-    slug: 'outerwear',
+    name: 'Jackets',
+    slug: 'jackets',
     image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&q=80'
   },
   {
     id: '2',
-    name: 'Dresses',
-    slug: 'dresses',
-    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80'
-  },
-  {
-    id: '3',
-    name: 'Tops',
-    slug: 'tops',
+    name: 'Shirts',
+    slug: 'shirts',
     image: 'https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=800&q=80'
   },
   {
+    id: '3',
+    name: 'Tees',
+    slug: 'tees',
+    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80'
+  },
+  {
     id: '4',
-    name: 'Bottoms',
-    slug: 'bottoms',
+    name: 'Pants',
+    slug: 'pants',
     image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&q=80'
   },
   {
@@ -36,61 +36,60 @@ export const categories: Category[] = [
 export const products: Product[] = [
   {
     id: '1',
-    name: 'Vintage Burberry Trench Coat',
-    price: 485,
-    originalPrice: 650,
-    description: 'Classic Burberry trench coat from the 1980s. Features the iconic Nova check lining, cotton gabardine exterior, and signature double-breasted silhouette. A timeless investment piece in exceptional condition.',
+    name: 'Carhartt Work Jacket',
+    price: 65,
+    originalPrice: 85,
+    description: 'Worn-in Carhartt work jacket from the 1990s. Heavy canvas with faded brown color and authentic workwear patina. Zip front with button closures and multiple pockets.',
     images: [
       'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80',
       'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&q=80'
     ],
-    category: 'outerwear',
-    era: '1980s',
-    size: 'M',
-    condition: 'Excellent',
-    brand: 'Burberry',
+    category: 'jackets',
+    era: '1990s',
+    size: 'L',
+    condition: 'Good',
+    brand: 'Carhartt',
     measurements: {
-      chest: '42"',
-      length: '45"',
-      shoulders: '18"',
+      chest: '46"',
+      length: '28"',
+      shoulders: '20"',
       sleeves: '24"'
     },
     inStock: true
   },
   {
     id: '2',
-    name: 'Silk Floral Midi Dress',
-    price: 225,
-    description: 'Stunning 1970s silk dress with hand-painted floral motif. Features a flattering A-line silhouette, delicate cap sleeves, and a romantic flowing skirt. Perfect for special occasions.',
+    name: 'Vintage Band Tee - Nirvana',
+    price: 45,
+    description: '1990s Nirvana tour tee with faded black print. Soft, worn-in cotton with authentic vintage fade and cracking on the graphic. Single stitch construction.',
     images: [
-      'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80',
-      'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80'
+      'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80',
+      'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&q=80'
     ],
-    category: 'dresses',
-    era: '1970s',
-    size: 'S',
-    condition: 'Very Good',
+    category: 'tees',
+    era: '1990s',
+    size: 'L',
+    condition: 'Good',
     measurements: {
-      chest: '34"',
-      waist: '26"',
-      length: '42"'
+      chest: '42"',
+      length: '28"'
     },
     inStock: true
   },
   {
     id: '3',
     name: 'Leather Biker Jacket',
-    price: 375,
-    originalPrice: 450,
-    description: 'Authentic 1990s black leather motorcycle jacket. Supple, broken-in leather with beautiful patina. Features asymmetric zip closure, multiple pockets, and quilted shoulders.',
+    price: 125,
+    originalPrice: 165,
+    description: 'Worn 1990s black leather motorcycle jacket. Broken-in leather with natural patina. Asymmetric zip, multiple pockets. Some scuffs add character.',
     images: [
       'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&q=80',
       'https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=800&q=80'
     ],
-    category: 'outerwear',
+    category: 'jackets',
     era: '1990s',
     size: 'M',
-    condition: 'Excellent',
+    condition: 'Good',
     measurements: {
       chest: '40"',
       length: '24"',
@@ -101,101 +100,97 @@ export const products: Product[] = [
   },
   {
     id: '4',
-    name: 'Cashmere Cable Knit Sweater',
-    price: 195,
-    description: 'Luxurious 1990s Scottish cashmere sweater in cream. Features traditional cable knit pattern with ribbed cuffs and hem. Incredibly soft with no pilling.',
+    name: 'Flannel Shirt - Red Plaid',
+    price: 32,
+    description: '1990s thick cotton flannel in red and black plaid. Button-down with chest pockets. Soft and broken-in, perfect layering piece.',
     images: [
-      'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=80',
-      'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=800&q=80'
+      'https://images.unsplash.com/photo-1525450824786-227cbef70703?w=800&q=80',
+      'https://images.unsplash.com/photo-1598032895397-b9c37ef1b95c?w=800&q=80'
     ],
-    category: 'tops',
+    category: 'shirts',
     era: '1990s',
-    size: 'M',
-    condition: 'Excellent',
-    brand: 'Ballantyne',
+    size: 'L',
+    condition: 'Good',
     measurements: {
       chest: '44"',
-      length: '26"',
-      sleeves: '22"'
+      length: '30"',
+      sleeves: '24"'
     },
     inStock: true
   },
   {
     id: '5',
-    name: 'High-Waisted Levi\'s 501',
-    price: 145,
-    description: 'Iconic 1990s Levi\'s 501 jeans with the perfect vintage fade. High-waisted fit with straight leg. Classic American style that gets better with every wear.',
+    name: 'Levi\'s 501 Jeans',
+    price: 48,
+    description: '1990s Levi\'s 501 jeans with vintage fade. Straight leg fit. Authentic worn-in look.',
     images: [
       'https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&q=80',
       'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800&q=80'
     ],
-    category: 'bottoms',
+    category: 'pants',
     era: '1990s',
-    size: '28',
-    condition: 'Very Good',
+    size: '32',
+    condition: 'Good',
     brand: "Levi's",
     measurements: {
-      waist: '28"',
+      waist: '32"',
       length: '32"'
     },
     inStock: true
   },
   {
     id: '6',
-    name: 'Velvet Evening Gown',
-    price: 425,
-    description: 'Breathtaking 1960s emerald green velvet gown. Features elegant boat neckline, fitted bodice, and flowing floor-length skirt. A showstopper for black-tie events.',
+    name: 'Champion Reverse Weave Hoodie',
+    price: 58,
+    description: '1990s Champion reverse weave hoodie in faded grey. Heavy cotton construction with iconic side panels. Drawstring hood and kangaroo pocket.',
     images: [
-      'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=800&q=80',
-      'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80'
+      'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80',
+      'https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=800&q=80'
     ],
-    category: 'dresses',
-    era: '1960s',
-    size: 'S',
-    condition: 'Excellent',
+    category: 'shirts',
+    era: '1990s',
+    size: 'XL',
+    condition: 'Good',
+    brand: 'Champion',
     measurements: {
-      chest: '34"',
-      waist: '25"',
-      length: '58"'
+      chest: '48"',
+      length: '28"'
     },
     inStock: true
   },
   {
     id: '7',
-    name: 'Wool Plaid Blazer',
-    price: 275,
-    description: 'Distinguished 1980s Ralph Lauren wool blazer in classic plaid. Fully lined with notched lapels and horn buttons. Versatile piece for both casual and formal styling.',
+    name: 'Dickies Work Pants',
+    price: 38,
+    description: '1990s Dickies work pants in tan. Durable twill cotton with straight leg fit. Belt loops and multiple pockets. Classic workwear staple.',
     images: [
-      'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&q=80',
-      'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&q=80'
+      'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&q=80',
+      'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&q=80'
     ],
-    category: 'outerwear',
-    era: '1980s',
-    size: 'L',
-    condition: 'Very Good',
-    brand: 'Ralph Lauren',
+    category: 'pants',
+    era: '1990s',
+    size: '34',
+    condition: 'Good',
+    brand: 'Dickies',
     measurements: {
-      chest: '44"',
-      length: '30"',
-      shoulders: '19"',
-      sleeves: '25"'
+      waist: '34"',
+      length: '32"'
     },
     inStock: true
   },
   {
     id: '8',
-    name: 'Silk Scarf - Hermès',
-    price: 295,
-    description: 'Elegant vintage Hermès silk scarf featuring the "Les Cavaliers d\'Or" design. Hand-rolled edges with vibrant colors that have maintained their brilliance.',
+    name: 'Vintage Snapback Cap',
+    price: 28,
+    description: '1990s snapback hat with faded logo. Adjustable plastic snap closure. Curved brim with some wear. Authentic vintage headwear.',
     images: [
-      'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=800&q=80',
-      'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80'
+      'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=800&q=80',
+      'https://images.unsplash.com/photo-1575428652377-a2d80e2277fc?w=800&q=80'
     ],
     category: 'accessories',
-    era: '1980s',
+    era: '1990s',
     size: 'One Size',
-    condition: 'Excellent',
-    brand: 'Hermès',
+    condition: 'Good',
     inStock: true
   }
 ];

@@ -12,20 +12,19 @@ export default function Home() {
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
-          <span className="hero-label">New Collection</span>
-          <h1 className="hero-title">Timeless Pieces,<br />Conscious Choices</h1>
+          <span className="hero-label">New Arrivals</span>
+          <h1 className="hero-title">Shop by Style</h1>
           <p className="hero-description">
-            Discover carefully curated vintage and pre-loved fashion.
-            Each piece hand-selected for quality, style, and sustainability.
+            Vintage and secondhand clothing at prices that won't break the bank. Find your next favorite piece.
           </p>
           <div className="hero-actions">
             <Link to="/shop" className="btn-primary">Shop Now</Link>
-            <Link to="/about" className="btn-secondary">Our Story</Link>
+            <Link to="/shop" className="btn-secondary">Collections</Link>
           </div>
         </div>
         <div className="hero-image">
           <img
-            src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=1200&q=80"
+            src="/photo-1578509566163-068acd11b8e7.avif"
             alt="Vintage fashion editorial"
           />
         </div>
@@ -60,18 +59,6 @@ export default function Home() {
           {featuredProducts.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
-        </div>
-      </section>
-
-      {/* Banner */}
-      <section className="banner">
-        <div className="banner-content">
-          <h2>Sell With Us</h2>
-          <p>
-            Have vintage treasures collecting dust? We're always looking for unique,
-            high-quality pieces. Earn up to 70% of the sale price.
-          </p>
-          <Link to="/consign" className="btn-primary-light">Start Consigning</Link>
         </div>
       </section>
 
