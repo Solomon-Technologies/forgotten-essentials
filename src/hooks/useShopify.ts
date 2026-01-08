@@ -10,7 +10,9 @@ import {
   GET_HOME_SECTIONS,
   GET_VALUE_ITEMS,
   GET_FOOTER_CONTENT,
-  GET_ABOUT_PAGE
+  GET_ABOUT_PAGE,
+  GET_PRODUCT_BY_HANDLE,
+  GET_PRODUCT_DETAIL_SETTINGS
 } from '../lib/shopify';
 import { Product, Category } from '../types';
 import { mockProducts, mockCollections, mockFeaturedCollections } from '../data/mockData';
@@ -621,4 +623,229 @@ export function useValueItems(limit: number = 10) {
   }, [limit]);
 
   return { items, loading, error };
+}
+
+// Product Detail type (extends Product with full details)
+export interface ProductDetail extends Product {
+  images: string[];
+  variants: Array<{
+    id: string;
+    title: string;
+    availableForSale: boolean;
+    price: number;
+    selectedOptions: Array<{
+      name: string;
+      value: string;
+    }>;
+  }>;
+  era?: string;
+  condition?: string;
+  brand?: string;
+  size?: string;
+  measurements?: {
+    chest?: string;
+    waist?: string;
+    length?: string;
+    shoulders?: string;
+    sleeves?: string;
+  };
+}
+
+// Hook for fetching individual product by handle
+export function useProduct(handle: string | undefined) {
+  const [product, setProduct] = useState<ProductDetail | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    if (!handle) {
+      setProduct(null);
+      setLoading(false);
+      return;
+    }
+
+    async function fetchProduct() {
+      if (shouldUseMockData()) {
+        setLoading(true);
+        const { mockProducts } = await import('../data/mockData');
+        setTimeout(() => {
+          const mockProduct = mockProducts.find(p => p.slug === handle);
+          if (mockProduct) {
+            // Transform mock product to ProductDetail format
+            setProduct({
+              ...mockProduct,
+              images: [mockProduct.image],
+              variants: [{
+                id: `variant-${mockProduct.id}`,
+                title: 'Default',
+                availableForSale: mockProduct.inStock || false,
+                price: mockProduct.price,
+                selectedOptions: []
+              }]
+            });
+          } else {
+            setProduct(null);
+          }
+          setLoading(false);
+        }, 500);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const data: any = await shopifyClient.request(GET_PRODUCT_BY_HANDLE, { handle });
+
+        if (!data.product) {
+          setProduct(null);
+          setLoading(false);
+          return;
+        }
+
+        const productNode = data.product;
+
+        // Extract metafields
+        const metafields = productNode.metafields?.reduce((acc: any, field: any) => {
+          if (field) {
+            acc[field.key] = field.value;
+          }
+          return acc;
+        }, {}) || {};
+
+        // Parse measurements if it's a JSON string
+        let measurements;
+        if (metafields.measurements) {
+          try {
+            measurements = JSON.parse(metafields.measurements);
+          } catch {
+            measurements = undefined;
+          }
+        }
+
+        const transformedProduct: ProductDetail = {
+          id: productNode.id,
+          name: productNode.title,
+          slug: productNode.handle,
+          price: parseFloat(productNode.priceRange.minVariantPrice.amount),
+          originalPrice: productNode.compareAtPriceRange?.minVariantPrice?.amount
+            ? parseFloat(productNode.compareAtPriceRange.minVariantPrice.amount)
+            : undefined,
+          image: productNode.images.edges[0]?.node.url || '',
+          images: productNode.images.edges.map((edge: any) => edge.node.url),
+          category: productNode.productType || 'Uncategorized',
+          inStock: productNode.variants.edges[0]?.node.availableForSale || false,
+          description: productNode.description || '',
+          variants: productNode.variants.edges.map((edge: any) => ({
+            id: edge.node.id,
+            title: edge.node.title,
+            availableForSale: edge.node.availableForSale,
+            price: parseFloat(edge.node.priceV2.amount),
+            selectedOptions: edge.node.selectedOptions
+          })),
+          era: metafields.era,
+          condition: metafields.condition,
+          brand: metafields.brand,
+          size: metafields.size,
+          measurements
+        };
+
+        setProduct(transformedProduct);
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('Failed to fetch product'));
+        console.error('Error fetching product:', err);
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProduct();
+  }, [handle]);
+
+  return { product, loading, error };
+}
+
+// Product Detail Settings type
+export interface ProductDetailSettings {
+  id: string;
+  relatedProductsHeading: string;
+  relatedProductsLinkText: string;
+  notFoundHeading: string;
+  notFoundDescription: string;
+  notFoundButtonText: string;
+  perk1Icon: string;
+  perk1Text: string;
+  perk2Icon: string;
+  perk2Text: string;
+  perk3Icon: string;
+  perk3Text: string;
+  addToCartText: string;
+  soldOutText: string;
+}
+
+// Hook for product detail page settings
+export function useProductDetailSettings() {
+  const [settings, setSettings] = useState<ProductDetailSettings | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    async function fetchProductDetailSettings() {
+      if (shouldUseMockData()) {
+        setLoading(true);
+        const { mockProductDetailSettings } = await import('../data/mockData');
+        setTimeout(() => {
+          setSettings(mockProductDetailSettings);
+          setLoading(false);
+        }, 500);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const data: any = await shopifyClient.request(GET_PRODUCT_DETAIL_SETTINGS);
+
+        if (data.metaobjects.edges.length === 0) {
+          const { mockProductDetailSettings } = await import('../data/mockData');
+          setSettings(mockProductDetailSettings);
+          setLoading(false);
+          return;
+        }
+
+        const settingsNode = data.metaobjects.edges[0].node;
+        const fields = settingsNode.fields.reduce((acc: any, field: any) => {
+          acc[field.key] = field.value;
+          return acc;
+        }, {});
+
+        setSettings({
+          id: settingsNode.id,
+          relatedProductsHeading: fields.related_products_heading || 'You May Also Like',
+          relatedProductsLinkText: fields.related_products_link_text || 'View All',
+          notFoundHeading: fields.not_found_heading || 'Product Not Found',
+          notFoundDescription: fields.not_found_description || "The product you're looking for doesn't exist.",
+          notFoundButtonText: fields.not_found_button_text || 'Back to Shop',
+          perk1Icon: fields.perk1_icon || 'package',
+          perk1Text: fields.perk1_text || 'Free shipping over $200',
+          perk2Icon: fields.perk2_icon || 'return',
+          perk2Text: fields.perk2_text || '14-day returns',
+          perk3Icon: fields.perk3_icon || 'shield',
+          perk3Text: fields.perk3_text || 'Authenticity guaranteed',
+          addToCartText: fields.add_to_cart_text || 'Add to Cart',
+          soldOutText: fields.sold_out_text || 'Sold Out',
+        });
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('Failed to fetch product detail settings'));
+        const { mockProductDetailSettings } = await import('../data/mockData');
+        setSettings(mockProductDetailSettings);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProductDetailSettings();
+  }, []);
+
+  return { settings, loading, error };
 }

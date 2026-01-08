@@ -78,6 +78,71 @@ export const GET_PRODUCTS = `
   }
 `;
 
+export const GET_PRODUCT_BY_HANDLE = `
+  query GetProductByHandle($handle: String!) {
+    product(handle: $handle) {
+      id
+      title
+      handle
+      description
+      priceRange {
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+        maxVariantPrice {
+          amount
+          currencyCode
+        }
+      }
+      compareAtPriceRange {
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+      }
+      images(first: 10) {
+        edges {
+          node {
+            url
+            altText
+          }
+        }
+      }
+      variants(first: 10) {
+        edges {
+          node {
+            id
+            title
+            availableForSale
+            priceV2 {
+              amount
+              currencyCode
+            }
+            selectedOptions {
+              name
+              value
+            }
+          }
+        }
+      }
+      tags
+      productType
+      metafields(identifiers: [
+        {namespace: "custom", key: "era"},
+        {namespace: "custom", key: "condition"},
+        {namespace: "custom", key: "brand"},
+        {namespace: "custom", key: "size"},
+        {namespace: "custom", key: "measurements"}
+      ]) {
+        key
+        value
+        type
+      }
+    }
+  }
+`;
+
 export const GET_COLLECTIONS = `
   query GetCollections($first: Int!) {
     collections(first: $first) {
@@ -385,6 +450,23 @@ export const GET_FOOTER_CONTENT = `
 export const GET_ABOUT_PAGE = `
   query GetAboutPage {
     metaobjects(type: "about_page", first: 1) {
+      edges {
+        node {
+          id
+          handle
+          fields {
+            key
+            value
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_PRODUCT_DETAIL_SETTINGS = `
+  query GetProductDetailSettings {
+    metaobjects(type: "product_detail_settings", first: 1) {
       edges {
         node {
           id

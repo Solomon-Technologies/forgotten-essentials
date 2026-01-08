@@ -493,3 +493,21 @@ export const mockValueItems = [
     order: 4,
   },
 ];
+
+// Mock product detail settings for preview mode
+export const mockProductDetailSettings = {
+  id: 'product-detail-settings-1',
+  relatedProductsHeading: 'You May Also Like',
+  relatedProductsLinkText: 'View All',
+  notFoundHeading: 'Product Not Found',
+  notFoundDescription: "The product you're looking for doesn't exist.",
+  notFoundButtonText: 'Back to Shop',
+  perk1Icon: 'package',
+  perk1Text: 'Free shipping over $200',
+  perk2Icon: 'return',
+  perk2Text: '14-day returns',
+  perk3Icon: 'shield',
+  perk3Text: 'Authenticity guaranteed',
+  addToCartText: 'Add to Cart',
+  soldOutText: 'Sold Out',
+};
