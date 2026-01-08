@@ -1,0 +1,369 @@
+{% comment %}
+  List Collections Template - All Collections Grid
+  Displays all store collections in a grid layout
+{% endcomment %}
+
+<main class="list-collections-page">
+  <div class="collections-header">
+    <h1>All Collections</h1>
+    <p>Browse our curated vintage collections</p>
+  </div>
+
+  <div class="collections-container">
+    {% if collections.size > 0 %}
+      <div class="collections-grid">
+        {% for collection in collections %}
+          {% unless collection.handle == 'frontpage' %}
+            <a href="{{ collection.url }}" class="collection-card">
+              <div class="collection-image">
+                {% if collection.image %}
+                  <img
+                    src="{{ collection.image | img_url: 'large' }}"
+                    alt="{{ collection.title | escape }}"
+                    loading="lazy"
+                  >
+                {% elsif collection.products.first and collection.products.first.featured_image %}
+                  <img
+                    src="{{ collection.products.first.featured_image | img_url: 'large' }}"
+                    alt="{{ collection.title | escape }}"
+                    loading="lazy"
+                  >
+                {% else %}
+                  <div class="collection-image-placeholder">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                      <rect width="7" height="7" x="3" y="3" rx="1"/>
+                      <rect width="7" height="7" x="14" y="3" rx="1"/>
+                      <rect width="7" height="7" x="14" y="14" rx="1"/>
+                      <rect width="7" height="7" x="3" y="14" rx="1"/>
+                    </svg>
+                  </div>
+                {% endif %}
+                <div class="collection-overlay">
+                  <span class="collection-view-btn">View Collection →</span>
+                </div>
+              </div>
+
+              <div class="collection-info">
+                <h2 class="collection-title">{{ collection.title }}</h2>
+                {% if collection.description != blank %}
+                  <p class="collection-description">{{ collection.description | strip_html | truncate: 100 }}</p>
+                {% endif %}
+                <span class="collection-count">
+                  {{ collection.all_products_count }} {% if collection.all_products_count == 1 %}item{% else %}items{% endif %}
+                </span>
+              </div>
+            </a>
+          {% endunless %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <!-- No Collections -->
+      <div class="collections-empty">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect width="7" height="7" x="3" y="3" rx="1"/>
+          <rect width="7" height="7" x="14" y="3" rx="1"/>
+          <rect width="7" height="7" x="14" y="14" rx="1"/>
+          <rect width="7" height="7" x="3" y="14" rx="1"/>
+        </svg>
+        <h2>No collections yet</h2>
+        <p>Check back soon for our curated vintage collections.</p>
+        <a href="/" class="btn-primary">
+          Back to Home
+        </a>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Featured Section -->
+  {% if collections.size > 0 %}
+    <div class="collections-cta">
+      <div class="cta-content">
+        <h2>Can't Find What You're Looking For?</h2>
+        <p>Browse all our products or use our search to find that perfect vintage piece.</p>
+        <div class="cta-actions">
+          <a href="/collections/all" class="btn-primary">
+            Browse All Products
+          </a>
+          <a href="/search" class="btn-secondary">
+            Search Store
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</main>
+
+<style>
+.list-collections-page {
+  padding-top: 60px;
+  min-height: 100vh;
+}
+
+.collections-header {
+  text-align: center;
+  padding: 3rem 2rem 2rem;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.collections-header h1 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+}
+
+.collections-header p {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.collections-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.collections-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.collection-card {
+  border: 2px solid var(--color-border);
+  text-decoration: none;
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.collection-card:hover {
+  border-color: #666;
+}
+
+.collection-image {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.collection-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.collection-card:hover .collection-image img {
+  transform: scale(1.05);
+}
+
+.collection-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e5e5e5;
+}
+
+.collection-image-placeholder svg {
+  stroke: var(--color-muted);
+}
+
+.collection-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.collection-card:hover .collection-overlay {
+  opacity: 1;
+}
+
+.collection-view-btn {
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.collection-info {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.collection-title {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin: 0 0 0.75rem;
+}
+
+.collection-description {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-muted);
+  margin: 0 0 1rem;
+  flex: 1;
+}
+
+.collection-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  color: var(--color-muted);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.collections-empty {
+  text-align: center;
+  padding: 6rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.collections-empty svg {
+  stroke: var(--color-muted);
+}
+
+.collections-empty h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.collections-empty p {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.collections-cta {
+  margin-top: 4rem;
+  padding: 3rem 2rem;
+  border-top: 2px solid var(--color-border);
+  background: #f5f5f5;
+}
+
+.cta-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cta-content h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin: 0 0 1rem;
+}
+
+.cta-content p {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  line-height: 1.7;
+  margin: 0 0 2rem;
+}
+
+.cta-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid var(--color-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--color-text);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-text);
+}
+
+.btn-secondary:hover {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+@media (max-width: 1024px) {
+  .collections-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .collections-container {
+    padding: 2rem 1rem;
+  }
+
+  .collections-header {
+    padding: 2rem 1rem 1.5rem;
+  }
+
+  .collections-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .collections-cta {
+    padding: 2rem 1rem;
+  }
+
+  .cta-actions {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .collection-overlay {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  }
+}
+</style>
