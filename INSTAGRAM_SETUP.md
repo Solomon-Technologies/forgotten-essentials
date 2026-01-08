@@ -6,6 +6,8 @@ This guide explains how to manage Instagram posts through Shopify Admin using Me
 
 The Instagram feed on your homepage pulls posts from Shopify Metaobjects. This allows you to manage Instagram posts directly in Shopify Admin without touching any code.
 
+**Flexibility**: You can add as many Instagram posts as you want (up to 50). Simply create more entries and they'll automatically appear in the carousel. Delete entries to remove them from the feed.
+
 ## Setup Instructions
 
 ### Step 1: Create Instagram Post Metaobject Definition
@@ -40,7 +42,7 @@ Add the following fields to your metaobject definition:
    - **Order**: Enter a number (posts are sorted by this)
 4. Click **Save**
 
-Repeat for each Instagram post you want to display (recommended 6-10 posts).
+Repeat for each Instagram post you want to display. You can add anywhere from 1 to 50 posts - the carousel will automatically adjust!
 
 ## Managing Instagram Posts
 

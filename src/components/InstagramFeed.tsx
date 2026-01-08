@@ -3,7 +3,8 @@ import { useInstagramPosts } from '../hooks/useShopify';
 import './InstagramFeed.css';
 
 export default function InstagramFeed() {
-  const { posts: instagramPosts, loading } = useInstagramPosts(10);
+  // Fetch up to 50 posts - owner can add as many as they want (up to 50)
+  const { posts: instagramPosts, loading } = useInstagramPosts(50);
   const [scrollPosition, setScrollPosition] = useState(0);
   const itemWidth = 300; // Width of each item + gap
   const maxScroll = Math.max(0, (instagramPosts.length - 4) * itemWidth); // Show 4 items at a time
