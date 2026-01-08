@@ -9,11 +9,27 @@ import ProductDetail from './pages/ProductDetail';
 import About from './pages/About';
 import './App.css';
 
+const isPreviewMode = !import.meta.env.VITE_SHOPIFY_STORE_DOMAIN || !import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+
 function App() {
   return (
     <BrowserRouter>
       <CartProvider>
         <div className="app">
+          {isPreviewMode && (
+            <div style={{
+              background: '#000',
+              color: '#fff',
+              padding: '12px 20px',
+              textAlign: 'center',
+              fontSize: '14px',
+              fontWeight: 700,
+              borderBottom: '2px solid #000',
+              fontFamily: 'Arial, sans-serif'
+            }}>
+              PREVIEW MODE - Using example data. Configure Shopify credentials in .env.local to connect your store.
+            </div>
+          )}
           <Header />
           <CartDrawer />
           <Routes>

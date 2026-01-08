@@ -3,21 +3,19 @@ import { GraphQLClient } from 'graphql-request';
 const domain = import.meta.env.VITE_SHOPIFY_STORE_DOMAIN;
 const storefrontAccessToken = import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 
-if (!domain || !storefrontAccessToken) {
-  throw new Error(
-    'Missing Shopify environment variables. Please set VITE_SHOPIFY_STORE_DOMAIN and VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN in .env.local'
-  );
-}
-
-export const shopifyClient = new GraphQLClient(
-  `https://${domain}/api/2024-01/graphql.json`,
-  {
-    headers: {
-      'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
-      'Content-Type': 'application/json',
-    },
-  }
-);
+// Create a placeholder client if env vars aren't set (for preview mode with mock data)
+// When credentials are missing, the app will use mock data instead
+export const shopifyClient = domain && storefrontAccessToken
+  ? new GraphQLClient(
+      `https://${domain}/api/2024-01/graphql.json`,
+      {
+        headers: {
+          'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+  : new GraphQLClient('https://placeholder.myshopify.com/api/2024-01/graphql.json');
 
 // GraphQL queries
 export const GET_PRODUCTS = `

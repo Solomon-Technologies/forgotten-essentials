@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { shopifyClient, GET_PRODUCTS, GET_COLLECTIONS, GET_PRODUCTS_BY_COLLECTION } from '../lib/shopify';
 import { Product, Category } from '../types';
+import { mockProducts, mockCollections } from '../data/mockData';
+
+// Check if we should use mock data (when env vars are missing)
+const useMockData = !import.meta.env.VITE_SHOPIFY_STORE_DOMAIN || !import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 
 // Transform Shopify product data to match our existing type structure
 function transformShopifyProduct(shopifyProduct: any): Product {
@@ -48,6 +52,16 @@ export function useProducts(limit: number = 50) {
 
   useEffect(() => {
     async function fetchProducts() {
+      // Use mock data if Shopify credentials aren't configured
+      if (useMockData) {
+        setLoading(true);
+        setTimeout(() => {
+          setProducts(mockProducts.slice(0, limit));
+          setLoading(false);
+        }, 500); // Simulate loading
+        return;
+      }
+
       try {
         setLoading(true);
         const data: any = await shopifyClient.request(GET_PRODUCTS, { first: limit });
@@ -77,6 +91,16 @@ export function useCollections(limit: number = 10) {
 
   useEffect(() => {
     async function fetchCollections() {
+      // Use mock data if Shopify credentials aren't configured
+      if (useMockData) {
+        setLoading(true);
+        setTimeout(() => {
+          setCollections(mockCollections.slice(0, limit));
+          setLoading(false);
+        }, 500); // Simulate loading
+        return;
+      }
+
       try {
         setLoading(true);
         const data: any = await shopifyClient.request(GET_COLLECTIONS, { first: limit });
@@ -106,6 +130,21 @@ export function useProductsByCollection(collectionHandle: string | null, limit: 
 
   useEffect(() => {
     async function fetchProductsByCollection() {
+      // Use mock data if Shopify credentials aren't configured
+      if (useMockData) {
+        setLoading(true);
+        setTimeout(() => {
+          if (!collectionHandle) {
+            setProducts(mockProducts.slice(0, limit));
+          } else {
+            const filtered = mockProducts.filter(p => p.category === collectionHandle);
+            setProducts(filtered.slice(0, limit));
+          }
+          setLoading(false);
+        }, 500); // Simulate loading
+        return;
+      }
+
       if (!collectionHandle) {
         // If no collection specified, fetch all products
         try {
