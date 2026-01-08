@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import { CartProvider } from './context/CartContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -16,6 +17,18 @@ const isPreviewMode =
   import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN === 'your-storefront-access-token-here';
 
 function App() {
+  const [showMockData, setShowMockData] = useState(() => {
+    const saved = localStorage.getItem('showMockData');
+    return saved !== null ? saved === 'true' : true; // Default to true (show mock data)
+  });
+
+  const handleToggleMockData = () => {
+    const newValue = !showMockData;
+    setShowMockData(newValue);
+    localStorage.setItem('showMockData', String(newValue));
+    window.location.reload(); // Reload to apply changes
+  };
+
   const bannerHeight = isPreviewMode ? '46px' : '0px';
 
   return (
@@ -36,9 +49,31 @@ function App() {
               fontSize: '14px',
               fontWeight: 700,
               borderBottom: '2px solid #000',
-              fontFamily: 'Arial, sans-serif'
+              fontFamily: 'Arial, sans-serif',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '20px'
             }}>
-              PREVIEW MODE - Using example data. Configure Shopify credentials in .env.local to connect your store.
+              <span>
+                {showMockData ? 'PREVIEW MODE - Showing example data' : 'EMPTY MODE - No products loaded'}
+              </span>
+              <button
+                onClick={handleToggleMockData}
+                style={{
+                  background: '#fff',
+                  color: '#000',
+                  border: '2px solid #fff',
+                  padding: '6px 16px',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  fontFamily: 'Arial, sans-serif',
+                  textTransform: 'uppercase'
+                }}
+              >
+                {showMockData ? 'Switch to Empty' : 'Switch to Preview'}
+              </button>
             </div>
           )}
           <Header />
