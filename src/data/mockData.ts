@@ -206,7 +206,7 @@ export const mockProducts: Product[] = [
   },
 ];
 
-// Mock collection data
+// Mock collection data - All collections (for Shop page filters and product categorization)
 export const mockCollections: Collection[] = [
   {
     id: 'col-1',
@@ -243,6 +243,45 @@ export const mockCollections: Collection[] = [
     description: 'Belts, shoes, and finishing touches',
     image: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=800&auto=format&fit=crop',
   },
+  {
+    id: 'col-6',
+    name: 'Gym & Workout',
+    slug: 'gym-workout',
+    description: 'Athletic wear and gym essentials',
+    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&auto=format&fit=crop',
+  },
+  {
+    id: 'col-7',
+    name: 'Anime',
+    slug: 'anime',
+    description: 'Anime graphic tees and collectibles',
+    image: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=800&auto=format&fit=crop',
+  },
+  {
+    id: 'col-8',
+    name: 'Sports',
+    slug: 'sports',
+    description: 'Team jerseys and sports apparel',
+    image: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&auto=format&fit=crop',
+  },
+  {
+    id: 'col-9',
+    name: 'Camo',
+    slug: 'camo',
+    description: 'Military surplus and camouflage gear',
+    image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop',
+  },
+  {
+    id: 'col-10',
+    name: 'Streetwear',
+    slug: 'streetwear',
+    description: 'Urban and skate-inspired clothing',
+    image: 'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=800&auto=format&fit=crop',
+  },
+];
+
+// Featured/Themed collections - Only shown on Collections page (excludes basic categories)
+export const mockFeaturedCollections: Collection[] = [
   {
     id: 'col-6',
     name: 'Gym & Workout',

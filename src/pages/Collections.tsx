@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useCollections } from '../hooks/useShopify';
+import { useFeaturedCollections } from '../hooks/useShopify';
 import './Collections.css';
 
 export default function Collections() {
-  const { collections, loading } = useCollections(20);
+  const { collections, loading } = useFeaturedCollections(20);
 
   return (
     <main className="collections-page">

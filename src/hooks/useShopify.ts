@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { shopifyClient, GET_PRODUCTS, GET_COLLECTIONS, GET_PRODUCTS_BY_COLLECTION } from '../lib/shopify';
 import { Product, Category } from '../types';
-import { mockProducts, mockCollections } from '../data/mockData';
+import { mockProducts, mockCollections, mockFeaturedCollections } from '../data/mockData';
 
 // Check if we should use mock data (when env vars are missing or have placeholder values)
 // Also check localStorage setting for preview mode toggle
@@ -204,4 +204,53 @@ export function useProductsByCollection(collectionHandle: string | null, limit: 
   }, [collectionHandle, limit]);
 
   return { products, loading, error };
+}
+
+// Hook for featured/themed collections (excludes basic categories like Jackets, Shirts, etc.)
+export function useFeaturedCollections(limit: number = 10) {
+  const [collections, setCollections] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    async function fetchFeaturedCollections() {
+      // Use mock featured collections if Shopify credentials aren't configured
+      if (shouldUseMockData()) {
+        setLoading(true);
+        setTimeout(() => {
+          setCollections(mockFeaturedCollections.slice(0, limit));
+          setLoading(false);
+        }, 500); // Simulate loading
+        return;
+      }
+
+      // For real Shopify data, we would need to filter collections by tags or use a specific metafield
+      // For now, fetch all and filter by excluding basic categories
+      try {
+        setLoading(true);
+        const data: any = await shopifyClient.request(GET_COLLECTIONS, { first: limit });
+        const allCollections = data.collections.edges.map((edge: any) =>
+          transformShopifyCollection(edge.node)
+        );
+
+        // Filter out basic categories (would be better to use Shopify tags in production)
+        const basicCategorySlugs = ['jackets', 'shirts', 'tees', 'pants', 'accessories'];
+        const featured = allCollections.filter(
+          (col: Category) => !basicCategorySlugs.includes(col.slug)
+        );
+
+        setCollections(featured);
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('Failed to fetch featured collections'));
+        console.error('Error fetching featured collections:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchFeaturedCollections();
+  }, [limit]);
+
+  return { collections, loading, error };
 }
