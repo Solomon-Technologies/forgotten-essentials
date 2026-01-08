@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
+import InstagramFeed from '../components/InstagramFeed';
 import { useProducts, useCollections } from '../hooks/useShopify';
 import './Home.css';
 
@@ -89,6 +90,9 @@ export default function Home() {
           )}
         </div>
       </section>
+
+      {/* Instagram Feed */}
+      <InstagramFeed />
 
       {/* Values */}
       <section className="values">
