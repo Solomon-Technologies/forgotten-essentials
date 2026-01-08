@@ -46,10 +46,6 @@ button {
   min-height: 100vh;
 }
 
-main {
-  padding-top: calc(70px + var(--preview-banner-height, 0px));
-}
-
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
