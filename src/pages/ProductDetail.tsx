@@ -106,7 +106,6 @@ export default function ProductDetail() {
 
         {/* Product Info */}
         <div className="product-info">
-          {product.era && <span className="product-era-badge">{product.era}</span>}
           <h1 className="product-title">{product.name}</h1>
 
           <div className="product-pricing">
@@ -123,12 +122,6 @@ export default function ProductDetail() {
               <div className="detail-row">
                 <span className="detail-label">Size</span>
                 <span className="detail-value">{product.size}</span>
-              </div>
-            )}
-            {product.era && (
-              <div className="detail-row">
-                <span className="detail-label">Era</span>
-                <span className="detail-value">{product.era}</span>
               </div>
             )}
             {product.condition && (

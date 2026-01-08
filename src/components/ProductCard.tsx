@@ -27,7 +27,6 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
       </div>
       <div className="product-info">
-        <span className="product-era">{product.era}</span>
         <h3 className="product-name">{product.name}</h3>
         <p className="product-meta">Size {product.size} · {product.condition}</p>
         <div className="product-price">

@@ -70,7 +70,7 @@
 }
 
 .gallery-main {
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background: var(--color-cream);
   margin-bottom: 0.75rem;
