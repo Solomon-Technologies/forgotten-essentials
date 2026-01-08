@@ -427,3 +427,16 @@ export const mockInstagramPosts = [
     order: 15,
   },
 ];
+
+// Mock hero content for preview mode
+export const mockHeroContent = {
+  id: 'hero-1',
+  image: '/photo-1578509566163-068acd11b8e7.avif',
+  title: 'Shop by Style',
+  description: 'Vintage and secondhand clothing at prices that won\'t break the bank. Find your next favorite piece.',
+  label: 'New Arrivals',
+  primaryButtonText: 'Shop Now',
+  primaryButtonLink: '/shop',
+  secondaryButtonText: 'Collections',
+  secondaryButtonLink: '/collections',
+};

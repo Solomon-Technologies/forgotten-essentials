@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import InstagramFeed from '../components/InstagramFeed';
-import { useProducts, useCollections } from '../hooks/useShopify';
+import { useProducts, useCollections, useHeroContent } from '../hooks/useShopify';
 import './Home.css';
 
 export default function Home() {
   const { products, loading: productsLoading } = useProducts(20);
   const { collections, loading: collectionsLoading } = useCollections(5);
+  const { hero, loading: heroLoading } = useHeroContent();
 
   const featuredProducts = products.slice(0, 4);
   const newArrivals = products.slice(4, 8);
@@ -14,25 +15,35 @@ export default function Home() {
   return (
     <main className="home">
       {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-content">
-          <span className="hero-label">New Arrivals</span>
-          <h1 className="hero-title">Shop by Style</h1>
-          <p className="hero-description">
-            Vintage and secondhand clothing at prices that won't break the bank. Find your next favorite piece.
-          </p>
-          <div className="hero-actions">
-            <Link to="/shop" className="btn-primary">Shop Now</Link>
-            <Link to="/collections" className="btn-secondary">Collections</Link>
+      {heroLoading ? (
+        <section className="hero">
+          <div style={{ textAlign: 'center', padding: '4rem' }}>
+            <p>Loading...</p>
           </div>
-        </div>
-        <div className="hero-image">
-          <img
-            src="/photo-1578509566163-068acd11b8e7.avif"
-            alt="Vintage fashion editorial"
-          />
-        </div>
-      </section>
+        </section>
+      ) : hero ? (
+        <section className="hero">
+          <div className="hero-content">
+            <span className="hero-label">{hero.label}</span>
+            <h1 className="hero-title">{hero.title}</h1>
+            <p className="hero-description">{hero.description}</p>
+            <div className="hero-actions">
+              <Link to={hero.primaryButtonLink || '/shop'} className="btn-primary">
+                {hero.primaryButtonText}
+              </Link>
+              <Link to={hero.secondaryButtonLink || '/collections'} className="btn-secondary">
+                {hero.secondaryButtonText}
+              </Link>
+            </div>
+          </div>
+          <div className="hero-image">
+            <img
+              src={hero.image}
+              alt={hero.title || 'Vintage fashion editorial'}
+            />
+          </div>
+        </section>
+      ) : null}
 
       {/* Categories */}
       <section className="categories">

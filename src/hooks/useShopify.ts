@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { shopifyClient, GET_PRODUCTS, GET_COLLECTIONS, GET_PRODUCTS_BY_COLLECTION, GET_INSTAGRAM_POSTS } from '../lib/shopify';
+import { shopifyClient, GET_PRODUCTS, GET_COLLECTIONS, GET_PRODUCTS_BY_COLLECTION, GET_INSTAGRAM_POSTS, GET_HERO_CONTENT } from '../lib/shopify';
 import { Product, Category } from '../types';
 import { mockProducts, mockCollections, mockFeaturedCollections } from '../data/mockData';
 
@@ -323,4 +323,86 @@ export function useInstagramPosts(limit: number = 10) {
   }, [limit]);
 
   return { posts, loading, error };
+}
+
+// Hero Content type
+export interface HeroContent {
+  id: string;
+  image: string;
+  title: string;
+  description: string;
+  label?: string;
+  primaryButtonText?: string;
+  primaryButtonLink?: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
+}
+
+// Hook for hero section content from Shopify metaobjects
+export function useHeroContent() {
+  const [hero, setHero] = useState<HeroContent | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    async function fetchHeroContent() {
+      // Use mock data if Shopify credentials aren't configured
+      if (shouldUseMockData()) {
+        setLoading(true);
+        // Import mock hero content
+        const { mockHeroContent } = await import('../data/mockData');
+        setTimeout(() => {
+          setHero(mockHeroContent);
+          setLoading(false);
+        }, 500);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const data: any = await shopifyClient.request(GET_HERO_CONTENT);
+
+        if (data.metaobjects.edges.length === 0) {
+          // No hero content found, use fallback
+          const { mockHeroContent } = await import('../data/mockData');
+          setHero(mockHeroContent);
+          setLoading(false);
+          return;
+        }
+
+        const heroNode = data.metaobjects.edges[0].node;
+        const fields = heroNode.fields.reduce((acc: any, field: any) => {
+          acc[field.key] = field.value;
+          return acc;
+        }, {});
+
+        const transformedHero: HeroContent = {
+          id: heroNode.id,
+          image: fields.image || '',
+          title: fields.title || 'Shop by Style',
+          description: fields.description || '',
+          label: fields.label || 'New Arrivals',
+          primaryButtonText: fields.primary_button_text || 'Shop Now',
+          primaryButtonLink: fields.primary_button_link || '/shop',
+          secondaryButtonText: fields.secondary_button_text || 'Collections',
+          secondaryButtonLink: fields.secondary_button_link || '/collections',
+        };
+
+        setHero(transformedHero);
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('Failed to fetch hero content'));
+        console.error('Error fetching hero content:', err);
+        // Fallback to mock data on error
+        const { mockHeroContent } = await import('../data/mockData');
+        setHero(mockHeroContent);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchHeroContent();
+  }, []);
+
+  return { hero, loading, error };
 }

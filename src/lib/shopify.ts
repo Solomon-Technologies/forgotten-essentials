@@ -296,3 +296,20 @@ export const GET_INSTAGRAM_POSTS = `
     }
   }
 `;
+
+export const GET_HERO_CONTENT = `
+  query GetHeroContent {
+    metaobjects(type: "hero_section", first: 1) {
+      edges {
+        node {
+          id
+          handle
+          fields {
+            key
+            value
+          }
+        }
+      }
+    }
+  }
+`;
