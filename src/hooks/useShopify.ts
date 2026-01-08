@@ -46,9 +46,11 @@ function transformShopifyProduct(shopifyProduct: any): Product {
   return {
     id: shopifyProduct.id.split('/').pop() || shopifyProduct.id,
     name: shopifyProduct.title,
+    slug: shopifyProduct.handle,
     price,
     originalPrice,
     description: shopifyProduct.description,
+    image: images[0] || '',
     images,
     category: shopifyProduct.productType.toLowerCase() || 'uncategorized',
     era: shopifyProduct.tags.find((tag: string) => tag.includes('90s') || tag.includes('80s')) || 'Vintage',

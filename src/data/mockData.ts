@@ -5,8 +5,10 @@ export const mockProducts: Product[] = [
   {
     id: '1',
     name: 'Vintage Carhartt Work Jacket',
+    slug: 'vintage-carhartt-work-jacket',
     price: 89.99,
     originalPrice: 120.00,
+    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&auto=format&fit=crop',
     images: [
       'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&auto=format&fit=crop',
@@ -22,8 +24,10 @@ export const mockProducts: Product[] = [
   {
     id: '2',
     name: 'Champion Reverse Weave Hoodie',
+    slug: 'champion-reverse-weave-hoodie',
     price: 64.99,
     originalPrice: 85.00,
+    image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&auto=format&fit=crop',
     images: [
       'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&auto=format&fit=crop',
@@ -39,8 +43,10 @@ export const mockProducts: Product[] = [
   {
     id: '3',
     name: 'Levi\'s 501 Distressed Jeans',
+    slug: 'levis-501-distressed-jeans',
     price: 54.99,
     originalPrice: 75.00,
+    image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&auto=format&fit=crop',
     images: [
       'https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&auto=format&fit=crop',
@@ -56,8 +62,10 @@ export const mockProducts: Product[] = [
   {
     id: '4',
     name: 'Nike Vintage Windbreaker',
+    slug: 'nike-vintage-windbreaker',
     price: 45.99,
     originalPrice: 65.00,
+    image: 'https://images.unsplash.com/photo-1525450824786-227cbef70703?w=800&auto=format&fit=crop',
     images: [
       'https://images.unsplash.com/photo-1525450824786-227cbef70703?w=800&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1525450824786-227cbef70703?w=800&auto=format&fit=crop',
@@ -73,8 +81,10 @@ export const mockProducts: Product[] = [
   {
     id: '5',
     name: 'Harley Davidson Graphic Tee',
+    slug: 'harley-davidson-graphic-tee',
     price: 34.99,
     originalPrice: 48.00,
+    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&auto=format&fit=crop',
     images: [
       'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&auto=format&fit=crop',
@@ -90,8 +100,10 @@ export const mockProducts: Product[] = [
   {
     id: '6',
     name: 'Patagonia Fleece Pullover',
+    slug: 'patagonia-fleece-pullover',
     price: 72.99,
     originalPrice: 95.00,
+    image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&auto=format&fit=crop',
     images: [
       'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&auto=format&fit=crop',
@@ -107,8 +119,10 @@ export const mockProducts: Product[] = [
   {
     id: '7',
     name: 'Vintage Band Tee - Nirvana',
+    slug: 'vintage-band-tee-nirvana',
     price: 58.99,
     originalPrice: 75.00,
+    image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&auto=format&fit=crop',
     images: [
       'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&auto=format&fit=crop',
@@ -124,8 +138,10 @@ export const mockProducts: Product[] = [
   {
     id: '8',
     name: 'Dickies Work Pants',
+    slug: 'dickies-work-pants',
     price: 42.99,
     originalPrice: 58.00,
+    image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&auto=format&fit=crop',
     images: [
       'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&auto=format&fit=crop',
@@ -141,7 +157,9 @@ export const mockProducts: Product[] = [
   {
     id: '9',
     name: 'Vintage Leather Belt',
+    slug: 'vintage-leather-belt',
     price: 28.99,
+    image: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=800&auto=format&fit=crop',
     images: [
       'https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=800&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=800&auto=format&fit=crop',
@@ -157,8 +175,10 @@ export const mockProducts: Product[] = [
   {
     id: '10',
     name: 'North Face Puffer Jacket',
+    slug: 'north-face-puffer-jacket',
     price: 98.99,
     originalPrice: 135.00,
+    image: 'https://images.unsplash.com/photo-1548126032-079fe3fdc8a2?w=800&auto=format&fit=crop',
     images: [
       'https://images.unsplash.com/photo-1548126032-079fe3fdc8a2?w=800&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1548126032-079fe3fdc8a2?w=800&auto=format&fit=crop',
@@ -174,8 +194,10 @@ export const mockProducts: Product[] = [
   {
     id: '11',
     name: 'Vintage Flannel Shirt',
+    slug: 'vintage-flannel-shirt',
     price: 38.99,
     originalPrice: 52.00,
+    image: 'https://images.unsplash.com/photo-1551537482-f2075a1d41f2?w=800&auto=format&fit=crop',
     images: [
       'https://images.unsplash.com/photo-1551537482-f2075a1d41f2?w=800&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1551537482-f2075a1d41f2?w=800&auto=format&fit=crop',
@@ -191,7 +213,9 @@ export const mockProducts: Product[] = [
   {
     id: '12',
     name: 'Converse Chuck Taylor High Tops',
+    slug: 'converse-chuck-taylor-high-tops',
     price: 48.99,
+    image: 'https://images.unsplash.com/photo-1607522370275-f14206abe5d3?w=800&auto=format&fit=crop',
     images: [
       'https://images.unsplash.com/photo-1607522370275-f14206abe5d3?w=800&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1607522370275-f14206abe5d3?w=800&auto=format&fit=crop',
