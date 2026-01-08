@@ -1,5 +1,17 @@
 import { useState, useEffect } from 'react';
-import { shopifyClient, GET_PRODUCTS, GET_COLLECTIONS, GET_PRODUCTS_BY_COLLECTION, GET_INSTAGRAM_POSTS, GET_HERO_CONTENT } from '../lib/shopify';
+import {
+  shopifyClient,
+  GET_PRODUCTS,
+  GET_COLLECTIONS,
+  GET_PRODUCTS_BY_COLLECTION,
+  GET_INSTAGRAM_POSTS,
+  GET_HERO_CONTENT,
+  GET_SITE_SETTINGS,
+  GET_HOME_SECTIONS,
+  GET_VALUE_ITEMS,
+  GET_FOOTER_CONTENT,
+  GET_ABOUT_PAGE
+} from '../lib/shopify';
 import { Product, Category } from '../types';
 import { mockProducts, mockCollections, mockFeaturedCollections } from '../data/mockData';
 
@@ -405,4 +417,208 @@ export function useHeroContent() {
   }, []);
 
   return { hero, loading, error };
+}
+
+// Site Settings type
+export interface SiteSettings {
+  id: string;
+  brandName: string;
+  brandDescription: string;
+  instagramUrl: string;
+  facebookUrl: string;
+  tiktokUrl: string;
+  instagramHandle: string;
+}
+
+// Hook for site settings
+export function useSiteSettings() {
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    async function fetchSiteSettings() {
+      if (shouldUseMockData()) {
+        setLoading(true);
+        const { mockSiteSettings } = await import('../data/mockData');
+        setTimeout(() => {
+          setSettings(mockSiteSettings);
+          setLoading(false);
+        }, 500);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const data: any = await shopifyClient.request(GET_SITE_SETTINGS);
+
+        if (data.metaobjects.edges.length === 0) {
+          const { mockSiteSettings } = await import('../data/mockData');
+          setSettings(mockSiteSettings);
+          setLoading(false);
+          return;
+        }
+
+        const settingsNode = data.metaobjects.edges[0].node;
+        const fields = settingsNode.fields.reduce((acc: any, field: any) => {
+          acc[field.key] = field.value;
+          return acc;
+        }, {});
+
+        setSettings({
+          id: settingsNode.id,
+          brandName: fields.brand_name || 'FORGOTTEN ESSENTIALS',
+          brandDescription: fields.brand_description || 'Thoughtfully sourced vintage and pre-loved clothing for the conscious consumer.',
+          instagramUrl: fields.instagram_url || 'https://instagram.com/forgottenessentials',
+          facebookUrl: fields.facebook_url || 'https://facebook.com/forgottenessentials',
+          tiktokUrl: fields.tiktok_url || 'https://tiktok.com/@forgottenessentials',
+          instagramHandle: fields.instagram_handle || '@forgottenessentials',
+        });
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('Failed to fetch site settings'));
+        const { mockSiteSettings } = await import('../data/mockData');
+        setSettings(mockSiteSettings);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchSiteSettings();
+  }, []);
+
+  return { settings, loading, error };
+}
+
+// Home Sections type
+export interface HomeSections {
+  id: string;
+  categoriesHeading: string;
+  featuredHeading: string;
+  featuredLinkText: string;
+  newArrivalsHeading: string;
+  newArrivalsLinkText: string;
+}
+
+// Hook for home page section headings
+export function useHomeSections() {
+  const [sections, setSections] = useState<HomeSections | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    async function fetchHomeSections() {
+      if (shouldUseMockData()) {
+        setLoading(true);
+        const { mockHomeSections } = await import('../data/mockData');
+        setTimeout(() => {
+          setSections(mockHomeSections);
+          setLoading(false);
+        }, 500);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const data: any = await shopifyClient.request(GET_HOME_SECTIONS);
+
+        if (data.metaobjects.edges.length === 0) {
+          const { mockHomeSections } = await import('../data/mockData');
+          setSections(mockHomeSections);
+          setLoading(false);
+          return;
+        }
+
+        const sectionsNode = data.metaobjects.edges[0].node;
+        const fields = sectionsNode.fields.reduce((acc: any, field: any) => {
+          acc[field.key] = field.value;
+          return acc;
+        }, {});
+
+        setSections({
+          id: sectionsNode.id,
+          categoriesHeading: fields.categories_heading || 'Shop by Category',
+          featuredHeading: fields.featured_heading || 'Featured Pieces',
+          featuredLinkText: fields.featured_link_text || 'View All',
+          newArrivalsHeading: fields.new_arrivals_heading || 'New Arrivals',
+          newArrivalsLinkText: fields.new_arrivals_link_text || 'View All',
+        });
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('Failed to fetch home sections'));
+        const { mockHomeSections } = await import('../data/mockData');
+        setSections(mockHomeSections);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchHomeSections();
+  }, []);
+
+  return { sections, loading, error };
+}
+
+// Value Item type
+export interface ValueItem {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+  order: number;
+}
+
+// Hook for value items (the 4 boxes on homepage)
+export function useValueItems(limit: number = 10) {
+  const [items, setItems] = useState<ValueItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    async function fetchValueItems() {
+      if (shouldUseMockData()) {
+        setLoading(true);
+        const { mockValueItems } = await import('../data/mockData');
+        setTimeout(() => {
+          setItems(mockValueItems.slice(0, limit));
+          setLoading(false);
+        }, 500);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const data: any = await shopifyClient.request(GET_VALUE_ITEMS, { first: limit });
+
+        const transformedItems: ValueItem[] = data.metaobjects.edges.map((edge: any) => {
+          const fields = edge.node.fields.reduce((acc: any, field: any) => {
+            acc[field.key] = field.value;
+            return acc;
+          }, {});
+
+          return {
+            id: edge.node.id,
+            icon: fields.icon || 'shield',
+            title: fields.title || '',
+            description: fields.description || '',
+            order: parseInt(fields.order || '0', 10),
+          };
+        });
+
+        transformedItems.sort((a, b) => a.order - b.order);
+        setItems(transformedItems);
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('Failed to fetch value items'));
+        const { mockValueItems } = await import('../data/mockData');
+        setItems(mockValueItems.slice(0, limit));
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchValueItems();
+  }, [limit]);
+
+  return { items, loading, error };
 }

@@ -313,3 +313,88 @@ export const GET_HERO_CONTENT = `
     }
   }
 `;
+
+export const GET_SITE_SETTINGS = `
+  query GetSiteSettings {
+    metaobjects(type: "site_settings", first: 1) {
+      edges {
+        node {
+          id
+          handle
+          fields {
+            key
+            value
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_HOME_SECTIONS = `
+  query GetHomeSections {
+    metaobjects(type: "home_sections", first: 1) {
+      edges {
+        node {
+          id
+          handle
+          fields {
+            key
+            value
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_VALUE_ITEMS = `
+  query GetValueItems($first: Int!) {
+    metaobjects(type: "value_item", first: $first) {
+      edges {
+        node {
+          id
+          handle
+          fields {
+            key
+            value
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_FOOTER_CONTENT = `
+  query GetFooterContent {
+    metaobjects(type: "footer_content", first: 1) {
+      edges {
+        node {
+          id
+          handle
+          fields {
+            key
+            value
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_ABOUT_PAGE = `
+  query GetAboutPage {
+    metaobjects(type: "about_page", first: 1) {
+      edges {
+        node {
+          id
+          handle
+          fields {
+            key
+            value
+          }
+        }
+      }
+    }
+  }
+`;

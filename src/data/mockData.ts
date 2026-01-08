@@ -440,3 +440,56 @@ export const mockHeroContent = {
   secondaryButtonText: 'Collections',
   secondaryButtonLink: '/collections',
 };
+
+// Mock site settings for preview mode
+export const mockSiteSettings = {
+  id: 'settings-1',
+  brandName: 'FORGOTTEN ESSENTIALS',
+  brandDescription: 'Thoughtfully sourced vintage and pre-loved clothing for the conscious consumer. Every piece tells a story.',
+  instagramUrl: 'https://instagram.com/forgottenessentials',
+  facebookUrl: 'https://facebook.com/forgottenessentials',
+  tiktokUrl: 'https://tiktok.com/@forgottenessentials',
+  instagramHandle: '@forgottenessentials',
+};
+
+// Mock home sections for preview mode
+export const mockHomeSections = {
+  id: 'sections-1',
+  categoriesHeading: 'Shop by Category',
+  featuredHeading: 'Featured Pieces',
+  featuredLinkText: 'View All',
+  newArrivalsHeading: 'New Arrivals',
+  newArrivalsLinkText: 'View All',
+};
+
+// Mock value items for preview mode
+export const mockValueItems = [
+  {
+    id: 'value-1',
+    icon: 'shield',
+    title: 'Authenticated',
+    description: 'Every piece verified for authenticity by our expert team.',
+    order: 1,
+  },
+  {
+    id: 'value-2',
+    icon: 'cloud',
+    title: 'Sustainable',
+    description: 'Extending the lifecycle of beautiful clothing, one piece at a time.',
+    order: 2,
+  },
+  {
+    id: 'value-3',
+    icon: 'heart',
+    title: 'Curated',
+    description: 'Only the finest pieces make it into our collection.',
+    order: 3,
+  },
+  {
+    id: 'value-4',
+    icon: 'credit-card',
+    title: 'Secure Checkout',
+    description: 'Shop confidently with our secure payment processing.',
+    order: 4,
+  },
+];
