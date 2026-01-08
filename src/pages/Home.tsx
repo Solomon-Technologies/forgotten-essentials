@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
-import { products, categories } from '../data/products';
+import { useProducts, useCollections } from '../hooks/useShopify';
 import './Home.css';
 
 export default function Home() {
+  const { products, loading: productsLoading } = useProducts(20);
+  const { collections, loading: collectionsLoading } = useCollections(5);
+
   const featuredProducts = products.slice(0, 4);
   const newArrivals = products.slice(4, 8);
 
@@ -36,16 +39,20 @@ export default function Home() {
           <h2>Shop by Category</h2>
         </div>
         <div className="categories-grid">
-          {categories.map(category => (
-            <Link
-              key={category.id}
-              to={`/shop?category=${category.slug}`}
-              className="category-card"
-            >
-              <img src={category.image} alt={category.name} />
-              <span className="category-name">{category.name}</span>
-            </Link>
-          ))}
+          {collectionsLoading ? (
+            <p>Loading collections...</p>
+          ) : (
+            collections.map(category => (
+              <Link
+                key={category.id}
+                to={`/shop?category=${category.slug}`}
+                className="category-card"
+              >
+                <img src={category.image} alt={category.name} />
+                <span className="category-name">{category.name}</span>
+              </Link>
+            ))
+          )}
         </div>
       </section>
 
@@ -56,9 +63,13 @@ export default function Home() {
           <Link to="/shop" className="section-link">View All</Link>
         </div>
         <div className="products-grid">
-          {featuredProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {productsLoading ? (
+            <p>Loading products...</p>
+          ) : (
+            featuredProducts.map(product => (
+              <ProductCard key={product.id} product={product} />
+            ))
+          )}
         </div>
       </section>
 
@@ -69,9 +80,13 @@ export default function Home() {
           <Link to="/shop?category=new" className="section-link">View All</Link>
         </div>
         <div className="products-grid">
-          {newArrivals.map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {productsLoading ? (
+            <p>Loading products...</p>
+          ) : (
+            newArrivals.map(product => (
+              <ProductCard key={product.id} product={product} />
+            ))
+          )}
         </div>
       </section>
 

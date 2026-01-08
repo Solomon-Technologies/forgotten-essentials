@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './CartDrawer.css';
 
 export default function CartDrawer() {
-  const { items, removeFromCart, updateQuantity, totalPrice, isCartOpen, setIsCartOpen } = useCart();
+  const { items, removeFromCart, updateQuantity, totalPrice, isCartOpen, setIsCartOpen, checkoutUrl } = useCart();
 
   if (!isCartOpen) return null;
 
@@ -74,7 +74,20 @@ export default function CartDrawer() {
                 <span>${totalPrice.toFixed(2)}</span>
               </div>
               <p className="cart-shipping-note">Shipping calculated at checkout</p>
-              <button className="btn-checkout">Proceed to Checkout</button>
+              {checkoutUrl ? (
+                <a
+                  href={checkoutUrl}
+                  className="btn-checkout"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Proceed to Checkout
+                </a>
+              ) : (
+                <button className="btn-checkout" disabled>
+                  Add items to checkout
+                </button>
+              )}
               <button className="btn-continue" onClick={() => setIsCartOpen(false)}>
                 Continue Shopping
               </button>

@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
-import { products, categories } from '../data/products';
+import { useProductsByCollection, useCollections } from '../hooks/useShopify';
 import './Shop.css';
 
 type SortOption = 'newest' | 'price-low' | 'price-high';
@@ -12,12 +12,11 @@ export default function Shop() {
   const [sortBy, setSortBy] = useState<SortOption>('newest');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
+  const { products, loading: productsLoading } = useProductsByCollection(categoryParam, 50);
+  const { collections, loading: collectionsLoading } = useCollections(10);
+
   const filteredProducts = useMemo(() => {
     let result = [...products];
-
-    if (categoryParam && categoryParam !== 'new') {
-      result = result.filter(p => p.category === categoryParam);
-    }
 
     switch (sortBy) {
       case 'price-low':
@@ -31,7 +30,7 @@ export default function Shop() {
     }
 
     return result;
-  }, [categoryParam, sortBy]);
+  }, [products, sortBy]);
 
   const handleCategoryChange = (slug: string | null) => {
     if (slug) {
@@ -44,7 +43,7 @@ export default function Shop() {
   return (
     <main className="shop">
       <div className="shop-header">
-        <h1>{categoryParam ? categories.find(c => c.slug === categoryParam)?.name || 'All Products' : 'All Products'}</h1>
+        <h1>{categoryParam ? collections.find(c => c.slug === categoryParam)?.name || 'All Products' : 'All Products'}</h1>
         <p>{filteredProducts.length} {filteredProducts.length === 1 ? 'piece' : 'pieces'}</p>
         {categoryParam && (
           <button onClick={() => handleCategoryChange(null)} className="view-all-btn">
@@ -83,16 +82,20 @@ export default function Shop() {
                   All Products
                 </button>
               </li>
-              {categories.map(category => (
-                <li key={category.id}>
-                  <button
-                    className={categoryParam === category.slug ? 'active' : ''}
-                    onClick={() => handleCategoryChange(category.slug)}
-                  >
-                    {category.name}
-                  </button>
-                </li>
-              ))}
+              {collectionsLoading ? (
+                <li>Loading...</li>
+              ) : (
+                collections.map(category => (
+                  <li key={category.id}>
+                    <button
+                      className={categoryParam === category.slug ? 'active' : ''}
+                      onClick={() => handleCategoryChange(category.slug)}
+                    >
+                      {category.name}
+                    </button>
+                  </li>
+                ))
+              )}
             </ul>
           </div>
 
@@ -133,7 +136,9 @@ export default function Shop() {
 
         {/* Products Grid */}
         <div className="shop-products">
-          {filteredProducts.length > 0 ? (
+          {productsLoading ? (
+            <p>Loading products...</p>
+          ) : filteredProducts.length > 0 ? (
             <div className="products-grid">
               {filteredProducts.map(product => (
                 <ProductCard key={product.id} product={product} />
