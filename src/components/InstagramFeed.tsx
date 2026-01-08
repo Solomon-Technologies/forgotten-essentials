@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useInstagramPosts } from '../hooks/useShopify';
 import './InstagramFeed.css';
 
@@ -6,8 +6,39 @@ export default function InstagramFeed() {
   // Fetch up to 50 posts - owner can add as many as they want (up to 50)
   const { posts: instagramPosts, loading } = useInstagramPosts(50);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
   const itemWidth = 300; // Width of each item + gap
   const maxScroll = Math.max(0, (instagramPosts.length - 4) * itemWidth); // Show 4 items at a time
+  const autoScrollInterval = useRef<NodeJS.Timeout | null>(null);
+
+  // Auto-scroll effect
+  useEffect(() => {
+    // Only auto-scroll if there are enough posts and user isn't hovering
+    if (instagramPosts.length <= 4 || isHovered || loading) {
+      if (autoScrollInterval.current) {
+        clearInterval(autoScrollInterval.current);
+      }
+      return;
+    }
+
+    // Auto-scroll every 4 seconds
+    autoScrollInterval.current = setInterval(() => {
+      setScrollPosition((prev) => {
+        // If we've reached the end, loop back to start
+        if (prev >= maxScroll) {
+          return 0;
+        }
+        // Otherwise, scroll one item forward
+        return Math.min(prev + itemWidth, maxScroll);
+      });
+    }, 4000);
+
+    return () => {
+      if (autoScrollInterval.current) {
+        clearInterval(autoScrollInterval.current);
+      }
+    };
+  }, [instagramPosts.length, maxScroll, itemWidth, isHovered, loading]);
 
   const scroll = (direction: 'left' | 'right') => {
     const newPosition = direction === 'left'
@@ -45,7 +76,11 @@ export default function InstagramFeed() {
           <p>No Instagram posts to display</p>
         </div>
       ) : (
-        <div className="instagram-carousel-container">
+        <div
+          className="instagram-carousel-container"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           <button
             className="carousel-arrow carousel-arrow-left"
             onClick={() => scroll('left')}
