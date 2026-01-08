@@ -16,12 +16,19 @@ const isPreviewMode =
   import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN === 'your-storefront-access-token-here';
 
 function App() {
+  const bannerHeight = isPreviewMode ? '46px' : '0px';
+
   return (
     <BrowserRouter>
       <CartProvider>
-        <div className="app">
+        <div className="app" style={{ '--preview-banner-height': bannerHeight } as React.CSSProperties}>
           {isPreviewMode && (
             <div style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              zIndex: 101,
               background: '#000',
               color: '#fff',
               padding: '12px 20px',
