@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "show_breadcrumbs": true,
+        "show_vendor": true,
+        "show_sku": false,
+        "enable_image_zoom": true,
+        "show_thumbnails": true,
+        "show_measurements": true,
+        "show_shipping_info": true
+      }
+    },
+    "product-details": {
+      "type": "product-details",
+      "disabled": true,
+      "settings": {
+        "heading": "Product Details"
+      }
+    },
+    "related-products": {
+      "type": "featured-products",
+      "settings": {
+        "heading": "You May Also Like",
+        "product_limit": 4,
+        "products_per_row": 4
+      }
+    }
+  },
+  "order": [
+    "main",
+    "product-details",
+    "related-products"
+  ]
+}

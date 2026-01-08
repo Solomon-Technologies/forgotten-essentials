@@ -1,0 +1,33 @@
+{
+  "sections": {
+    "banner": {
+      "type": "hero",
+      "disabled": true,
+      "settings": {
+        "label": "Collection",
+        "title": "{{ collection.title }}",
+        "description": "{{ collection.description }}",
+        "primary_button_text": "",
+        "secondary_button_text": ""
+      }
+    },
+    "product-grid": {
+      "type": "main-collection",
+      "settings": {}
+    },
+    "related-collections": {
+      "type": "featured-collections",
+      "disabled": true,
+      "settings": {
+        "heading": "More Collections",
+        "show_heading": true,
+        "collections_per_row": 4
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid",
+    "related-collections"
+  ]
+}

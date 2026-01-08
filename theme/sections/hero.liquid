@@ -1,0 +1,281 @@
+{% comment %}
+  Hero Section - Converted from Home.tsx hero section
+{% endcomment %}
+
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-label">{{ section.settings.label }}</span>
+    <h1 class="hero-title">{{ section.settings.title }}</h1>
+    <p class="hero-description">
+      {{ section.settings.description }}
+    </p>
+    <div class="hero-actions">
+      {% if section.settings.primary_button_text != blank %}
+        <a href="{{ section.settings.primary_button_link }}" class="btn-primary">
+          {{ section.settings.primary_button_text }}
+        </a>
+      {% endif %}
+      {% if section.settings.secondary_button_text != blank %}
+        <a href="{{ section.settings.secondary_button_link }}" class="btn-secondary">
+          {{ section.settings.secondary_button_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="hero-image">
+    {% if section.settings.hero_image != blank %}
+      <img
+        src="{{ section.settings.hero_image | img_url: '1600x' }}"
+        alt="{{ section.settings.hero_image.alt | escape }}"
+        loading="eager"
+      />
+    {% else %}
+      <img
+        src="{{ 'photo-1578509566163-068acd11b8e7.avif' | asset_url }}"
+        alt="Vintage fashion editorial"
+      />
+    {% endif %}
+  </div>
+</section>
+
+<style>
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 60px);
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 4rem;
+}
+
+.hero-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1;
+  margin: 0 0 1.5rem;
+  letter-spacing: 0;
+}
+
+.hero-description {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-muted);
+  max-width: 400px;
+  margin-bottom: 2rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.hero-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 3rem;
+    padding-top: 2rem;
+  }
+
+  .hero-content {
+    padding-right: 0;
+    text-align: center;
+    align-items: center;
+  }
+
+  .hero-image {
+    height: 60vh;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    text-align: center;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "class": "hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "New Arrivals",
+      "info": "Small text above the title"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Shop by Style"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Vintage and secondhand clothing at prices that won't break the bank. Find your next favorite piece."
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image",
+      "info": "Recommended size: 1600x2000px. Falls back to default image if not set."
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Primary Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary Button Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary Button Text",
+      "default": "Collections"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary Button Link",
+      "default": "/collections"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "min": 400,
+      "max": 900,
+      "step": 50,
+      "unit": "px",
+      "label": "Minimum Section Height",
+      "default": 600,
+      "info": "Height minus header. Default uses calc(100vh - 60px)"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Padding Bottom",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "settings": {
+        "label": "New Arrivals",
+        "title": "Shop by Style",
+        "description": "Vintage and secondhand clothing at prices that won't break the bank. Find your next favorite piece.",
+        "primary_button_text": "Shop Now",
+        "primary_button_link": "/collections/all",
+        "secondary_button_text": "Collections",
+        "secondary_button_link": "/collections"
+      }
+    }
+  ]
+}
+{% endschema %}
