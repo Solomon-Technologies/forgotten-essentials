@@ -11,7 +11,7 @@ export default function Header() {
         <div className="header-left">
           <nav className="nav-links">
             <Link to="/shop">Shop</Link>
-            <Link to="/shop?category=new">New Arrivals</Link>
+            <Link to="/collections">Collections</Link>
             <Link to="/about">About</Link>
           </nav>
         </div>

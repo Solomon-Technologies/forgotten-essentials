@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { useProductsByCollection, useCollections } from '../hooks/useShopify';
 import './Shop.css';
@@ -13,7 +13,7 @@ export default function Shop() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const { products, loading: productsLoading } = useProductsByCollection(categoryParam, 50);
-  const { collections, loading: collectionsLoading } = useCollections(10);
+  const { collections } = useCollections(10);
 
   const filteredProducts = useMemo(() => {
     let result = [...products];
@@ -32,23 +32,19 @@ export default function Shop() {
     return result;
   }, [products, sortBy]);
 
-  const handleCategoryChange = (slug: string | null) => {
-    if (slug) {
-      setSearchParams({ category: slug });
-    } else {
-      setSearchParams({});
-    }
-  };
-
   return (
     <main className="shop">
       <div className="shop-header">
         <h1>{categoryParam ? collections.find(c => c.slug === categoryParam)?.name || 'All Products' : 'All Products'}</h1>
         <p>{filteredProducts.length} {filteredProducts.length === 1 ? 'piece' : 'pieces'}</p>
-        {categoryParam && (
-          <button onClick={() => handleCategoryChange(null)} className="view-all-btn">
+        {categoryParam ? (
+          <Link to="/collections" className="view-all-btn">
             View All Collections
-          </button>
+          </Link>
+        ) : (
+          <Link to="/collections" className="view-all-btn">
+            Browse Collections
+          </Link>
         )}
       </div>
 
@@ -71,34 +67,6 @@ export default function Shop() {
 
         {/* Sidebar */}
         <aside className={`shop-sidebar ${isFilterOpen ? 'open' : ''}`}>
-          <div className="sidebar-section">
-            <h3>Categories</h3>
-            <ul className="filter-list">
-              <li>
-                <button
-                  className={!categoryParam ? 'active' : ''}
-                  onClick={() => handleCategoryChange(null)}
-                >
-                  All Products
-                </button>
-              </li>
-              {collectionsLoading ? (
-                <li>Loading...</li>
-              ) : (
-                collections.map(category => (
-                  <li key={category.id}>
-                    <button
-                      className={categoryParam === category.slug ? 'active' : ''}
-                      onClick={() => handleCategoryChange(category.slug)}
-                    >
-                      {category.name}
-                    </button>
-                  </li>
-                ))
-              )}
-            </ul>
-          </div>
-
           <div className="sidebar-section">
             <h3>Sort By</h3>
             <ul className="filter-list">

@@ -22,7 +22,7 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <Link to="/shop" className="btn-primary">Shop Now</Link>
-            <Link to="/shop" className="btn-secondary">Collections</Link>
+            <Link to="/collections" className="btn-secondary">Collections</Link>
           </div>
         </div>
         <div className="hero-image">
