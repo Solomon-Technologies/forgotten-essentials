@@ -54,7 +54,7 @@
 .instagram-track {
   display: flex;
   gap: 1rem;
-  animation: scroll 48s linear infinite;
+  animation: scroll 40s linear infinite;
 }
 
 .instagram-track.paused {
@@ -66,7 +66,7 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-33.333%);
   }
 }
 

@@ -7,8 +7,8 @@ export default function InstagramFeed() {
   const { posts: instagramPosts, loading } = useInstagramPosts(50);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Duplicate posts for infinite scroll effect
-  const duplicatedPosts = [...instagramPosts, ...instagramPosts];
+  // Triple posts for seamless infinite scroll effect
+  const duplicatedPosts = [...instagramPosts, ...instagramPosts, ...instagramPosts];
 
   return (
     <section className="instagram-feed">
