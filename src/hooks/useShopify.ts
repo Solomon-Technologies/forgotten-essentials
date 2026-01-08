@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { shopifyClient, GET_PRODUCTS, GET_COLLECTIONS, GET_PRODUCTS_BY_COLLECTION } from '../lib/shopify';
+import { shopifyClient, GET_PRODUCTS, GET_COLLECTIONS, GET_PRODUCTS_BY_COLLECTION, GET_INSTAGRAM_POSTS } from '../lib/shopify';
 import { Product, Category } from '../types';
 import { mockProducts, mockCollections, mockFeaturedCollections } from '../data/mockData';
 
@@ -253,4 +253,74 @@ export function useFeaturedCollections(limit: number = 10) {
   }, [limit]);
 
   return { collections, loading, error };
+}
+
+// Instagram Post type
+export interface InstagramPost {
+  id: string;
+  image: string;
+  link: string;
+  caption?: string;
+  order?: number;
+}
+
+// Hook for Instagram posts from Shopify metaobjects
+export function useInstagramPosts(limit: number = 10) {
+  const [posts, setPosts] = useState<InstagramPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    async function fetchInstagramPosts() {
+      // Use mock data if Shopify credentials aren't configured
+      if (shouldUseMockData()) {
+        setLoading(true);
+        // Import mock Instagram posts
+        const { mockInstagramPosts } = await import('../data/mockData');
+        setTimeout(() => {
+          setPosts(mockInstagramPosts.slice(0, limit));
+          setLoading(false);
+        }, 500);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const data: any = await shopifyClient.request(GET_INSTAGRAM_POSTS, { first: limit });
+
+        const transformedPosts: InstagramPost[] = data.metaobjects.edges.map((edge: any) => {
+          const fields = edge.node.fields.reduce((acc: any, field: any) => {
+            acc[field.key] = field.value;
+            return acc;
+          }, {});
+
+          return {
+            id: edge.node.id,
+            image: fields.image || '',
+            link: fields.link || '',
+            caption: fields.caption || '',
+            order: parseInt(fields.order || '0', 10),
+          };
+        });
+
+        // Sort by order field
+        transformedPosts.sort((a, b) => (a.order || 0) - (b.order || 0));
+
+        setPosts(transformedPosts);
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('Failed to fetch Instagram posts'));
+        console.error('Error fetching Instagram posts:', err);
+        // Fallback to mock data on error
+        const { mockInstagramPosts } = await import('../data/mockData');
+        setPosts(mockInstagramPosts.slice(0, limit));
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchInstagramPosts();
+  }, [limit]);
+
+  return { posts, loading, error };
 }

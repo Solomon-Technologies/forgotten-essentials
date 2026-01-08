@@ -279,3 +279,20 @@ export const REMOVE_FROM_CART = `
     }
   }
 `;
+
+export const GET_INSTAGRAM_POSTS = `
+  query GetInstagramPosts($first: Int!) {
+    metaobjects(type: "instagram_post", first: $first) {
+      edges {
+        node {
+          id
+          handle
+          fields {
+            key
+            value
+          }
+        }
+      }
+    }
+  }
+`;

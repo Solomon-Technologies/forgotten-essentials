@@ -318,3 +318,49 @@ export const mockFeaturedCollections: Collection[] = [
     image: 'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=800&auto=format&fit=crop',
   },
 ];
+
+// Mock Instagram posts for preview mode
+export const mockInstagramPosts = [
+  {
+    id: '1',
+    image: 'https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=600&auto=format&fit=crop',
+    link: 'https://instagram.com/p/example1',
+    caption: 'New vintage finds dropping soon 🔥',
+    order: 1,
+  },
+  {
+    id: '2',
+    image: 'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600&auto=format&fit=crop',
+    link: 'https://instagram.com/p/example2',
+    caption: 'Thrift haul from this weekend',
+    order: 2,
+  },
+  {
+    id: '3',
+    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&auto=format&fit=crop',
+    link: 'https://instagram.com/p/example3',
+    caption: 'Vintage denim collection',
+    order: 3,
+  },
+  {
+    id: '4',
+    image: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=600&auto=format&fit=crop',
+    link: 'https://instagram.com/p/example4',
+    caption: 'New arrivals in store',
+    order: 4,
+  },
+  {
+    id: '5',
+    image: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&auto=format&fit=crop',
+    link: 'https://instagram.com/p/example5',
+    caption: 'Behind the scenes',
+    order: 5,
+  },
+  {
+    id: '6',
+    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&auto=format&fit=crop',
+    link: 'https://instagram.com/p/example6',
+    caption: 'Style inspo for the week',
+    order: 6,
+  },
+];
