@@ -3,9 +3,16 @@ import { GraphQLClient } from 'graphql-request';
 const domain = import.meta.env.VITE_SHOPIFY_STORE_DOMAIN;
 const storefrontAccessToken = import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 
+// Check if credentials are valid (not placeholders)
+const hasValidCredentials =
+  domain &&
+  storefrontAccessToken &&
+  domain !== 'your-store.myshopify.com' &&
+  storefrontAccessToken !== 'your-storefront-access-token-here';
+
 // Create a placeholder client if env vars aren't set (for preview mode with mock data)
 // When credentials are missing, the app will use mock data instead
-export const shopifyClient = domain && storefrontAccessToken
+export const shopifyClient = hasValidCredentials
   ? new GraphQLClient(
       `https://${domain}/api/2024-01/graphql.json`,
       {

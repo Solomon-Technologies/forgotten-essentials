@@ -3,8 +3,12 @@ import { shopifyClient, GET_PRODUCTS, GET_COLLECTIONS, GET_PRODUCTS_BY_COLLECTIO
 import { Product, Category } from '../types';
 import { mockProducts, mockCollections } from '../data/mockData';
 
-// Check if we should use mock data (when env vars are missing)
-const useMockData = !import.meta.env.VITE_SHOPIFY_STORE_DOMAIN || !import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+// Check if we should use mock data (when env vars are missing or have placeholder values)
+const useMockData =
+  !import.meta.env.VITE_SHOPIFY_STORE_DOMAIN ||
+  !import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN ||
+  import.meta.env.VITE_SHOPIFY_STORE_DOMAIN === 'your-store.myshopify.com' ||
+  import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN === 'your-storefront-access-token-here';
 
 // Transform Shopify product data to match our existing type structure
 function transformShopifyProduct(shopifyProduct: any): Product {

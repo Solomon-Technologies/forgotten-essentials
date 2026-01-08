@@ -9,7 +9,11 @@ import ProductDetail from './pages/ProductDetail';
 import About from './pages/About';
 import './App.css';
 
-const isPreviewMode = !import.meta.env.VITE_SHOPIFY_STORE_DOMAIN || !import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+const isPreviewMode =
+  !import.meta.env.VITE_SHOPIFY_STORE_DOMAIN ||
+  !import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN ||
+  import.meta.env.VITE_SHOPIFY_STORE_DOMAIN === 'your-store.myshopify.com' ||
+  import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN === 'your-storefront-access-token-here';
 
 function App() {
   return (
