@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
-import { useProductsByCollection, useCollections } from '../hooks/useShopify';
+import { useProducts, useProductsByCollection, useCollections } from '../hooks/useShopify';
+import { searchProductsWithRelevance } from '../utils/search';
 import './Shop.css';
 
 type SortOption = 'newest' | 'price-low' | 'price-high';
@@ -9,35 +10,63 @@ type SortOption = 'newest' | 'price-low' | 'price-high';
 export default function Shop() {
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryParam = searchParams.get('category');
+  const searchQuery = searchParams.get('search');
   const [sortBy, setSortBy] = useState<SortOption>('newest');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  const { products, loading: productsLoading } = useProductsByCollection(categoryParam, 50);
+  // Fetch all products for search, or by collection for category filtering
+  const { products: allProducts, loading: allProductsLoading } = useProducts(100);
+  const { products: collectionProducts, loading: collectionLoading } = useProductsByCollection(categoryParam, 50);
   const { collections } = useCollections(10);
 
-  const filteredProducts = useMemo(() => {
-    let result = [...products];
+  const productsLoading = searchQuery ? allProductsLoading : collectionLoading;
+  const baseProducts = searchQuery ? allProducts : collectionProducts;
 
-    switch (sortBy) {
-      case 'price-low':
-        result.sort((a, b) => a.price - b.price);
-        break;
-      case 'price-high':
-        result.sort((a, b) => b.price - a.price);
-        break;
-      default:
-        break;
+  const filteredProducts = useMemo(() => {
+    let result = [...baseProducts];
+
+    // Apply search filter if search query exists
+    if (searchQuery) {
+      result = searchProductsWithRelevance(result, searchQuery);
+    }
+
+    // Apply sorting (skip for search results as they're already sorted by relevance)
+    if (!searchQuery) {
+      switch (sortBy) {
+        case 'price-low':
+          result.sort((a, b) => a.price - b.price);
+          break;
+        case 'price-high':
+          result.sort((a, b) => b.price - a.price);
+          break;
+        default:
+          break;
+      }
     }
 
     return result;
-  }, [products, sortBy]);
+  }, [baseProducts, searchQuery, sortBy]);
+
+  const clearSearch = () => {
+    setSearchParams({});
+  };
 
   return (
     <main className="shop">
       <div className="shop-header">
-        <h1>{categoryParam ? collections.find(c => c.slug === categoryParam)?.name || 'All Products' : 'All Products'}</h1>
+        <h1>
+          {searchQuery
+            ? `Search Results for "${searchQuery}"`
+            : categoryParam
+            ? collections.find(c => c.slug === categoryParam)?.name || 'All Products'
+            : 'All Products'}
+        </h1>
         <p>{filteredProducts.length} {filteredProducts.length === 1 ? 'piece' : 'pieces'}</p>
-        {categoryParam ? (
+        {searchQuery ? (
+          <button onClick={clearSearch} className="view-all-btn">
+            Clear Search
+          </button>
+        ) : categoryParam ? (
           <Link to="/collections" className="view-all-btn">
             View All Collections
           </Link>

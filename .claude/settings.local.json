@@ -14,7 +14,8 @@
       "Bash(npm run dev:*)",
       "Bash(npx tsc:*)",
       "Bash(node fix-mock-data.js:*)",
-      "Bash(node fix-mock-data.cjs:*)"
+      "Bash(node fix-mock-data.cjs:*)",
+      "Bash(npm audit fix:*)"
     ]
   }
 }

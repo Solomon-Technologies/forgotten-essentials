@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import SearchModal from './SearchModal';
 import './Header.css';
 
 export default function Header() {
   const { totalItems, setIsCartOpen } = useCart();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
     <header className="header">
@@ -21,7 +24,7 @@ export default function Header() {
         </Link>
 
         <div className="header-right">
-          <button className="search-btn" aria-label="Search">
+          <button className="search-btn" aria-label="Search" onClick={() => setIsSearchOpen(true)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
               <path d="m21 21-4.3-4.3"></path>
@@ -41,6 +44,7 @@ export default function Header() {
           </button>
         </div>
       </div>
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   );
 }
