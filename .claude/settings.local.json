@@ -1,21 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm create:*)",
-      "Bash(npm init:*)",
-      "Bash(npm install:*)",
-      "Bash(npm run build:*)",
-      "Bash(cat:*)",
-      "Bash(git add:*)",
-      "Bash(ls:*)",
-      "Bash(git commit:*)",
-      "Bash(git push:*)",
-      "Bash(git remote:*)",
-      "Bash(npm run dev:*)",
-      "Bash(npx tsc:*)",
-      "Bash(node fix-mock-data.js:*)",
-      "Bash(node fix-mock-data.cjs:*)",
-      "Bash(npm audit fix:*)"
-    ]
+      "Read(//home/alch33my/Desktop/**)",
+      "Bash(tree:*)",
+      "Bash(grep:*)"
+    ],
+    "deny": [],
+    "ask": []
   }
 }
