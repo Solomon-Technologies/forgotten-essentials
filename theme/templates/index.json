@@ -78,6 +78,14 @@
         "value-3",
         "value-4"
       ]
+    },
+    "instagram-feed": {
+      "type": "instagram-feed",
+      "settings": {
+        "heading": "Follow Us @forgottenessentials",
+        "instagram_url": "https://instagram.com/forgottenessentials",
+        "button_text": "Follow on Instagram"
+      }
     }
   },
   "order": [
@@ -85,6 +93,7 @@
     "featured-collections",
     "featured-products",
     "new-arrivals",
-    "values"
+    "values",
+    "instagram-feed"
   ]
 }
