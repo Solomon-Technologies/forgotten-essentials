@@ -81,10 +81,64 @@
     },
     "instagram-feed": {
       "type": "instagram-feed",
+      "blocks": {
+        "post-1": {
+          "type": "post",
+          "settings": {
+            "post_url": "https://instagram.com/forgottenessentials",
+            "caption": "Instagram post 1"
+          }
+        },
+        "post-2": {
+          "type": "post",
+          "settings": {
+            "post_url": "https://instagram.com/forgottenessentials",
+            "caption": "Instagram post 2"
+          }
+        },
+        "post-3": {
+          "type": "post",
+          "settings": {
+            "post_url": "https://instagram.com/forgottenessentials",
+            "caption": "Instagram post 3"
+          }
+        },
+        "post-4": {
+          "type": "post",
+          "settings": {
+            "post_url": "https://instagram.com/forgottenessentials",
+            "caption": "Instagram post 4"
+          }
+        },
+        "post-5": {
+          "type": "post",
+          "settings": {
+            "post_url": "https://instagram.com/forgottenessentials",
+            "caption": "Instagram post 5"
+          }
+        },
+        "post-6": {
+          "type": "post",
+          "settings": {
+            "post_url": "https://instagram.com/forgottenessentials",
+            "caption": "Instagram post 6"
+          }
+        }
+      },
+      "block_order": [
+        "post-1",
+        "post-2",
+        "post-3",
+        "post-4",
+        "post-5",
+        "post-6"
+      ],
       "settings": {
         "heading": "Follow Us @forgottenessentials",
         "instagram_url": "https://instagram.com/forgottenessentials",
-        "button_text": "Follow on Instagram"
+        "button_text": "Follow on Instagram",
+        "post_width": 300,
+        "animation_speed": 60
       }
     }
   },

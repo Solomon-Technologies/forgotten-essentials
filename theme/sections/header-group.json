@@ -4,7 +4,12 @@
   "sections": {
     "header": {
       "type": "header",
-      "settings": {}
+      "settings": {
+        "logo_height": 40,
+        "menu": "main-menu",
+        "header_padding": 1,
+        "sticky_header": true
+      }
     }
   },
   "order": [

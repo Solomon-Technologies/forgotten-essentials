@@ -4,7 +4,12 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "settings": {}
+      "settings": {
+        "footer_heading": "FORGOTTEN ESSENTIALS",
+        "footer_description": "Thoughtfully sourced vintage and pre-loved clothing for the conscious consumer. Every piece tells a story.",
+        "social_instagram": "https://instagram.com/forgottenessentials",
+        "footer_padding": 4
+      }
     }
   },
   "order": [
