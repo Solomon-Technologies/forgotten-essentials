@@ -3,7 +3,13 @@
     "allow": [
       "Read(//home/alch33my/Desktop/**)",
       "Bash(tree:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(dir:*)",
+      "Bash(powershell -Command \"Compress-Archive -Path assets,config,layout,locales,sections,snippets,templates -DestinationPath ../forgotten-essentials-theme.zip -Force\")",
+      "Bash(powershell -Command:*)",
+      "Bash(shopify version:*)",
+      "Bash(shopify theme list --help:*)",
+      "Bash(chmod:*)"
     ],
     "deny": [],
     "ask": []
