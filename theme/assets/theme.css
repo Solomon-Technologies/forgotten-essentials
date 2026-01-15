@@ -1,15 +1,17 @@
-/* CSS Variables - Grungy Thrift Store */
+/* CSS Variables - Sophisticated Vintage */
 :root {
   --font-serif: Arial, Helvetica, sans-serif;
   --font-sans: Arial, Helvetica, sans-serif;
 
-  --color-bg: #ffffff;
-  --color-cream: #f5f5f5;
-  --color-text: #000000;
-  --color-muted: #4a4a4a;
-  --color-border: #000000;
-  --color-primary: #000000;
-  --color-accent: #d20000;
+  /* Warm, sophisticated color palette */
+  --color-bg: #faf8f5;           /* Warm cream background */
+  --color-cream: #ebe6e1;        /* Sand - for sections */
+  --color-text: #1e1e1e;         /* Charcoal - softer than black */
+  --color-muted: #78736e;        /* Warm gray for secondary text */
+  --color-border: #c8c3be;       /* Light warm gray for borders */
+  --color-primary: #3c3734;      /* Dark warm gray for primary actions */
+  --color-accent: #b44632;       /* Muted terracotta red */
+  --color-hover: #2d2a28;        /* Almost black for hovers */
 }
 
 /* Reset & Base */
@@ -106,32 +108,53 @@ a {
   letter-spacing: 0;
   text-transform: uppercase;
   text-decoration: none;
-  border: 2px solid var(--color-text);
+  border: 2px solid var(--color-primary);
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .btn-primary {
-  background: var(--color-text);
+  background: var(--color-primary);
   color: var(--color-bg);
+}
+
+.btn-primary:hover {
+  background: var(--color-hover);
+  border-color: var(--color-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn-secondary {
   background: transparent;
-  color: var(--color-text);
+  color: var(--color-primary);
+}
+
+.btn-secondary:hover {
+  background: var(--color-cream);
+  border-color: var(--color-hover);
+  color: var(--color-hover);
 }
 
 .btn-primary-light {
   display: inline-block;
   padding: 0.75rem 1.5rem;
   background: var(--color-bg);
-  color: var(--color-text);
+  color: var(--color-primary);
   font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0;
   text-transform: uppercase;
   text-decoration: none;
-  border: 2px solid var(--color-text);
+  border: 2px solid var(--color-primary);
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary-light:hover {
+  background: var(--color-cream);
+  border-color: var(--color-hover);
+  color: var(--color-hover);
 }
 
 /* Section Headers */
@@ -140,7 +163,7 @@ a {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: 2px solid var(--color-border);
   padding-bottom: 0.5rem;
 }
 

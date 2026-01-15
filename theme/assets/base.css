@@ -17,11 +17,17 @@
   /* Fallback values provided here */
   --font-body-family: Arial, Helvetica, sans-serif;
   --font-heading-family: Arial, Helvetica, sans-serif;
-  --color-base-text: 0, 0, 0;
-  --color-base-background-1: 255, 255, 255;
-  --color-base-background-2: 245, 245, 245;
-  --color-base-accent-1: 0, 0, 0;
-  --color-base-accent-2: 210, 0, 0;
+
+  /* Updated color palette - sophisticated vintage */
+  --color-base-text: 30, 30, 30;              /* Softer black - charcoal */
+  --color-base-background-1: 250, 248, 245;   /* Warm off-white - cream */
+  --color-base-background-2: 235, 230, 225;   /* Warm light gray - sand */
+  --color-base-accent-1: 90, 85, 80;          /* Medium warm gray - stone */
+  --color-base-accent-2: 180, 70, 50;         /* Muted terracotta red */
+  --color-muted: 120, 115, 110;               /* Soft gray for secondary text */
+  --color-border: 200, 195, 190;              /* Light warm gray for borders */
+  --color-hover: 60, 55, 50;                  /* Dark warm gray for hovers */
+
   --border-width: 2px;
   --border-style: solid;
   --border-radius: 0px;
@@ -214,7 +220,7 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
-  border: var(--border-width) var(--border-style) rgb(var(--color-base-text));
+  border: var(--border-width) var(--border-style) rgb(var(--color-border));
 }
 
 /* ===============================================

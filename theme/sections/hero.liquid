@@ -30,10 +30,17 @@
         loading="eager"
       />
     {% else %}
-      <img
-        src="{{ 'photo-1578509566163-068acd11b8e7.avif' | asset_url }}"
-        alt="Vintage fashion editorial"
-      />
+      <div class="hero-image-placeholder">
+        <div class="placeholder-content">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="120" height="120" rx="8" fill="#f5f5f5"/>
+            <path d="M60 45C54.4772 45 50 49.4772 50 55C50 60.5228 54.4772 65 60 65C65.5228 65 70 60.5228 70 55C70 49.4772 65.5228 45 60 45ZM60 61C56.6863 61 54 58.3137 54 55C54 51.6863 56.6863 49 60 49C63.3137 49 66 51.6863 66 55C66 58.3137 63.3137 61 60 61Z" fill="#d0d0d0"/>
+            <path d="M85 35H35C31.6863 35 29 37.6863 29 41V79C29 82.3137 31.6863 85 35 85H85C88.3137 85 91 82.3137 91 79V41C91 37.6863 88.3137 35 85 35ZM35 39H85C86.1046 39 87 39.8954 87 41V68L75 56C74.2107 55.2107 72.7893 55.2107 72 56L55 73L47 65C46.2107 64.2107 44.7893 64.2107 44 65L33 76V41C33 39.8954 33.8954 39 35 39ZM85 81H35C33.8954 81 33 80.1046 33 79V80L44 69L52 77C52.7893 77.7893 54.2107 77.7893 55 77L72 60L87 75V79C87 80.1046 86.1046 81 85 81Z" fill="#d0d0d0"/>
+          </svg>
+          <p class="placeholder-text">Hero Image Placeholder</p>
+          <p class="placeholder-subtext">1600 × 2000px recommended</p>
+        </div>
+      </div>
     {% endif %}
   </div>
 </section>
@@ -98,6 +105,38 @@
   height: 100%;
   object-fit: cover;
   object-position: center center;
+}
+
+.hero-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #e0e0e0;
+}
+
+.placeholder-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.placeholder-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #999;
+  margin: 0;
+}
+
+.placeholder-subtext {
+  font-size: 0.875rem;
+  color: #bbb;
+  margin: 0;
 }
 
 @media (max-width: 1024px) {

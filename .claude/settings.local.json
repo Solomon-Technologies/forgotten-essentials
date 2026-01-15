@@ -14,7 +14,8 @@
       "Bash(shopify theme push:*)",
       "Bash(shopify theme list:*)",
       "Bash(shopify theme dev-console:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
