@@ -22,15 +22,27 @@
         {% endif %}
       {% endfor %}
     {% else %}
-      {% comment %} Default collections if no blocks are set {% endcomment %}
-      {% for collection in collections limit: 5 %}
-        {% if collection.image %}
-          <a href="{{ collection.url }}" class="category-card">
-            <img src="{{ collection.image | img_url: 'medium' }}" alt="{{ collection.title }}" loading="lazy" />
-            <span class="category-name">{{ collection.title }}</span>
-          </a>
-        {% endif %}
-      {% endfor %}
+      {% comment %} Default placeholder categories {% endcomment %}
+      <div class="category-card placeholder">
+        <div class="placeholder-image"></div>
+        <span class="category-name">Outerwear</span>
+      </div>
+      <div class="category-card placeholder">
+        <div class="placeholder-image"></div>
+        <span class="category-name">Dresses</span>
+      </div>
+      <div class="category-card placeholder">
+        <div class="placeholder-image"></div>
+        <span class="category-name">Tops</span>
+      </div>
+      <div class="category-card placeholder">
+        <div class="placeholder-image"></div>
+        <span class="category-name">Bottoms</span>
+      </div>
+      <div class="category-card placeholder">
+        <div class="placeholder-image"></div>
+        <span class="category-name">Accessories</span>
+      </div>
     {% endif %}
   </div>
 </section>
@@ -74,6 +86,30 @@
   letter-spacing: 0;
   text-transform: uppercase;
   text-align: center;
+}
+
+.placeholder-image {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f5f5 25%, #e0e0e0 25%, #e0e0e0 50%, #f5f5f5 50%, #f5f5f5 75%, #e0e0e0 75%, #e0e0e0);
+  background-size: 40px 40px;
+  animation: shimmer 2s infinite;
+  position: relative;
+}
+
+.placeholder-image::after {
+  content: '📷';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  opacity: 0.3;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
 }
 
 @media (max-width: 1024px) {

@@ -12,13 +12,6 @@
         "show_shipping_info": true
       }
     },
-    "product-details": {
-      "type": "product-details",
-      "disabled": true,
-      "settings": {
-        "heading": "Product Details"
-      }
-    },
     "related-products": {
       "type": "featured-products",
       "settings": {
@@ -30,7 +23,6 @@
   },
   "order": [
     "main",
-    "product-details",
     "related-products"
   ]
 }

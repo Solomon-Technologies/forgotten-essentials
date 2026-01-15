@@ -12,13 +12,29 @@
   <div class="products-grid">
     {% if section.settings.collection != blank %}
       {% assign collection = collections[section.settings.collection] %}
-      {% for product in collection.products limit: section.settings.product_limit %}
-        {% render 'product-card', product: product %}
-      {% endfor %}
+      {% if collection.products.size > 0 %}
+        {% for product in collection.products limit: section.settings.product_limit %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      {% else %}
+        {% comment %} Show placeholders if no products {% endcomment %}
+        {% render 'product-card-placeholder', title: 'Vintage Levi\'s Jacket', price: '$85.00', meta: 'Size L · Excellent', era: '1990s' %}
+        {% render 'product-card-placeholder', title: 'Silk Slip Dress', price: '$65.00', meta: 'Size M · Like New', era: '1980s' %}
+        {% render 'product-card-placeholder', title: 'Leather Boots', price: '$120.00', meta: 'Size 8 · Good', era: 'Vintage' %}
+        {% render 'product-card-placeholder', title: 'Cashmere Sweater', price: '$45.00', meta: 'Size S · Excellent', era: '2000s' %}
+      {% endif %}
     {% else %}
-      {% for product in collections.all.products limit: section.settings.product_limit %}
-        {% render 'product-card', product: product %}
-      {% endfor %}
+      {% if collections.all.products.size > 0 %}
+        {% for product in collections.all.products limit: section.settings.product_limit %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      {% else %}
+        {% comment %} Show placeholders if no products {% endcomment %}
+        {% render 'product-card-placeholder', title: 'Vintage Levi\'s Jacket', price: '$85.00', meta: 'Size L · Excellent', era: '1990s' %}
+        {% render 'product-card-placeholder', title: 'Silk Slip Dress', price: '$65.00', meta: 'Size M · Like New', era: '1980s' %}
+        {% render 'product-card-placeholder', title: 'Leather Boots', price: '$120.00', meta: 'Size 8 · Good', era: 'Vintage' %}
+        {% render 'product-card-placeholder', title: 'Cashmere Sweater', price: '$45.00', meta: 'Size S · Excellent', era: '2000s' %}
+      {% endif %}
     {% endif %}
   </div>
 </section>

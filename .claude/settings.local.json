@@ -9,7 +9,12 @@
       "Bash(powershell -Command:*)",
       "Bash(shopify version:*)",
       "Bash(shopify theme list --help:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(shopify theme dev:*)",
+      "Bash(shopify theme push:*)",
+      "Bash(shopify theme list:*)",
+      "Bash(shopify theme dev-console:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

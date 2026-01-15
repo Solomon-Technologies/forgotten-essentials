@@ -4,11 +4,11 @@
       "type": "hero",
       "settings": {
         "label": "New Arrivals",
-        "title": "Shop by Style",
-        "description": "Vintage and secondhand clothing at prices that won't break the bank. Find your next favorite piece.",
-        "primary_button_text": "Shop Now",
+        "title": "Curated Vintage & Pre-Loved Fashion",
+        "description": "Discover timeless pieces with modern appeal. Each item is carefully selected to ensure quality, style, and sustainability. From vintage denim to designer finds.",
+        "primary_button_text": "Shop New Arrivals",
         "primary_button_link": "/collections/all",
-        "secondary_button_text": "Collections",
+        "secondary_button_text": "Browse Collections",
         "secondary_button_link": "/collections/all"
       }
     },
