@@ -52,13 +52,14 @@
   min-height: calc(100vh - 60px);
   max-width: 100%;
   margin: 0 auto;
-  padding: 0 3rem;
+  padding: 0 3rem 0 0;
 }
 
 .hero-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-left: 3rem;
   padding-right: 4rem;
 }
 
@@ -95,9 +96,8 @@
 .hero-image {
   position: relative;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .hero-image img {
@@ -110,6 +110,7 @@
 .hero-image-placeholder {
   width: 100%;
   height: 100%;
+  min-height: calc(100vh - 60px);
   background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
   display: flex;
   align-items: center;

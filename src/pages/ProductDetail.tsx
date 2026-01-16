@@ -89,19 +89,17 @@ export default function ProductDetail() {
               alt={product.name}
             />
           </div>
-          {product.images.length > 1 && (
-            <div className="gallery-thumbs">
-              {product.images.map((image, index) => (
-                <button
-                  key={index}
-                  className={`gallery-thumb ${selectedImage === index ? 'active' : ''}`}
-                  onClick={() => setSelectedImage(index)}
-                >
-                  <img src={image} alt={`${product.name} view ${index + 1}`} />
-                </button>
-              ))}
-            </div>
-          )}
+          <div className="gallery-thumbs">
+            {product.images.map((image, index) => (
+              <button
+                key={index}
+                className={`gallery-thumb ${selectedImage === index ? 'active' : ''}`}
+                onClick={() => setSelectedImage(index)}
+              >
+                <img src={image} alt={`${product.name} view ${index + 1}`} />
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Product Info */}

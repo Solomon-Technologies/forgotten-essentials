@@ -36,49 +36,6 @@
         "view_all_link": "/collections/new-arrivals"
       }
     },
-    "values": {
-      "type": "values",
-      "blocks": {
-        "value-1": {
-          "type": "value",
-          "settings": {
-            "icon": "shield",
-            "title": "Authenticated",
-            "description": "Every piece verified for authenticity by our expert team."
-          }
-        },
-        "value-2": {
-          "type": "value",
-          "settings": {
-            "icon": "cloud",
-            "title": "Sustainable",
-            "description": "Extending the lifecycle of beautiful clothing, one piece at a time."
-          }
-        },
-        "value-3": {
-          "type": "value",
-          "settings": {
-            "icon": "heart",
-            "title": "Curated",
-            "description": "Only the finest pieces make it into our collection."
-          }
-        },
-        "value-4": {
-          "type": "value",
-          "settings": {
-            "icon": "credit-card",
-            "title": "Secure Checkout",
-            "description": "Shop confidently with our secure payment processing."
-          }
-        }
-      },
-      "block_order": [
-        "value-1",
-        "value-2",
-        "value-3",
-        "value-4"
-      ]
-    },
     "instagram-feed": {
       "type": "instagram-feed",
       "blocks": {
@@ -147,7 +104,6 @@
     "featured-collections",
     "featured-products",
     "new-arrivals",
-    "values",
     "instagram-feed"
   ]
 }

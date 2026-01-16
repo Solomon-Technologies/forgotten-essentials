@@ -1,0 +1,64 @@
+{% comment %}
+  About Hero Section - Editable hero for About page
+{% endcomment %}
+
+<section class="about-hero">
+  <div class="about-hero-content">
+    <h1>{{ section.settings.title }}</h1>
+    <p>{{ section.settings.subtitle }}</p>
+  </div>
+</section>
+
+<style>
+.about-hero {
+  padding: 8rem 3rem 6rem;
+  text-align: center;
+  background: rgb(var(--color-base-background-1));
+}
+
+.about-hero-content h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+}
+
+.about-hero-content p {
+  font-size: 1.1rem;
+  color: rgb(var(--color-muted));
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .about-hero {
+    padding: 5rem 2rem 4rem;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "About Hero",
+  "tag": "section",
+  "class": "about-hero-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Where timeless style meets conscious consumption"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Hero"
+    }
+  ]
+}
+{% endschema %}

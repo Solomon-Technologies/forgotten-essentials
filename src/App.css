@@ -1,15 +1,17 @@
-/* CSS Variables - Grungy Thrift Store */
+/* CSS Variables - Grunge Vintage */
 :root {
   --font-serif: Arial, Helvetica, sans-serif;
   --font-sans: Arial, Helvetica, sans-serif;
 
-  --color-bg: #ffffff;
-  --color-cream: #f5f5f5;
-  --color-text: #000000;
-  --color-muted: #4a4a4a;
-  --color-border: #000000;
-  --color-primary: #000000;
-  --color-accent: #d20000;
+  /* Warm color palette matching Shopify theme */
+  --color-bg: #faf8f5;           /* Warm off-white - cream */
+  --color-cream: #ebe6e1;        /* Warm light gray - sand */
+  --color-text: #000000;         /* Pure black for grunge */
+  --color-muted: #666666;        /* Darker gray for secondary text */
+  --color-border: #000000;       /* Black borders for grunge */
+  --color-primary: #000000;      /* Black for primary elements */
+  --color-accent: #b44632;       /* Muted terracotta red */
+  --color-hover: #333333;        /* Dark gray for hovers */
 }
 
 /* Reset & Base */
@@ -28,6 +30,9 @@ body {
   line-height: 1.4;
   color: var(--color-text);
   background: var(--color-bg);
+  /* Add subtle texture to background */
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
 }
 
 img {
@@ -46,11 +51,12 @@ button {
   min-height: 100vh;
 }
 
-/* Typography */
+/* Typography - Raw Grunge Style */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.1;
-  letter-spacing: 0;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 
 p {
@@ -101,4 +107,58 @@ a {
 :focus-visible {
   outline: 1px solid var(--color-text);
   outline-offset: 2px;
+}
+
+/* Painted/Grainy Texture Effects */
+/* Add subtle grain to text for hand-painted appearance */
+h1, h2, h3, h4, h5, h6,
+.btn, button,
+.product-card,
+.nav-link {
+  position: relative;
+}
+
+/* Text grain overlay */
+h1::before, h2::before, h3::before,
+h4::before, h5::before, h6::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+}
+
+/* Add texture to buttons and interactive elements */
+button, .btn {
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+  background-blend-mode: multiply;
+  background-size: 100% 100%;
+}
+
+/* Add spray paint edge effect to borders */
+.product-card,
+.gallery-thumb,
+input, select, textarea {
+  filter: contrast(1.02) brightness(0.99);
+}
+
+/* Crayon-like texture for gray elements */
+.product-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.6' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: overlay;
 }

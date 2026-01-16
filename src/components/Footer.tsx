@@ -5,98 +5,42 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-container">
-        <div className="footer-grid">
-          <div className="footer-brand">
-            <h2 className="footer-logo">FORGOTTEN ESSENTIALS</h2>
-            <p className="footer-description">
-              Thoughtfully sourced vintage and pre-loved clothing for the conscious consumer.
-              Every piece tells a story.
-            </p>
-            <div className="footer-social">
-              <a
-                href="https://instagram.com/forgottenessentials"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-                </svg>
-              </a>
-              <a
-                href="https://facebook.com/forgottenessentials"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                </svg>
-              </a>
-              <a
-                href="https://tiktok.com/@forgottenessentials"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="TikTok"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
-                </svg>
-              </a>
-            </div>
-          </div>
-
-          <div className="footer-links">
-            <h3>Shop</h3>
-            <ul>
-              <li><Link to="/shop?category=new">New Arrivals</Link></li>
-              <li><Link to="/shop?category=outerwear">Outerwear</Link></li>
-              <li><Link to="/shop?category=dresses">Dresses</Link></li>
-              <li><Link to="/shop?category=tops">Tops</Link></li>
-              <li><Link to="/shop?category=bottoms">Bottoms</Link></li>
-              <li><Link to="/shop?category=accessories">Accessories</Link></li>
-            </ul>
-          </div>
-
-          <div className="footer-links">
-            <h3>About</h3>
-            <ul>
-              <li><Link to="/about">Our Story</Link></li>
-              <li><Link to="/sustainability">Sustainability</Link></li>
-              <li><Link to="/consign">Sell With Us</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
-            </ul>
-          </div>
-
-          <div className="footer-links">
-            <h3>Help</h3>
-            <ul>
-              <li><Link to="/faq">FAQ</Link></li>
-              <li><Link to="/shipping">Shipping & Returns</Link></li>
-              <li><Link to="/sizing">Size Guide</Link></li>
-              <li><Link to="/care">Care Instructions</Link></li>
-            </ul>
-          </div>
-
-          <div className="footer-newsletter">
-            <h3>Stay in Touch</h3>
-            <p>Subscribe for early access to new arrivals and exclusive offers.</p>
-            <form className="newsletter-form">
-              <input type="email" placeholder="Your email" />
-              <button type="submit">Subscribe</button>
-            </form>
-          </div>
+        <div className="footer-social">
+          <a
+            href="https://instagram.com/forgottenessentials"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            className="social-link"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+          <a
+            href="https://facebook.com/forgottenessentials"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            className="social-link"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+            </svg>
+          </a>
+          <a
+            href="https://tiktok.com/@forgottenessentials"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+            className="social-link"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+            </svg>
+          </a>
         </div>
-
-        <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} Forgotten Essentials. All rights reserved.</p>
-          <div className="footer-legal">
-            <Link to="/privacy">Privacy Policy</Link>
-            <Link to="/terms">Terms of Service</Link>
-          </div>
-        </div>
+        <p className="footer-copyright">&copy; {new Date().getFullYear()} Forgotten Essentials. All rights reserved.</p>
       </div>
     </footer>
   );

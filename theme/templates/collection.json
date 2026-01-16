@@ -6,7 +6,7 @@
       "settings": {
         "label": "Collection",
         "title": "{{ collection.title }}",
-        "description": "{{ collection.description }}",
+        "description": "",
         "primary_button_text": "",
         "secondary_button_text": ""
       }

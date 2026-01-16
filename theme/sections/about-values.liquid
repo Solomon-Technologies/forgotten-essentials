@@ -1,0 +1,138 @@
+{% comment %}
+  About Values Section - Grid of value cards with blocks
+{% endcomment %}
+
+<section class="about-values">
+  <h2>{{ section.settings.heading }}</h2>
+  <div class="values-grid">
+    {% for block in section.blocks %}
+      <div class="value-card" {{ block.shopify_attributes }}>
+        <h3>{{ block.settings.title }}</h3>
+        <p>{{ block.settings.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+.about-values {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 5rem 3rem;
+  text-align: center;
+}
+
+.about-values h2 {
+  font-size: 1.75rem;
+  font-weight: 400;
+  margin: 0 0 3rem;
+  letter-spacing: -0.01em;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  text-align: left;
+}
+
+.value-card {
+  padding: 2rem;
+  background: rgb(var(--color-base-background-2));
+}
+
+.value-card h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0 0 1rem;
+  letter-spacing: -0.01em;
+}
+
+.value-card p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: rgb(var(--color-muted));
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-values {
+    padding: 4rem 2rem;
+  }
+
+  .about-values h2 {
+    margin-bottom: 2rem;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "About Values",
+  "tag": "section",
+  "class": "about-values-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What We Stand For"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Our Value"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Description of this value and why it matters to us."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Values",
+      "blocks": [
+        {
+          "type": "value",
+          "settings": {
+            "title": "Sustainability",
+            "description": "Fashion is one of the world's largest polluters. By choosing vintage and pre-loved, you're making a conscious choice to reduce waste."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Quality",
+            "description": "We only source pieces that meet our rigorous standards. Every garment is inspected and authenticated when applicable."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Individuality",
+            "description": "In a world of fast fashion, vintage pieces offer something truly unique. Express your personal style with one-of-a-kind finds."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

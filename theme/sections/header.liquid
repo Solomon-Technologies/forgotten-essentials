@@ -1,6 +1,6 @@
 {% comment %}
-  Header Section - Converted from React Header.tsx
-  Maintains exact design with fixed positioning and 2px borders
+  Header Section - Grunge Style
+  Bigger header with box shadow instead of border
 {% endcomment %}
 
 <header class="header">
@@ -26,7 +26,7 @@
           alt="{{ shop.name }}"
           class="logo-image"
           width="120"
-          height="40"
+          height="50"
         />
       {% else %}
         <img
@@ -64,13 +64,13 @@
   right: 0;
   z-index: 100;
   background: var(--color-bg);
-  border-bottom: 2px solid var(--color-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .header-container {
   max-width: 100%;
   margin: 0 auto;
-  padding: 1rem 3rem;
+  padding: 1.5rem 3rem;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
@@ -98,9 +98,9 @@
 }
 
 .nav-links a {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--color-text);
   text-decoration: none;
@@ -120,7 +120,7 @@
 }
 
 .logo-image {
-  height: 40px;
+  height: 50px;
   width: auto;
   object-fit: contain;
 }
@@ -190,7 +190,7 @@
       "type": "image_picker",
       "id": "logo",
       "label": "Logo Image",
-      "info": "Recommended size: 240x80px. Falls back to Logo.jpg if not set."
+      "info": "Recommended size: 240x100px. Falls back to Logo.jpg if not set."
     },
     {
       "type": "range",
@@ -200,7 +200,7 @@
       "step": 5,
       "unit": "px",
       "label": "Logo Height",
-      "default": 40
+      "default": 50
     },
     {
       "type": "header",
@@ -225,7 +225,7 @@
       "step": 0.5,
       "unit": "rem",
       "label": "Header Padding",
-      "default": 1
+      "default": 1.5
     },
     {
       "type": "checkbox",

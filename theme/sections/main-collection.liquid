@@ -144,6 +144,10 @@
   gap: 3rem;
 }
 
+.collection-container:has(.no-products) {
+  display: block;
+}
+
 .filter-toggle-mobile {
   display: none;
   align-items: center;
@@ -166,6 +170,10 @@
   position: sticky;
   top: 80px;
   height: fit-content;
+}
+
+.collection-container:has(.no-products) .collection-sidebar {
+  display: none;
 }
 
 .sidebar-section {
@@ -224,6 +232,7 @@
   min-height: 40vh;
   gap: 1.5rem;
   color: var(--color-muted);
+  text-align: center;
 }
 
 .pagination {

@@ -1,17 +1,17 @@
-/* CSS Variables - Sophisticated Vintage */
+/* CSS Variables - Grunge Vintage */
 :root {
   --font-serif: Arial, Helvetica, sans-serif;
   --font-sans: Arial, Helvetica, sans-serif;
 
-  /* Warm, sophisticated color palette */
-  --color-bg: #faf8f5;           /* Warm cream background */
-  --color-cream: #ebe6e1;        /* Sand - for sections */
-  --color-text: #1e1e1e;         /* Charcoal - softer than black */
-  --color-muted: #78736e;        /* Warm gray for secondary text */
-  --color-border: #c8c3be;       /* Light warm gray for borders */
-  --color-primary: #3c3734;      /* Dark warm gray for primary actions */
+  /* Warm color palette matching Shopify theme */
+  --color-bg: #faf8f5;           /* Warm off-white - cream */
+  --color-cream: #ebe6e1;        /* Warm light gray - sand */
+  --color-text: #000000;         /* Pure black for grunge */
+  --color-muted: #666666;        /* Darker gray for secondary text */
+  --color-border: #000000;       /* Black borders for grunge */
+  --color-primary: #000000;      /* Black for primary elements */
   --color-accent: #b44632;       /* Muted terracotta red */
-  --color-hover: #2d2a28;        /* Almost black for hovers */
+  --color-hover: #333333;        /* Dark gray for hovers */
 }
 
 /* Reset & Base */
@@ -30,6 +30,9 @@ body {
   line-height: 1.4;
   color: var(--color-text);
   background: var(--color-bg);
+  /* Add subtle texture to background */
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
 }
 
 img {
@@ -41,11 +44,12 @@ button {
   font-family: inherit;
 }
 
-/* Typography */
+/* Typography - Raw Grunge Style */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.1;
-  letter-spacing: 0;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 
 p {
@@ -98,6 +102,60 @@ a {
   outline-offset: 2px;
 }
 
+/* Painted/Grainy Texture Effects */
+/* Add subtle grain to text for hand-painted appearance */
+h1, h2, h3, h4, h5, h6,
+.btn, button,
+.product-card,
+.nav-link {
+  position: relative;
+}
+
+/* Text grain overlay */
+h1::before, h2::before, h3::before,
+h4::before, h5::before, h6::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+}
+
+/* Add texture to buttons and interactive elements */
+button, .btn {
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+  background-blend-mode: multiply;
+  background-size: 100% 100%;
+}
+
+/* Add spray paint edge effect to borders */
+.product-card,
+.gallery-thumb,
+input, select, textarea {
+  filter: contrast(1.02) brightness(0.99);
+}
+
+/* Crayon-like texture for gray elements */
+.product-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.6' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
 /* Buttons */
 .btn-primary,
 .btn-secondary {
@@ -108,53 +166,30 @@ a {
   letter-spacing: 0;
   text-transform: uppercase;
   text-decoration: none;
-  border: 2px solid var(--color-primary);
-  cursor: pointer;
-  transition: all 0.2s ease;
+  border: 2px solid var(--color-text);
 }
 
 .btn-primary {
-  background: var(--color-primary);
+  background: var(--color-text);
   color: var(--color-bg);
-}
-
-.btn-primary:hover {
-  background: var(--color-hover);
-  border-color: var(--color-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn-secondary {
   background: transparent;
-  color: var(--color-primary);
-}
-
-.btn-secondary:hover {
-  background: var(--color-cream);
-  border-color: var(--color-hover);
-  color: var(--color-hover);
+  color: var(--color-text);
 }
 
 .btn-primary-light {
   display: inline-block;
   padding: 0.75rem 1.5rem;
   background: var(--color-bg);
-  color: var(--color-primary);
+  color: var(--color-text);
   font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0;
   text-transform: uppercase;
   text-decoration: none;
-  border: 2px solid var(--color-primary);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-primary-light:hover {
-  background: var(--color-cream);
-  border-color: var(--color-hover);
-  color: var(--color-hover);
+  border: 2px solid var(--color-text);
 }
 
 /* Section Headers */
@@ -163,7 +198,7 @@ a {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  border-bottom: 2px solid var(--color-border);
+  border-bottom: 2px solid var(--color-text);
   padding-bottom: 0.5rem;
 }
 

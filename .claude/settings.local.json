@@ -15,7 +15,21 @@
       "Bash(shopify theme list:*)",
       "Bash(shopify theme dev-console:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(lsof:*)",
+      "Bash(netstat:*)",
+      "Bash(tasklist:*)",
+      "Bash(git checkout:*)",
+      "Bash(ls:*)",
+      "Bash(where:*)",
+      "Bash(git restore:*)",
+      "Bash(shopify theme pull:*)",
+      "Bash(shopify theme publish:*)",
+      "Bash(shopify theme package:*)",
+      "Bash(move /Y \"Forgotten Essentials-1.0.0.zip\" \"../forgotten-essentials-theme.zip\")",
+      "Bash(npm run dev:*)",
+      "Bash(npm install:*)",
+      "Bash(node convert-heic.js:*)"
     ],
     "deny": [],
     "ask": []

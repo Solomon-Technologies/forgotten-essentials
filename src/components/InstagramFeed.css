@@ -1,7 +1,8 @@
 .instagram-feed {
-  background: var(--color-cream);
-  padding: 4rem 0;
-  border-top: 2px solid var(--color-border);
+  background: var(--color-bg);
+  padding: 5rem 0;
+  border-top: 3px solid var(--color-border);
+  border-bottom: 3px solid var(--color-border);
 }
 
 .instagram-header {
@@ -11,26 +12,27 @@
 }
 
 .instagram-header h2 {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0;
-  margin: 0 0 1rem;
+  letter-spacing: 0.2em;
+  margin: 0 0 1.5rem;
 }
 
 .instagram-follow-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  padding: 1rem 2rem;
   background: var(--color-text);
   color: var(--color-bg);
-  border: 2px solid var(--color-text);
+  border: 3px solid var(--color-text);
+  border-radius: 0;
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   text-decoration: none;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.15em;
   transition: all 0.2s;
 }
 
@@ -76,7 +78,8 @@
   width: 280px;
   height: 280px;
   overflow: hidden;
-  border: 2px solid var(--color-border);
+  border: 3px solid var(--color-border);
+  border-radius: 0;
   background: var(--color-bg);
   text-decoration: none;
 }
