@@ -1,10 +1,78 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setIsLoading(true);
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 800));
+    setIsSubscribed(true);
+    setIsLoading(false);
+    setEmail('');
+  };
+
   return (
     <footer className="footer">
       <div className="footer-container">
+        {/* Newsletter Section */}
+        <div className="footer-newsletter">
+          <h3>Join the Club</h3>
+          <p>Get early access to new drops, exclusive deals, and vintage finds delivered to your inbox.</p>
+
+          {isSubscribed ? (
+            <div className="newsletter-success">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>You're in! Check your inbox for a welcome surprise.</span>
+            </div>
+          ) : (
+            <form onSubmit={handleNewsletterSubmit} className="newsletter-form">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                required
+              />
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? 'Joining...' : 'Subscribe'}
+              </button>
+            </form>
+          )}
+        </div>
+
+        {/* Footer Links */}
+        <div className="footer-links">
+          <div className="footer-column">
+            <h4>Shop</h4>
+            <Link to="/shop">All Products</Link>
+            <Link to="/collections">Collections</Link>
+            <Link to="/shop?category=new">New Arrivals</Link>
+          </div>
+          <div className="footer-column">
+            <h4>Help</h4>
+            <Link to="/about">About Us</Link>
+            <Link to="/contact">Contact</Link>
+            <Link to="/faq">FAQ</Link>
+          </div>
+          <div className="footer-column">
+            <h4>Account</h4>
+            <Link to="/login">Sign In</Link>
+            <Link to="/register">Create Account</Link>
+            <Link to="/wishlist">Saved Items</Link>
+          </div>
+        </div>
+
+        {/* Social Links */}
         <div className="footer-social">
           <a
             href="https://instagram.com/forgottenessentials"

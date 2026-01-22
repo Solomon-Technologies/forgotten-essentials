@@ -1,0 +1,307 @@
+{% comment %}
+  Customer Login Page - Grunge Style
+{% endcomment %}
+
+<main class="login-page">
+  <div class="login-container">
+    <h1>Sign In</h1>
+    <p class="login-subtitle">Welcome back to {{ shop.name }}</p>
+
+    {% form 'customer_login', class: 'login-form' %}
+      {{ form.errors | default_errors }}
+
+      <div class="form-group">
+        <label for="CustomerEmail">Email</label>
+        <input
+          type="email"
+          name="customer[email]"
+          id="CustomerEmail"
+          autocomplete="email"
+          autocapitalize="off"
+          placeholder="your@email.com"
+          {% if form.errors contains 'form' %}
+            class="input-error"
+          {% endif %}
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="CustomerPassword">Password</label>
+        <input
+          type="password"
+          name="customer[password]"
+          id="CustomerPassword"
+          autocomplete="current-password"
+          placeholder="Your password"
+        >
+      </div>
+
+      <a href="#recover" class="forgot-password-link" data-toggle-recover>
+        Forgot your password?
+      </a>
+
+      <button type="submit" class="login-btn">
+        Sign In
+      </button>
+    {% endform %}
+
+    <div class="login-divider">
+      <span>or</span>
+    </div>
+
+    <p class="register-prompt">
+      Don't have an account?
+      <a href="{{ routes.account_register_url }}" class="register-link">
+        Create one
+      </a>
+    </p>
+  </div>
+
+  <!-- Password Recovery Form -->
+  <div id="recover" class="login-container recover-form" style="display: none;">
+    <h1>Reset Password</h1>
+    <p class="login-subtitle">We'll send you an email to reset your password.</p>
+
+    {% form 'recover_customer_password', class: 'login-form' %}
+      {{ form.errors | default_errors }}
+
+      {% if form.posted_successfully? %}
+        <div class="success-message">
+          We've sent you an email with a link to update your password.
+        </div>
+      {% else %}
+        <div class="form-group">
+          <label for="RecoverEmail">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="RecoverEmail"
+            autocomplete="email"
+            autocapitalize="off"
+            placeholder="your@email.com"
+          >
+        </div>
+
+        <button type="submit" class="login-btn">
+          Send Reset Link
+        </button>
+      {% endif %}
+    {% endform %}
+
+    <a href="#" class="back-to-login" data-toggle-login>Back to login</a>
+  </div>
+</main>
+
+<style>
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  background: var(--color-cream, #f5f0e8);
+}
+
+.login-container {
+  width: 100%;
+  max-width: 420px;
+  background: var(--color-paper, #fff);
+  padding: 48px 40px;
+  border: 2px solid var(--color-ink, #1a1a1a);
+  box-shadow: 6px 6px 0 var(--color-ink, #1a1a1a);
+}
+
+.login-container h1 {
+  font-family: var(--font-heading-family);
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.login-subtitle {
+  text-align: center;
+  color: var(--color-muted, #666);
+  margin-bottom: 32px;
+  font-size: 1rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-group input {
+  padding: 14px 16px;
+  font-size: 1rem;
+  border: 2px solid var(--color-ink, #1a1a1a);
+  background: var(--color-cream, #f5f0e8);
+  font-family: inherit;
+  transition: box-shadow 0.2s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  box-shadow: 4px 4px 0 var(--color-ink, #1a1a1a);
+}
+
+.form-group input::placeholder {
+  color: var(--color-muted, #666);
+}
+
+.form-group input.input-error {
+  border-color: #b91c1c;
+}
+
+.forgot-password-link {
+  align-self: flex-end;
+  font-size: 0.85rem;
+  color: var(--color-muted, #666);
+  text-decoration: underline;
+  margin-top: -8px;
+}
+
+.forgot-password-link:hover {
+  color: var(--color-ink, #1a1a1a);
+}
+
+.login-btn {
+  padding: 16px 32px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--color-ink, #1a1a1a);
+  color: var(--color-cream, #f5f0e8);
+  border: 2px solid var(--color-ink, #1a1a1a);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.login-btn:hover {
+  background: var(--color-cream, #f5f0e8);
+  color: var(--color-ink, #1a1a1a);
+  box-shadow: 4px 4px 0 var(--color-ink, #1a1a1a);
+}
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  margin: 32px 0;
+  gap: 16px;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: var(--color-ink, #1a1a1a);
+  opacity: 0.2;
+}
+
+.login-divider span {
+  font-size: 0.85rem;
+  color: var(--color-muted, #666);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.register-prompt {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--color-muted, #666);
+}
+
+.register-link {
+  color: var(--color-ink, #1a1a1a);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.register-link:hover {
+  text-decoration: none;
+}
+
+.recover-form {
+  position: absolute;
+}
+
+.back-to-login {
+  display: block;
+  text-align: center;
+  margin-top: 24px;
+  color: var(--color-ink, #1a1a1a);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.success-message {
+  background: #dcfce7;
+  color: #166534;
+  padding: 16px;
+  border: 2px solid #166534;
+  text-align: center;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 32px 24px;
+  }
+
+  .login-container h1 {
+    font-size: 2rem;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const recoverToggle = document.querySelector('[data-toggle-recover]');
+  const loginToggle = document.querySelector('[data-toggle-login]');
+  const loginForm = document.querySelector('.login-container:not(.recover-form)');
+  const recoverForm = document.querySelector('.recover-form');
+
+  if (recoverToggle) {
+    recoverToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      loginForm.style.display = 'none';
+      recoverForm.style.display = 'block';
+      recoverForm.style.position = 'relative';
+    });
+  }
+
+  if (loginToggle) {
+    loginToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      recoverForm.style.display = 'none';
+      loginForm.style.display = 'block';
+    });
+  }
+
+  // Check if we should show recover form (from URL hash)
+  if (window.location.hash === '#recover') {
+    loginForm.style.display = 'none';
+    recoverForm.style.display = 'block';
+    recoverForm.style.position = 'relative';
+  }
+});
+</script>

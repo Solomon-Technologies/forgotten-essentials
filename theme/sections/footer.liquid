@@ -1,10 +1,67 @@
 {% comment %}
-  Footer Section - Grunge Simplified Style
-  Only social icons and copyright
+  Footer Section - Grunge Style with Newsletter
+  Newsletter signup, navigation links, social icons and copyright
 {% endcomment %}
 
 <footer class="footer">
   <div class="footer-container">
+    <!-- Newsletter Section -->
+    <div class="footer-newsletter">
+      <h3>{{ section.settings.newsletter_title | default: 'Join the Club' }}</h3>
+      <p>{{ section.settings.newsletter_text | default: 'Get early access to new drops, exclusive deals, and vintage finds delivered to your inbox.' }}</p>
+
+      {% form 'customer', class: 'newsletter-form' %}
+        {{ form.errors | default_errors }}
+        {% if form.posted_successfully? %}
+          <div class="newsletter-success">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>You're in! Check your inbox for a welcome surprise.</span>
+          </div>
+        {% else %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input
+            type="email"
+            name="contact[email]"
+            placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter your email' }}"
+            required
+            autocomplete="email"
+          >
+          <button type="submit">{{ section.settings.newsletter_button | default: 'Subscribe' }}</button>
+        {% endif %}
+      {% endform %}
+    </div>
+
+    <!-- Footer Links -->
+    <div class="footer-links">
+      <div class="footer-column">
+        <h4>Shop</h4>
+        <a href="{{ routes.all_products_collection_url }}">All Products</a>
+        <a href="{{ routes.collections_url }}">Collections</a>
+        <a href="/collections/new-arrivals">New Arrivals</a>
+      </div>
+      <div class="footer-column">
+        <h4>Help</h4>
+        <a href="/pages/about">About Us</a>
+        <a href="/pages/contact">Contact</a>
+        <a href="/pages/faq">FAQ</a>
+      </div>
+      <div class="footer-column">
+        <h4>Account</h4>
+        {% if customer %}
+          <a href="{{ routes.account_url }}">My Account</a>
+          <a href="/pages/wishlist">Saved Items</a>
+          <a href="{{ routes.account_logout_url }}">Sign Out</a>
+        {% else %}
+          <a href="{{ routes.account_login_url }}">Sign In</a>
+          <a href="{{ routes.account_register_url }}">Create Account</a>
+          <a href="/pages/wishlist">Saved Items</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Social Links -->
     <div class="footer-social">
       {% if section.settings.social_instagram != blank %}
         <a
@@ -53,17 +110,132 @@
 <style>
 .footer {
   background: var(--color-bg);
-  padding: 2rem 0;
+  padding: 4rem 3rem 2rem;
   margin-top: auto;
-  border-top: 2px solid var(--color-border);
+  border-top: 3px solid var(--color-border);
 }
 
 .footer-container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
 }
 
+/* Newsletter Section */
+.footer-newsletter {
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto 48px;
+  padding-bottom: 48px;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.footer-newsletter h3 {
+  font-family: var(--font-heading-family);
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.footer-newsletter p {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 0;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.newsletter-form input[type="email"] {
+  flex: 1;
+  padding: 14px 18px;
+  font-size: 1rem;
+  border: 2px solid var(--color-ink, #1a1a1a);
+  border-right: none;
+  background: var(--color-cream, #f5f0e8);
+  font-family: inherit;
+}
+
+.newsletter-form input[type="email"]:focus {
+  outline: none;
+  background: var(--color-paper, #fff);
+}
+
+.newsletter-form input[type="email"]::placeholder {
+  color: var(--color-muted);
+}
+
+.newsletter-form button {
+  padding: 14px 24px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--color-ink, #1a1a1a);
+  color: var(--color-cream, #f5f0e8);
+  border: 2px solid var(--color-ink, #1a1a1a);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.newsletter-form button:hover {
+  background: var(--color-cream, #f5f0e8);
+  color: var(--color-ink, #1a1a1a);
+}
+
+.newsletter-success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 2px solid #166534;
+}
+
+/* Footer Links */
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.footer-column h4 {
+  font-family: var(--font-heading-family);
+  font-size: 0.9rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.footer-column a {
+  display: block;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: color 0.2s ease;
+}
+
+.footer-column a:hover {
+  color: var(--color-ink, #1a1a1a);
+}
+
+/* Social Links */
 .footer-social {
   display: flex;
   gap: 1.5rem;
@@ -101,13 +273,35 @@
   margin: 0;
   text-transform: none;
   letter-spacing: 0;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 3rem 1.5rem 2rem;
+  }
+
+  .footer-newsletter h3 {
+    font-size: 1.5rem;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-form input[type="email"] {
+    border-right: 2px solid var(--color-ink, #1a1a1a);
+    border-bottom: none;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 24px;
+  }
 }
 
 @media (max-width: 640px) {
-  .footer {
-    padding: 1.5rem;
-  }
-
   .social-link {
     width: 42px;
     height: 42px;
@@ -121,6 +315,34 @@
   "tag": "footer",
   "class": "footer",
   "settings": [
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "Join the Club"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_text",
+      "label": "Newsletter Text",
+      "default": "Get early access to new drops, exclusive deals, and vintage finds delivered to your inbox."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Email Placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button",
+      "label": "Button Text",
+      "default": "Subscribe"
+    },
     {
       "type": "header",
       "content": "Social Media"

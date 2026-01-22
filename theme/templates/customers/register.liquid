@@ -1,0 +1,260 @@
+{% comment %}
+  Customer Registration Page - Grunge Style
+{% endcomment %}
+
+<main class="register-page">
+  <div class="register-container">
+    <h1>Create Account</h1>
+    <p class="register-subtitle">Join {{ shop.name }}</p>
+
+    {% form 'create_customer', class: 'register-form' %}
+      {{ form.errors | default_errors }}
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="FirstName">First Name *</label>
+          <input
+            type="text"
+            name="customer[first_name]"
+            id="FirstName"
+            autocomplete="given-name"
+            placeholder="First name"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="LastName">Last Name</label>
+          <input
+            type="text"
+            name="customer[last_name]"
+            id="LastName"
+            autocomplete="family-name"
+            placeholder="Last name"
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="Email">Email *</label>
+        <input
+          type="email"
+          name="customer[email]"
+          id="Email"
+          autocomplete="email"
+          autocapitalize="off"
+          placeholder="your@email.com"
+          {% if form.errors contains 'email' %}
+            class="input-error"
+          {% endif %}
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="Password">Password *</label>
+        <input
+          type="password"
+          name="customer[password]"
+          id="Password"
+          autocomplete="new-password"
+          placeholder="At least 5 characters"
+          {% if form.errors contains 'password' %}
+            class="input-error"
+          {% endif %}
+        >
+      </div>
+
+      <p class="register-terms">
+        By creating an account, you agree to our
+        <a href="/policies/terms-of-service">Terms of Service</a> and
+        <a href="/policies/privacy-policy">Privacy Policy</a>.
+      </p>
+
+      <button type="submit" class="register-btn">
+        Create Account
+      </button>
+    {% endform %}
+
+    <div class="register-divider">
+      <span>or</span>
+    </div>
+
+    <p class="login-prompt">
+      Already have an account?
+      <a href="{{ routes.account_login_url }}" class="login-link">
+        Sign in
+      </a>
+    </p>
+  </div>
+</main>
+
+<style>
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  background: var(--color-cream, #f5f0e8);
+}
+
+.register-container {
+  width: 100%;
+  max-width: 480px;
+  background: var(--color-paper, #fff);
+  padding: 48px 40px;
+  border: 2px solid var(--color-ink, #1a1a1a);
+  box-shadow: 6px 6px 0 var(--color-ink, #1a1a1a);
+}
+
+.register-container h1 {
+  font-family: var(--font-heading-family);
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.register-subtitle {
+  text-align: center;
+  color: var(--color-muted, #666);
+  margin-bottom: 32px;
+  font-size: 1rem;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-group input {
+  padding: 14px 16px;
+  font-size: 1rem;
+  border: 2px solid var(--color-ink, #1a1a1a);
+  background: var(--color-cream, #f5f0e8);
+  font-family: inherit;
+  transition: box-shadow 0.2s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  box-shadow: 4px 4px 0 var(--color-ink, #1a1a1a);
+}
+
+.form-group input::placeholder {
+  color: var(--color-muted, #666);
+}
+
+.form-group input.input-error {
+  border-color: #b91c1c;
+}
+
+.register-terms {
+  font-size: 0.85rem;
+  color: var(--color-muted, #666);
+  line-height: 1.5;
+}
+
+.register-terms a {
+  color: var(--color-ink, #1a1a1a);
+  text-decoration: underline;
+}
+
+.register-terms a:hover {
+  text-decoration: none;
+}
+
+.register-btn {
+  padding: 16px 32px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--color-ink, #1a1a1a);
+  color: var(--color-cream, #f5f0e8);
+  border: 2px solid var(--color-ink, #1a1a1a);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.register-btn:hover {
+  background: var(--color-cream, #f5f0e8);
+  color: var(--color-ink, #1a1a1a);
+  box-shadow: 4px 4px 0 var(--color-ink, #1a1a1a);
+}
+
+.register-divider {
+  display: flex;
+  align-items: center;
+  margin: 32px 0;
+  gap: 16px;
+}
+
+.register-divider::before,
+.register-divider::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: var(--color-ink, #1a1a1a);
+  opacity: 0.2;
+}
+
+.register-divider span {
+  font-size: 0.85rem;
+  color: var(--color-muted, #666);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.login-prompt {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--color-muted, #666);
+}
+
+.login-link {
+  color: var(--color-ink, #1a1a1a);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.login-link:hover {
+  text-decoration: none;
+}
+
+@media (max-width: 480px) {
+  .register-container {
+    padding: 32px 24px;
+  }
+
+  .register-container h1 {
+    font-size: 2rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

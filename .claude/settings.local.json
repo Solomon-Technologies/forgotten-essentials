@@ -29,7 +29,9 @@
       "Bash(move /Y \"Forgotten Essentials-1.0.0.zip\" \"../forgotten-essentials-theme.zip\")",
       "Bash(npm run dev:*)",
       "Bash(npm install:*)",
-      "Bash(node convert-heic.js:*)"
+      "Bash(node convert-heic.js:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx tsc:*)"
     ],
     "deny": [],
     "ask": []

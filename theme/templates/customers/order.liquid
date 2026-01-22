@@ -1,0 +1,329 @@
+{% comment %}
+  Customer Order Details Page - Grunge Style
+{% endcomment %}
+
+<main class="order-page">
+  <div class="order-container">
+    <div class="order-header">
+      <div>
+        <a href="{{ routes.account_url }}" class="back-link">&larr; Back to Account</a>
+        <h1>Order {{ order.name }}</h1>
+        <p class="order-date">Placed on {{ order.created_at | date: "%B %d, %Y at %I:%M %p" }}</p>
+      </div>
+      <span class="order-status status-{{ order.fulfillment_status | default: 'unfulfilled' | handleize }}">
+        {{ order.fulfillment_status_label | default: 'Unfulfilled' }}
+      </span>
+    </div>
+
+    <div class="order-grid">
+      <!-- Order Items -->
+      <section class="account-section order-items">
+        <h2>Items</h2>
+        <div class="items-list">
+          {% for line_item in order.line_items %}
+            <div class="order-item">
+              <div class="item-image">
+                {% if line_item.image %}
+                  <img src="{{ line_item.image | img_url: '120x120' }}" alt="{{ line_item.title }}">
+                {% else %}
+                  <div class="no-image"></div>
+                {% endif %}
+              </div>
+              <div class="item-details">
+                <h3 class="item-title">{{ line_item.title }}</h3>
+                {% if line_item.variant.title != 'Default Title' %}
+                  <p class="item-variant">{{ line_item.variant.title }}</p>
+                {% endif %}
+                <p class="item-sku">SKU: {{ line_item.sku | default: 'N/A' }}</p>
+              </div>
+              <div class="item-quantity">
+                <span>Qty: {{ line_item.quantity }}</span>
+              </div>
+              <div class="item-price">
+                {{ line_item.final_line_price | money }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+
+      <!-- Order Summary -->
+      <section class="account-section order-summary">
+        <h2>Summary</h2>
+        <div class="summary-rows">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>{{ order.line_items_subtotal_price | money }}</span>
+          </div>
+          {% for discount in order.discounts %}
+            <div class="summary-row discount">
+              <span>Discount ({{ discount.code }})</span>
+              <span>-{{ discount.savings | money }}</span>
+            </div>
+          {% endfor %}
+          {% for shipping_method in order.shipping_methods %}
+            <div class="summary-row">
+              <span>Shipping ({{ shipping_method.title }})</span>
+              <span>{{ shipping_method.price | money }}</span>
+            </div>
+          {% endfor %}
+          <div class="summary-row">
+            <span>Tax</span>
+            <span>{{ order.tax_price | money }}</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total</span>
+            <span>{{ order.total_price | money }} {{ order.currency }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Shipping Address -->
+      <section class="account-section shipping-address">
+        <h2>Shipping Address</h2>
+        {% if order.shipping_address %}
+          <address>
+            <p>{{ order.shipping_address.first_name }} {{ order.shipping_address.last_name }}</p>
+            {% if order.shipping_address.company != blank %}
+              <p>{{ order.shipping_address.company }}</p>
+            {% endif %}
+            <p>{{ order.shipping_address.address1 }}</p>
+            {% if order.shipping_address.address2 != blank %}
+              <p>{{ order.shipping_address.address2 }}</p>
+            {% endif %}
+            <p>{{ order.shipping_address.city }}, {{ order.shipping_address.province_code }} {{ order.shipping_address.zip }}</p>
+            <p>{{ order.shipping_address.country }}</p>
+            {% if order.shipping_address.phone != blank %}
+              <p>{{ order.shipping_address.phone }}</p>
+            {% endif %}
+          </address>
+        {% else %}
+          <p class="empty-message">No shipping address provided.</p>
+        {% endif %}
+      </section>
+
+      <!-- Billing Address -->
+      <section class="account-section billing-address">
+        <h2>Billing Address</h2>
+        {% if order.billing_address %}
+          <address>
+            <p>{{ order.billing_address.first_name }} {{ order.billing_address.last_name }}</p>
+            {% if order.billing_address.company != blank %}
+              <p>{{ order.billing_address.company }}</p>
+            {% endif %}
+            <p>{{ order.billing_address.address1 }}</p>
+            {% if order.billing_address.address2 != blank %}
+              <p>{{ order.billing_address.address2 }}</p>
+            {% endif %}
+            <p>{{ order.billing_address.city }}, {{ order.billing_address.province_code }} {{ order.billing_address.zip }}</p>
+            <p>{{ order.billing_address.country }}</p>
+          </address>
+        {% else %}
+          <p class="empty-message">No billing address provided.</p>
+        {% endif %}
+      </section>
+    </div>
+  </div>
+</main>
+
+<style>
+.order-page {
+  min-height: 100vh;
+  padding: 120px 20px 80px;
+  background: var(--color-cream, #f5f0e8);
+}
+
+.order-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--color-ink, #1a1a1a);
+}
+
+.back-link {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-ink, #1a1a1a);
+  text-decoration: none;
+  margin-bottom: 16px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.order-header h1 {
+  font-family: var(--font-heading-family);
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.order-date {
+  color: var(--color-muted, #666);
+  font-size: 0.95rem;
+}
+
+.order-status {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.status-fulfilled {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-unfulfilled {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.order-grid {
+  display: grid;
+  gap: 32px;
+}
+
+.account-section {
+  background: var(--color-paper, #fff);
+  padding: 32px;
+  border: 2px solid var(--color-ink, #1a1a1a);
+}
+
+.account-section h2 {
+  font-family: var(--font-heading-family);
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+/* Order Items */
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.order-item {
+  display: grid;
+  grid-template-columns: 80px 1fr auto auto;
+  gap: 20px;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.order-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.item-image img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border: 2px solid var(--color-ink, #1a1a1a);
+}
+
+.no-image {
+  width: 80px;
+  height: 80px;
+  background: var(--color-cream, #f5f0e8);
+  border: 2px solid var(--color-ink, #1a1a1a);
+}
+
+.item-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.item-variant,
+.item-sku {
+  font-size: 0.85rem;
+  color: var(--color-muted, #666);
+  margin: 0;
+}
+
+.item-quantity {
+  font-size: 0.9rem;
+  color: var(--color-muted, #666);
+}
+
+.item-price {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* Order Summary */
+.summary-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+}
+
+.summary-row.discount {
+  color: #166534;
+}
+
+.summary-row.total {
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding-top: 12px;
+  margin-top: 8px;
+  border-top: 2px solid var(--color-ink, #1a1a1a);
+}
+
+/* Addresses */
+address {
+  font-style: normal;
+}
+
+address p {
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+}
+
+.empty-message {
+  color: var(--color-muted, #666);
+}
+
+@media (max-width: 768px) {
+  .order-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .order-header h1 {
+    font-size: 2rem;
+  }
+
+  .order-item {
+    grid-template-columns: 60px 1fr;
+  }
+
+  .item-quantity,
+  .item-price {
+    grid-column: 2;
+  }
+}
+</style>
