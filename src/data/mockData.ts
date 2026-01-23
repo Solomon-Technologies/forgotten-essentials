@@ -366,7 +366,7 @@ export const mockInstagramPosts = [
 // Mock hero content for preview mode
 export const mockHeroContent = {
   id: 'hero-1',
-  image: '/carhartt.jpg',
+  image: '/carhartt_cropped_again.jpg',
   title: 'Shop by Style',
   description: 'Vintage and secondhand clothing at prices that won\'t break the bank. Find your next favorite piece.',
   label: 'New Arrivals',
