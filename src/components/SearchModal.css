@@ -232,6 +232,7 @@
 @media (max-width: 768px) {
   .search-modal-overlay {
     padding-top: 0;
+    align-items: flex-start;
   }
 
   .search-modal {
@@ -239,9 +240,34 @@
     max-width: none;
     min-height: 100vh;
     border: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .search-form {
+    padding-top: env(safe-area-inset-top, 0);
+    background: var(--color-bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .search-input-wrapper {
+    padding: 1rem;
+  }
+
+  .search-close {
+    padding: 1rem;
+    min-width: 60px;
   }
 
   .search-results {
-    max-height: calc(100vh - 60px);
+    flex: 1;
+    max-height: none;
+    overflow-y: auto;
+  }
+
+  .search-suggestions {
+    padding: 1rem;
   }
 }
