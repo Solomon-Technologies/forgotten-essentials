@@ -3,8 +3,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 20px;
+  padding: calc(72px + var(--preview-banner-height, 0px) + var(--announcement-bar-height, 36px)) 20px 40px;
   background: var(--color-cream);
+}
+
+@media (max-width: 768px) {
+  .login-page {
+    padding-top: calc(52px + var(--preview-banner-height, 0px) + var(--announcement-bar-height, 36px));
+  }
 }
 
 .login-container {

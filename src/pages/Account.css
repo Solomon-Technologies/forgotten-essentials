@@ -1,7 +1,15 @@
 .account-page {
   min-height: 100vh;
-  padding: 120px 20px 80px;
+  padding: calc(72px + var(--preview-banner-height, 0px) + var(--announcement-bar-height, 36px) + 20px) 20px 80px;
   background: var(--color-cream);
+}
+
+@media (max-width: 768px) {
+  .account-page {
+    padding-top: calc(52px + var(--preview-banner-height, 0px) + var(--announcement-bar-height, 36px) + 20px);
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 
 .account-loading {

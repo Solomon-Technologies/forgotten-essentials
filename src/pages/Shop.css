@@ -1,5 +1,5 @@
 .shop {
-  padding-top: calc(60px + var(--preview-banner-height, 0px));
+  padding-top: calc(72px + var(--preview-banner-height, 0px) + var(--announcement-bar-height, 36px));
   min-height: 100vh;
 }
 
@@ -152,6 +152,10 @@
 }
 
 @media (max-width: 768px) {
+  .shop {
+    padding-top: calc(52px + var(--preview-banner-height, 0px) + var(--announcement-bar-height, 36px));
+  }
+
   .shop-container {
     display: block;
     padding: 1.5rem;
