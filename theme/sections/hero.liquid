@@ -195,29 +195,50 @@
 @media (max-width: 640px) {
   .hero {
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
     min-height: auto;
+    margin-top: calc(56px + var(--announcement-bar-height, 36px));
   }
 
   .hero-image {
-    height: 50vh;
+    order: -1;
+    height: 45vh;
+    min-height: 280px;
   }
 
   .hero-content {
-    padding: 2rem 1.5rem;
+    padding: 1.5rem;
+    justify-content: flex-start;
+  }
+
+  .hero-label {
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
   }
 
   .hero-description {
-    display: none;
+    display: block;
+    font-size: 0.875rem;
+    margin-bottom: 1.25rem;
+    max-width: 100%;
   }
 
   .hero-actions {
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
+    gap: 0.75rem;
   }
 
   .hero .btn-primary,
   .hero .btn-secondary {
+    flex: 1;
     text-align: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
   }
 }
 </style>
