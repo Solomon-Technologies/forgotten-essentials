@@ -231,14 +231,14 @@
 /* Mobile */
 @media (max-width: 768px) {
   .search-modal-overlay {
-    padding-top: 0;
+    padding-top: calc(var(--preview-banner-height, 0px) + var(--announcement-bar-height, 36px));
     align-items: flex-start;
   }
 
   .search-modal {
     margin: 0;
     max-width: none;
-    min-height: 100vh;
+    min-height: calc(100vh - var(--preview-banner-height, 0px) - var(--announcement-bar-height, 36px));
     border: none;
     display: flex;
     flex-direction: column;
@@ -250,15 +250,17 @@
     position: sticky;
     top: 0;
     z-index: 10;
+    border-bottom: 2px solid var(--color-border);
   }
 
   .search-input-wrapper {
-    padding: 1rem;
+    padding: 0.875rem 1rem;
   }
 
   .search-close {
-    padding: 1rem;
-    min-width: 60px;
+    padding: 0.875rem 1rem;
+    min-width: 70px;
+    font-size: 0.8rem;
   }
 
   .search-results {
