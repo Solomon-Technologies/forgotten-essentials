@@ -107,7 +107,7 @@
 
 @media (max-width: 768px) {
   .wishlist-page {
-    padding: 100px 16px 60px;
+    padding: calc(52px + var(--preview-banner-height, 0px) + var(--announcement-bar-height, 36px) + 20px) 16px 60px;
   }
 
   .wishlist-header {
