@@ -342,7 +342,7 @@
   }
 
   .home {
-    padding-top: calc(56px + var(--preview-banner-height, 0px) + var(--announcement-bar-height, 36px));
+    padding-top: calc(52px + var(--preview-banner-height, 0px) + var(--announcement-bar-height, 36px));
   }
 
   .categories {
