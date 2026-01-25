@@ -12,6 +12,7 @@ export default function Header() {
   const { totalItems: wishlistItems } = useWishlist();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
@@ -26,14 +27,55 @@ export default function Header() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Close mobile menu on route change or resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   const handleLogout = () => {
     logout();
     setIsAccountDropdownOpen(false);
+    setIsMobileMenuOpen(false);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
   };
 
   return (
     <header className="header">
       <div className="header-container">
+        {/* Mobile hamburger button */}
+        <button
+          className="mobile-menu-btn"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Menu"
+        >
+          <span className={`hamburger ${isMobileMenuOpen ? 'open' : ''}`}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+
         <div className="header-left">
           <nav className="nav-links">
             <Link to="/shop">Shop</Link>
@@ -67,14 +109,14 @@ export default function Header() {
             </svg>
           </button>
 
-          <Link to="/wishlist" className="wishlist-link" aria-label="Wishlist">
+          <Link to="/wishlist" className="wishlist-link desktop-only" aria-label="Wishlist">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
             </svg>
             {wishlistItems > 0 && <span className="wishlist-count">{wishlistItems}</span>}
           </Link>
 
-          <div className="account-dropdown-wrapper" ref={dropdownRef}>
+          <div className="account-dropdown-wrapper desktop-only" ref={dropdownRef}>
             <button
               className="account-btn"
               aria-label="Account"
@@ -131,6 +173,35 @@ export default function Header() {
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu Drawer */}
+      <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+        <nav className="mobile-nav">
+          <Link to="/shop" onClick={closeMobileMenu}>Shop</Link>
+          <Link to="/collections" onClick={closeMobileMenu}>Collections</Link>
+          <Link to="/about" onClick={closeMobileMenu}>About</Link>
+          <Link to="/wishlist" onClick={closeMobileMenu}>
+            Saved Items {wishlistItems > 0 && `(${wishlistItems})`}
+          </Link>
+          {isAuthenticated ? (
+            <>
+              <Link to="/account" onClick={closeMobileMenu}>My Account</Link>
+              <button onClick={handleLogout} className="mobile-logout">Sign Out</button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" onClick={closeMobileMenu}>Sign In</Link>
+              <Link to="/register" onClick={closeMobileMenu}>Create Account</Link>
+            </>
+          )}
+        </nav>
+      </div>
+
+      {/* Mobile menu overlay */}
+      {isMobileMenuOpen && (
+        <div className="mobile-menu-overlay" onClick={closeMobileMenu}></div>
+      )}
+
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   );
