@@ -124,20 +124,39 @@
         {% endif %}
       </div>
     {% else %}
-      <!-- No Posts -->
-      <div class="blog-empty">
-        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="16" x2="8" y1="13" y2="13"/>
-          <line x1="16" x2="8" y1="17" y2="17"/>
-          <line x1="10" x2="8" y1="9" y2="9"/>
-        </svg>
-        <h2>No posts yet</h2>
-        <p>Check back soon for updates and stories.</p>
-        <a href="/" class="btn-primary">
-          Back to Home
-        </a>
+      <!-- Placeholder Posts (shown when no actual posts exist) -->
+      <div class="blog-articles blog-articles--placeholder">
+        <div class="articles-grid">
+          {% for i in (1..6) %}
+            <article class="article-card article-card--placeholder">
+              <div class="article-image placeholder-image">
+                <div class="placeholder-shimmer"></div>
+              </div>
+              <div class="article-content">
+                <div class="article-tags">
+                  <span class="article-tag placeholder-tag">Category</span>
+                </div>
+                <h2 class="article-title">
+                  <span class="placeholder-text">Blog Post Title Coming Soon</span>
+                </h2>
+                <div class="article-meta">
+                  <span class="article-author">Author Name</span>
+                  <span class="article-date">Coming Soon</span>
+                </div>
+                <div class="article-excerpt">
+                  <span class="placeholder-text">Stay tuned for exciting content about vintage fashion, styling tips, and behind-the-scenes looks at our curated collection.</span>
+                </div>
+                <span class="article-read-more placeholder-link">
+                  Coming Soon →
+                </span>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+
+        <div class="blog-placeholder-message">
+          <p>Blog posts are coming soon! Check back for styling tips, vintage fashion insights, and more.</p>
+        </div>
       </div>
     {% endif %}
   </div>
@@ -456,5 +475,75 @@
   .blog-header {
     padding: 2rem 1rem 1.5rem;
   }
+}
+
+/* Placeholder Styles */
+.blog-articles--placeholder {
+  grid-column: 1 / -1;
+}
+
+.article-card--placeholder {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.placeholder-image {
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.placeholder-shimmer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.placeholder-tag {
+  background: #e0e0e0 !important;
+  color: #999 !important;
+  border-color: #d0d0d0 !important;
+}
+
+.placeholder-text {
+  color: #888;
+}
+
+.placeholder-link {
+  color: #aaa !important;
+  cursor: default;
+}
+
+.blog-placeholder-message {
+  text-align: center;
+  padding: 3rem 2rem;
+  margin-top: 2rem;
+  border: 2px dashed var(--color-border);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.blog-placeholder-message p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
 }
 </style>

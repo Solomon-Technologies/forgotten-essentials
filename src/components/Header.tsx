@@ -85,7 +85,7 @@ export default function Header() {
         </div>
 
         <Link to="/" className="logo">
-          <img src="/Logo.jpg" alt="Forgotten Essentials" className="logo-image" />
+          <img src="/Logo.png" alt="Forgotten Essentials" className="logo-image" />
         </Link>
 
         <div className="header-right">

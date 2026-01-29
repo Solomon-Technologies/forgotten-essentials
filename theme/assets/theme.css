@@ -241,3 +241,210 @@ input, select, textarea {
     gap: 1rem;
   }
 }
+
+/* =============================================
+   INSTAFEED APP CUSTOM OVERRIDES
+   Grunge vintage styling for Instagram feed
+   ============================================= */
+
+/* Main container */
+#instafeed,
+.instafeed,
+.instafeed-container,
+[class*="instafeed"] {
+  padding: 2rem 0 !important;
+  background: transparent !important;
+}
+
+/* Grid layout - make it a nice scrolling row or grid */
+#instafeed,
+.instafeed__grid,
+.instafeed-grid {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 1rem !important;
+  overflow-x: auto !important;
+  padding: 0 2rem 1rem !important;
+  scroll-snap-type: x mandatory !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: thin !important;
+}
+
+/* Hide scrollbar but keep functionality */
+#instafeed::-webkit-scrollbar,
+.instafeed__grid::-webkit-scrollbar {
+  height: 6px;
+}
+
+#instafeed::-webkit-scrollbar-track,
+.instafeed__grid::-webkit-scrollbar-track {
+  background: var(--color-cream, #ebe6e1);
+}
+
+#instafeed::-webkit-scrollbar-thumb,
+.instafeed__grid::-webkit-scrollbar-thumb {
+  background: var(--color-border, #000);
+}
+
+/* Individual post items */
+#instafeed > a,
+#instafeed > div,
+.instafeed__item,
+.instafeed-item,
+[class*="instafeed"] a[href*="instagram"],
+.instafeed img {
+  flex-shrink: 0 !important;
+  width: 280px !important;
+  height: 280px !important;
+  scroll-snap-align: start !important;
+  border: 2px solid var(--color-border, #000) !important;
+  overflow: hidden !important;
+  position: relative !important;
+  display: block !important;
+  background: var(--color-cream, #f5f5f5) !important;
+}
+
+/* Images */
+#instafeed img,
+.instafeed__item img,
+.instafeed-item img,
+[class*="instafeed"] img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.3s ease, filter 0.3s ease !important;
+  border: none !important;
+}
+
+/* Hover effects - grunge style */
+#instafeed > a:hover img,
+#instafeed > div:hover img,
+.instafeed__item:hover img,
+.instafeed-item:hover img {
+  transform: scale(1.05) !important;
+  filter: contrast(1.1) !important;
+}
+
+/* Add overlay on hover */
+#instafeed > a::after,
+#instafeed > div > a::after,
+.instafeed__item::after,
+.instafeed-item::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  opacity: 0 !important;
+  transition: opacity 0.3s ease !important;
+  pointer-events: none !important;
+}
+
+#instafeed > a:hover::after,
+#instafeed > div:hover > a::after,
+.instafeed__item:hover::after,
+.instafeed-item:hover::after {
+  opacity: 1 !important;
+}
+
+/* Instagram icon on hover */
+#instafeed > a::before,
+.instafeed__item > a::before,
+.instafeed-item > a::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 40px !important;
+  height: 40px !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='20' x='2' y='2' rx='5' ry='5'%3E%3C/rect%3E%3Cpath d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z'%3E%3C/path%3E%3Cline x1='17.5' x2='17.51' y1='6.5' y2='6.5'%3E%3C/line%3E%3C/svg%3E") !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  opacity: 0 !important;
+  transition: opacity 0.3s ease !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+}
+
+#instafeed > a:hover::before,
+.instafeed__item:hover > a::before,
+.instafeed-item:hover > a::before {
+  opacity: 1 !important;
+}
+
+/* Section title styling if Instafeed adds one */
+.instafeed-title,
+.instafeed__title,
+[class*="instafeed"] h2,
+[class*="instafeed"] h3 {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+  margin-bottom: 2rem !important;
+  color: var(--color-text, #000) !important;
+}
+
+/* Follow button styling */
+.instafeed-follow,
+.instafeed__follow,
+[class*="instafeed"] a[href*="instagram.com/"]:not([href*="/p/"]) {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  padding: 0.75rem 1.5rem !important;
+  background: var(--color-text, #000) !important;
+  color: var(--color-bg, #fff) !important;
+  border: 2px solid var(--color-text, #000) !important;
+  font-size: 0.875rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.instafeed-follow:hover,
+.instafeed__follow:hover {
+  background: transparent !important;
+  color: var(--color-text, #000) !important;
+}
+
+/* Remove any default app branding/watermarks */
+.instafeed-branding,
+.instafeed__branding,
+[class*="instafeed"] [class*="powered"],
+[class*="instafeed"] [class*="brand"] {
+  display: none !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  #instafeed > a,
+  #instafeed > div,
+  .instafeed__item,
+  .instafeed-item {
+    width: 220px !important;
+    height: 220px !important;
+  }
+
+  #instafeed,
+  .instafeed__grid,
+  .instafeed-grid {
+    padding: 0 1rem 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #instafeed > a,
+  #instafeed > div,
+  .instafeed__item,
+  .instafeed-item {
+    width: 180px !important;
+    height: 180px !important;
+  }
+}
