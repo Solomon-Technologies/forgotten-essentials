@@ -253,61 +253,42 @@ input, select, textarea {
   100% { transform: translateX(-50%); }
 }
 
-/* Hide the Instafeed container overflow for carousel effect */
-#shopify-section-template--*__apps,
-[class*="shopify-section"] [class*="instafeed"],
-[id*="instafeed"],
-.instafeed-app,
-.insta-photos {
+/* Main container - hide overflow */
+#insta-feed,
+.instafeed-new-layout-container {
   overflow: hidden !important;
   padding: 0 !important;
 }
 
-/* Target the grid/container and convert to horizontal scroll */
-#shopify-section-template--*__apps > div,
-[class*="instafeed"] > div,
-[id*="instafeed"] > div,
-.instafeed-app > div,
-.insta-photos > div,
-[class*="instafeed"] [style*="grid"],
-[class*="instafeed"] [style*="flex"] {
+/* Convert grid to horizontal scrolling flex */
+.instafeed-new-layout-wrapper {
   display: flex !important;
   flex-wrap: nowrap !important;
   gap: 1rem !important;
   width: max-content !important;
   animation: instafeed-scroll 60s linear infinite !important;
-  grid-template-columns: none !important;
+  grid-template-columns: unset !important;
 }
 
-/* Pause animation on hover */
-#shopify-section-template--*__apps > div:hover,
-[class*="instafeed"] > div:hover,
-[id*="instafeed"] > div:hover,
-.instafeed-app > div:hover,
-.insta-photos > div:hover {
+/* Pause on hover */
+.instafeed-new-layout-wrapper:hover {
   animation-play-state: paused !important;
 }
 
-/* Style individual image links as squares with borders */
-[class*="instafeed"] a,
-[id*="instafeed"] a,
-.insta-photos a,
-.instafeed-app a {
+/* Individual items - 300x300 squares with borders */
+.instafeed-new-layout-item {
   flex-shrink: 0 !important;
   width: 300px !important;
   height: 300px !important;
   border: 2px solid var(--color-border, #000) !important;
   overflow: hidden !important;
   position: relative !important;
-  display: block !important;
-  margin: 0 !important;
+  clip-path: none !important;
 }
 
-/* Make images fill container with cover */
-[class*="instafeed"] img,
-[id*="instafeed"] img,
-.insta-photos img,
-.instafeed-app img {
+/* Images - fill container */
+.instafeed-lazy-image,
+#insta-feed img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
@@ -315,43 +296,34 @@ input, select, textarea {
   transition: transform 0.3s ease !important;
   border: none !important;
   max-width: none !important;
+  border-radius: 0 !important;
 }
 
 /* Hover zoom effect */
-[class*="instafeed"] a:hover img,
-[id*="instafeed"] a:hover img,
-.insta-photos a:hover img {
+.instafeed-new-layout-item:hover .instafeed-lazy-image {
   transform: scale(1.05) !important;
 }
 
-/* Hide app branding */
-[class*="instafeed"] [class*="powered"],
-[class*="instafeed"] [class*="brand"],
-[class*="instafeed"] [class*="logo"],
-.insta-photos [class*="powered"] {
-  display: none !important;
+/* Style the hover overlay */
+.instafeed-hover-layer {
+  background: rgba(0, 0, 0, 0.5) !important;
+  border-radius: 0 !important;
 }
 
 /* Mobile responsive */
 @media (max-width: 768px) {
-  [class*="instafeed"] a,
-  [id*="instafeed"] a,
-  .insta-photos a {
+  .instafeed-new-layout-item {
     width: 250px !important;
     height: 250px !important;
   }
 
-  [class*="instafeed"] > div,
-  [id*="instafeed"] > div,
-  .insta-photos > div {
+  .instafeed-new-layout-wrapper {
     animation-duration: 40s !important;
   }
 }
 
 @media (max-width: 480px) {
-  [class*="instafeed"] a,
-  [id*="instafeed"] a,
-  .insta-photos a {
+  .instafeed-new-layout-item {
     width: 200px !important;
     height: 200px !important;
   }
