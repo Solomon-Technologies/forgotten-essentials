@@ -200,7 +200,7 @@
 }
 
 .logo-image {
-  height: 55px;
+  height: {{ section.settings.logo_height }}px;
   width: auto;
   object-fit: contain;
 }
@@ -466,7 +466,7 @@
   }
 
   .logo-image {
-    height: 28px;
+    height: {{ section.settings.logo_height | divided_by: 2 | at_least: 25 }}px;
   }
 
   .header-right {
@@ -586,11 +586,11 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "range",
       "id": "logo_height",
       "min": 20,
-      "max": 80,
+      "max": 100,
       "step": 5,
       "unit": "px",
       "label": "Logo Height",
-      "default": 50
+      "default": 55
     },
     {
       "type": "header",
