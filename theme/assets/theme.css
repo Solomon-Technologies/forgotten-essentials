@@ -244,75 +244,29 @@ input, select, textarea {
 
 /* =============================================
    INSTAFEED APP CUSTOM OVERRIDES
-   Match the carousel style from instagram-feed.liquid
+   Style Instafeed images to match carousel look
    ============================================= */
 
-/* Keyframes for auto-scroll animation */
-@keyframes instafeed-scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-/* Target the Instafeed app container - hide overflow for carousel effect */
-.shopify-app-block,
-[id*="instafeed"],
-[class*="instafeed"],
-div[data-app="instafeed"],
-.instafeed-app,
-.instafeed-container {
-  overflow: hidden !important;
-  padding: 0 !important;
-  background: transparent !important;
-}
-
-/* Target the flex container holding all images */
-.shopify-app-block > div,
-[id*="instafeed"] > div,
-[class*="instafeed"] > div,
-div[data-app="instafeed"] > div,
-.instafeed-app > div {
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  gap: 1rem !important;
-  width: max-content !important;
-  animation: instafeed-scroll 60s linear infinite !important;
-  padding: 0 !important;
-}
-
-/* Pause on hover */
-.shopify-app-block > div:hover,
-[id*="instafeed"] > div:hover,
-[class*="instafeed"] > div:hover,
-div[data-app="instafeed"] > div:hover {
-  animation-play-state: paused !important;
-}
-
-/* Target individual image links - make them 300x300 squares with borders */
-.shopify-app-block a[href*="instagram"],
+/* Style Instafeed image links - add borders and make square */
 [id*="instafeed"] a,
-[class*="instafeed"] a[href*="instagram"],
-div[data-app="instafeed"] a,
-.instafeed-app a {
-  flex-shrink: 0 !important;
+[class*="instafeed"] a,
+.insta-photos a,
+.instafeed a {
+  display: inline-block !important;
   width: 300px !important;
   height: 300px !important;
   border: 2px solid var(--color-border, #000) !important;
   overflow: hidden !important;
   position: relative !important;
-  display: block !important;
+  margin: 0.5rem !important;
   background: var(--color-cream, #f5f5f5) !important;
 }
 
-/* Make images fill their container and cover */
-.shopify-app-block a[href*="instagram"] img,
+/* Make images fill their container */
 [id*="instafeed"] img,
-[class*="instafeed"] a img,
-div[data-app="instafeed"] img,
-.instafeed-app img {
+[class*="instafeed"] img,
+.insta-photos img,
+.instafeed img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
@@ -323,94 +277,36 @@ div[data-app="instafeed"] img,
 }
 
 /* Hover effect - scale image */
-.shopify-app-block a[href*="instagram"]:hover img,
 [id*="instafeed"] a:hover img,
 [class*="instafeed"] a:hover img,
-div[data-app="instafeed"] a:hover img {
+.insta-photos a:hover img,
+.instafeed a:hover img {
   transform: scale(1.05) !important;
-}
-
-/* Dark overlay on hover */
-.shopify-app-block a[href*="instagram"]::after,
-[id*="instafeed"] a::after,
-[class*="instafeed"] a[href*="instagram"]::after,
-div[data-app="instafeed"] a::after {
-  content: '' !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  background: rgba(0, 0, 0, 0.5) !important;
-  opacity: 0 !important;
-  transition: opacity 0.3s ease !important;
-  pointer-events: none !important;
-}
-
-.shopify-app-block a[href*="instagram"]:hover::after,
-[id*="instafeed"] a:hover::after,
-[class*="instafeed"] a[href*="instagram"]:hover::after,
-div[data-app="instafeed"] a:hover::after {
-  opacity: 1 !important;
-}
-
-/* Instagram icon on hover */
-.shopify-app-block a[href*="instagram"]::before,
-[id*="instafeed"] a::before,
-[class*="instafeed"] a[href*="instagram"]::before,
-div[data-app="instafeed"] a::before {
-  content: '' !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  width: 32px !important;
-  height: 32px !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='20' x='2' y='2' rx='5' ry='5'%3E%3C/rect%3E%3Cpath d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z'%3E%3C/path%3E%3Cline x1='17.5' x2='17.51' y1='6.5' y2='6.5'%3E%3C/line%3E%3C/svg%3E") !important;
-  background-size: contain !important;
-  background-repeat: no-repeat !important;
-  opacity: 0 !important;
-  transition: opacity 0.3s ease !important;
-  z-index: 2 !important;
-  pointer-events: none !important;
-}
-
-.shopify-app-block a[href*="instagram"]:hover::before,
-[id*="instafeed"] a:hover::before,
-[class*="instafeed"] a[href*="instagram"]:hover::before,
-div[data-app="instafeed"] a:hover::before {
-  opacity: 1 !important;
 }
 
 /* Hide app branding */
 [class*="instafeed"] [class*="powered"],
-[class*="instafeed"] [class*="brand"] {
+[class*="instafeed"] [class*="brand"],
+.insta-photos [class*="powered"] {
   display: none !important;
 }
 
 /* Mobile responsive */
 @media (max-width: 768px) {
-  .shopify-app-block a[href*="instagram"],
   [id*="instafeed"] a,
-  [class*="instafeed"] a[href*="instagram"],
-  div[data-app="instafeed"] a {
+  [class*="instafeed"] a,
+  .insta-photos a,
+  .instafeed a {
     width: 250px !important;
     height: 250px !important;
-  }
-
-  .shopify-app-block > div,
-  [id*="instafeed"] > div,
-  [class*="instafeed"] > div,
-  div[data-app="instafeed"] > div {
-    animation-duration: 40s !important;
   }
 }
 
 @media (max-width: 480px) {
-  .shopify-app-block a[href*="instagram"],
   [id*="instafeed"] a,
-  [class*="instafeed"] a[href*="instagram"],
-  div[data-app="instafeed"] a {
+  [class*="instafeed"] a,
+  .insta-photos a,
+  .instafeed a {
     width: 200px !important;
     height: 200px !important;
   }
