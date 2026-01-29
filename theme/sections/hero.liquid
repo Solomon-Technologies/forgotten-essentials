@@ -47,10 +47,10 @@
 .hero {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  min-height: calc(100vh - 72px - var(--announcement-bar-height, 36px));
+  min-height: calc(100vh - 70px - var(--announcement-bar-height, 36px));
   max-width: 100%;
   margin: 0;
-  margin-top: calc(72px + var(--announcement-bar-height, 36px));
+  margin-top: calc(70px + var(--announcement-bar-height, 36px));
 }
 
 .hero-content {
@@ -190,7 +190,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .hero {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
