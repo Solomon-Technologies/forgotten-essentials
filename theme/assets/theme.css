@@ -244,29 +244,70 @@ input, select, textarea {
 
 /* =============================================
    INSTAFEED APP CUSTOM OVERRIDES
-   Style Instafeed images to match carousel look
+   Convert grid to auto-scrolling carousel
    ============================================= */
 
-/* Style Instafeed image links - add borders and make square */
-[id*="instafeed"] a,
+/* Keyframes for auto-scroll */
+@keyframes instafeed-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Hide the Instafeed container overflow for carousel effect */
+#shopify-section-template--*__apps,
+[class*="shopify-section"] [class*="instafeed"],
+[id*="instafeed"],
+.instafeed-app,
+.insta-photos {
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+/* Target the grid/container and convert to horizontal scroll */
+#shopify-section-template--*__apps > div,
+[class*="instafeed"] > div,
+[id*="instafeed"] > div,
+.instafeed-app > div,
+.insta-photos > div,
+[class*="instafeed"] [style*="grid"],
+[class*="instafeed"] [style*="flex"] {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 1rem !important;
+  width: max-content !important;
+  animation: instafeed-scroll 60s linear infinite !important;
+  grid-template-columns: none !important;
+}
+
+/* Pause animation on hover */
+#shopify-section-template--*__apps > div:hover,
+[class*="instafeed"] > div:hover,
+[id*="instafeed"] > div:hover,
+.instafeed-app > div:hover,
+.insta-photos > div:hover {
+  animation-play-state: paused !important;
+}
+
+/* Style individual image links as squares with borders */
 [class*="instafeed"] a,
+[id*="instafeed"] a,
 .insta-photos a,
-.instafeed a {
-  display: inline-block !important;
+.instafeed-app a {
+  flex-shrink: 0 !important;
   width: 300px !important;
   height: 300px !important;
   border: 2px solid var(--color-border, #000) !important;
   overflow: hidden !important;
   position: relative !important;
-  margin: 0.5rem !important;
-  background: var(--color-cream, #f5f5f5) !important;
+  display: block !important;
+  margin: 0 !important;
 }
 
-/* Make images fill their container */
-[id*="instafeed"] img,
+/* Make images fill container with cover */
 [class*="instafeed"] img,
+[id*="instafeed"] img,
 .insta-photos img,
-.instafeed img {
+.instafeed-app img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
@@ -276,37 +317,41 @@ input, select, textarea {
   max-width: none !important;
 }
 
-/* Hover effect - scale image */
-[id*="instafeed"] a:hover img,
+/* Hover zoom effect */
 [class*="instafeed"] a:hover img,
-.insta-photos a:hover img,
-.instafeed a:hover img {
+[id*="instafeed"] a:hover img,
+.insta-photos a:hover img {
   transform: scale(1.05) !important;
 }
 
 /* Hide app branding */
 [class*="instafeed"] [class*="powered"],
 [class*="instafeed"] [class*="brand"],
+[class*="instafeed"] [class*="logo"],
 .insta-photos [class*="powered"] {
   display: none !important;
 }
 
 /* Mobile responsive */
 @media (max-width: 768px) {
-  [id*="instafeed"] a,
   [class*="instafeed"] a,
-  .insta-photos a,
-  .instafeed a {
+  [id*="instafeed"] a,
+  .insta-photos a {
     width: 250px !important;
     height: 250px !important;
+  }
+
+  [class*="instafeed"] > div,
+  [id*="instafeed"] > div,
+  .insta-photos > div {
+    animation-duration: 40s !important;
   }
 }
 
 @media (max-width: 480px) {
-  [id*="instafeed"] a,
   [class*="instafeed"] a,
-  .insta-photos a,
-  .instafeed a {
+  [id*="instafeed"] a,
+  .insta-photos a {
     width: 200px !important;
     height: 200px !important;
   }
