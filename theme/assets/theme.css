@@ -244,59 +244,65 @@ input, select, textarea {
 
 /* =============================================
    INSTAFEED APP CUSTOM OVERRIDES
-   Grunge vintage styling for Instagram feed
+   Auto-scrolling carousel style (matching instagram-feed.liquid)
    ============================================= */
 
-/* Main container */
+/* Keyframes for auto-scroll animation */
+@keyframes instafeed-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Main container - full width, hide overflow */
 #instafeed,
 .instafeed,
 .instafeed-container,
-[class*="instafeed"] {
-  padding: 2rem 0 !important;
+[class*="instafeed-app"],
+[class*="instafeed_"] {
+  padding: 4rem 0 !important;
+  overflow: hidden !important;
   background: transparent !important;
+  width: 100% !important;
 }
 
-/* Grid layout - make it a nice scrolling row or grid */
+/* Grid/Track - auto-scrolling carousel */
 #instafeed,
 .instafeed__grid,
-.instafeed-grid {
+.instafeed-grid,
+[class*="instafeed-app"] > div,
+[class*="instafeed_"] > div {
   display: flex !important;
   flex-wrap: nowrap !important;
   gap: 1rem !important;
-  overflow-x: auto !important;
-  padding: 0 2rem 1rem !important;
-  scroll-snap-type: x mandatory !important;
-  -webkit-overflow-scrolling: touch !important;
-  scrollbar-width: thin !important;
+  width: max-content !important;
+  animation: instafeed-scroll 60s linear infinite !important;
+  overflow: visible !important;
+  padding: 0 !important;
 }
 
-/* Hide scrollbar but keep functionality */
-#instafeed::-webkit-scrollbar,
-.instafeed__grid::-webkit-scrollbar {
-  height: 6px;
+/* Pause animation on hover */
+#instafeed:hover,
+.instafeed__grid:hover,
+.instafeed-grid:hover,
+[class*="instafeed-app"] > div:hover,
+[class*="instafeed_"] > div:hover {
+  animation-play-state: paused !important;
 }
 
-#instafeed::-webkit-scrollbar-track,
-.instafeed__grid::-webkit-scrollbar-track {
-  background: var(--color-cream, #ebe6e1);
-}
-
-#instafeed::-webkit-scrollbar-thumb,
-.instafeed__grid::-webkit-scrollbar-thumb {
-  background: var(--color-border, #000);
-}
-
-/* Individual post items */
+/* Individual post items - 300x300 squares */
 #instafeed > a,
-#instafeed > div,
+#instafeed > div:not([class*="instafeed"]),
 .instafeed__item,
 .instafeed-item,
-[class*="instafeed"] a[href*="instagram"],
-.instafeed img {
+[class*="instafeed-app"] a,
+[class*="instafeed_"] a {
   flex-shrink: 0 !important;
-  width: 280px !important;
-  height: 280px !important;
-  scroll-snap-align: start !important;
+  width: 300px !important;
+  height: 300px !important;
   border: 2px solid var(--color-border, #000) !important;
   overflow: hidden !important;
   position: relative !important;
@@ -304,63 +310,73 @@ input, select, textarea {
   background: var(--color-cream, #f5f5f5) !important;
 }
 
-/* Images */
+/* Images - fill container */
 #instafeed img,
 .instafeed__item img,
 .instafeed-item img,
-[class*="instafeed"] img {
+[class*="instafeed-app"] img,
+[class*="instafeed_"] img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
-  transition: transform 0.3s ease, filter 0.3s ease !important;
+  display: block !important;
+  transition: transform 0.3s ease !important;
   border: none !important;
 }
 
-/* Hover effects - grunge style */
+/* Hover effect - scale up */
 #instafeed > a:hover img,
 #instafeed > div:hover img,
 .instafeed__item:hover img,
-.instafeed-item:hover img {
+.instafeed-item:hover img,
+[class*="instafeed-app"] a:hover img,
+[class*="instafeed_"] a:hover img {
   transform: scale(1.05) !important;
-  filter: contrast(1.1) !important;
 }
 
-/* Add overlay on hover */
+/* Overlay on hover */
 #instafeed > a::after,
-#instafeed > div > a::after,
 .instafeed__item::after,
-.instafeed-item::after {
+.instafeed-item::after,
+[class*="instafeed-app"] a::after,
+[class*="instafeed_"] a::after {
   content: '' !important;
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
-  background: rgba(0, 0, 0, 0.4) !important;
+  background: rgba(0, 0, 0, 0.5) !important;
   opacity: 0 !important;
   transition: opacity 0.3s ease !important;
   pointer-events: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 #instafeed > a:hover::after,
-#instafeed > div:hover > a::after,
 .instafeed__item:hover::after,
-.instafeed-item:hover::after {
+.instafeed-item:hover::after,
+[class*="instafeed-app"] a:hover::after,
+[class*="instafeed_"] a:hover::after {
   opacity: 1 !important;
 }
 
 /* Instagram icon on hover */
 #instafeed > a::before,
-.instafeed__item > a::before,
-.instafeed-item > a::before {
+.instafeed__item::before,
+.instafeed-item::before,
+[class*="instafeed-app"] a::before,
+[class*="instafeed_"] a::before {
   content: '' !important;
   position: absolute !important;
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
-  width: 40px !important;
-  height: 40px !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='20' x='2' y='2' rx='5' ry='5'%3E%3C/rect%3E%3Cpath d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z'%3E%3C/path%3E%3Cline x1='17.5' x2='17.51' y1='6.5' y2='6.5'%3E%3C/line%3E%3C/svg%3E") !important;
+  width: 32px !important;
+  height: 32px !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='20' x='2' y='2' rx='5' ry='5'%3E%3C/rect%3E%3Cpath d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z'%3E%3C/path%3E%3Cline x1='17.5' x2='17.51' y1='6.5' y2='6.5'%3E%3C/line%3E%3C/svg%3E") !important;
   background-size: contain !important;
   background-repeat: no-repeat !important;
   opacity: 0 !important;
@@ -370,19 +386,21 @@ input, select, textarea {
 }
 
 #instafeed > a:hover::before,
-.instafeed__item:hover > a::before,
-.instafeed-item:hover > a::before {
+.instafeed__item:hover::before,
+.instafeed-item:hover::before,
+[class*="instafeed-app"] a:hover::before,
+[class*="instafeed_"] a:hover::before {
   opacity: 1 !important;
 }
 
-/* Section title styling if Instafeed adds one */
+/* Section title styling */
 .instafeed-title,
 .instafeed__title,
 [class*="instafeed"] h2,
 [class*="instafeed"] h3 {
   font-size: 1.25rem !important;
   font-weight: 700 !important;
-  letter-spacing: 0.15em !important;
+  letter-spacing: 0 !important;
   text-transform: uppercase !important;
   text-align: center !important;
   margin-bottom: 2rem !important;
@@ -392,7 +410,7 @@ input, select, textarea {
 /* Follow button styling */
 .instafeed-follow,
 .instafeed__follow,
-[class*="instafeed"] a[href*="instagram.com/"]:not([href*="/p/"]) {
+[class*="instafeed"] a[href*="instagram.com/"]:not([href*="/p/"]):not([href*="/reel/"]) {
   display: inline-flex !important;
   align-items: center !important;
   gap: 0.5rem !important;
@@ -402,7 +420,7 @@ input, select, textarea {
   border: 2px solid var(--color-text, #000) !important;
   font-size: 0.875rem !important;
   font-weight: 700 !important;
-  letter-spacing: 0.1em !important;
+  letter-spacing: 0 !important;
   text-transform: uppercase !important;
   text-decoration: none !important;
   transition: all 0.2s ease !important;
@@ -418,33 +436,40 @@ input, select, textarea {
 .instafeed-branding,
 .instafeed__branding,
 [class*="instafeed"] [class*="powered"],
-[class*="instafeed"] [class*="brand"] {
+[class*="instafeed"] [class*="brand"],
+[class*="instafeed"] [class*="logo"]:not(img) {
   display: none !important;
 }
 
 /* Mobile responsive */
 @media (max-width: 768px) {
   #instafeed > a,
-  #instafeed > div,
+  #instafeed > div:not([class*="instafeed"]),
   .instafeed__item,
-  .instafeed-item {
-    width: 220px !important;
-    height: 220px !important;
+  .instafeed-item,
+  [class*="instafeed-app"] a,
+  [class*="instafeed_"] a {
+    width: 250px !important;
+    height: 250px !important;
   }
 
   #instafeed,
   .instafeed__grid,
-  .instafeed-grid {
-    padding: 0 1rem 1rem !important;
+  .instafeed-grid,
+  [class*="instafeed-app"] > div,
+  [class*="instafeed_"] > div {
+    animation-duration: 40s !important;
   }
 }
 
 @media (max-width: 480px) {
   #instafeed > a,
-  #instafeed > div,
+  #instafeed > div:not([class*="instafeed"]),
   .instafeed__item,
-  .instafeed-item {
-    width: 180px !important;
-    height: 180px !important;
+  .instafeed-item,
+  [class*="instafeed-app"] a,
+  [class*="instafeed_"] a {
+    width: 200px !important;
+    height: 200px !important;
   }
 }
