@@ -24,7 +24,7 @@
             <div class="order-item">
               <div class="item-image">
                 {% if line_item.image %}
-                  <img src="{{ line_item.image | img_url: '120x120' }}" alt="{{ line_item.title }}">
+                  <img src="{{ line_item.image | image_url: width: 120, height: 120 }}" alt="{{ line_item.title }}" width="{{ line_item.image.width }}" height="{{ line_item.image.height }}">
                 {% else %}
                   <div class="no-image"></div>
                 {% endif %}

@@ -18,14 +18,18 @@
               <div class="collection-image">
                 {% if collection.image %}
                   <img
-                    src="{{ collection.image | img_url: 'large' }}"
+                    src="{{ collection.image | image_url: width: 800 }}"
                     alt="{{ collection.title | escape }}"
+                    width="{{ collection.image.width }}"
+                    height="{{ collection.image.height }}"
                     loading="lazy"
                   >
                 {% elsif collection.products.first and collection.products.first.featured_image %}
                   <img
-                    src="{{ collection.products.first.featured_image | img_url: 'large' }}"
+                    src="{{ collection.products.first.featured_image | image_url: width: 800 }}"
                     alt="{{ collection.title | escape }}"
+                    width="{{ collection.products.first.featured_image.width }}"
+                    height="{{ collection.products.first.featured_image.height }}"
                     loading="lazy"
                   >
                 {% else %}
@@ -67,7 +71,7 @@
         </svg>
         <h2>No collections yet</h2>
         <p>Check back soon for our curated vintage collections.</p>
-        <a href="/" class="btn-primary">
+        <a href="{{ routes.root_url }}" class="btn-primary">
           Back to Home
         </a>
       </div>
@@ -81,10 +85,10 @@
         <h2>Can't Find What You're Looking For?</h2>
         <p>Browse all our products or use our search to find that perfect vintage piece.</p>
         <div class="cta-actions">
-          <a href="/collections/all" class="btn-primary">
+          <a href="{{ routes.all_products_collection_url }}" class="btn-primary">
             Browse All Products
           </a>
-          <a href="/search" class="btn-secondary">
+          <a href="{{ routes.search_url }}" class="btn-secondary">
             Search Store
           </a>
         </div>

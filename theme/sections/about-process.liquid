@@ -21,8 +21,10 @@
     <div class="process-image">
       {% if section.settings.image != blank %}
         <img
-          src="{{ section.settings.image | img_url: '800x' }}"
+          src="{{ section.settings.image | image_url: width: 800 }}"
           alt="{{ section.settings.image.alt | escape }}"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
           loading="lazy"
         />
       {% else %}

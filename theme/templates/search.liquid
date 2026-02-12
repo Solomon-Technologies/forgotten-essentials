@@ -3,6 +3,7 @@
   Displays search results with filters
 {% endcomment %}
 
+{% paginate search.results by 24 %}
 <main class="search-page">
   <div class="search-header">
     <h1>Search</h1>
@@ -20,7 +21,7 @@
   <div class="search-container">
     <!-- Search Form -->
     <div class="search-form-wrapper">
-      <form action="/search" method="get" class="search-form" role="search">
+      <form action="{{ routes.search_url }}" method="get" class="search-form" role="search">
         <input
           type="search"
           name="q"
@@ -110,7 +111,7 @@
                     <div class="search-result-article">
                       <a href="{{ item.url }}" class="article-link">
                         {% if item.image %}
-                          <img src="{{ item.image | img_url: 'medium' }}" alt="{{ item.title | escape }}" loading="lazy">
+                          <img src="{{ item.image | image_url: width: 400 }}" alt="{{ item.title | escape }}" width="{{ item.image.width }}" height="{{ item.image.height }}" loading="lazy">
                         {% endif %}
                         <div class="article-content">
                           <span class="article-badge">Article</span>
@@ -185,7 +186,7 @@
               <li>Check your spelling</li>
             </ul>
           </div>
-          <a href="/collections/all" class="btn-primary">
+          <a href="{{ routes.all_products_collection_url }}" class="btn-primary">
             Browse All Products
           </a>
         </div>
@@ -203,9 +204,6 @@
     {% endif %}
   </div>
 </main>
-
-{% paginate search.results by 24 %}
-  {{ content_for_layout }}
 {% endpaginate %}
 
 <style>

@@ -16,30 +16,28 @@
 
     <div class="header-left desktop-only">
       <nav class="nav-links">
-        <a href="{{ routes.all_products_collection_url }}">Shop</a>
-        {% if linklists.main-menu.links.size > 0 %}
-          {% for link in linklists.main-menu.links limit: 2 %}
-            <a href="{{ link.url }}">{{ link.title }}</a>
-          {% endfor %}
-        {% else %}
-          <a href="/collections/all">New Arrivals</a>
-          <a href="/pages/about">About</a>
-        {% endif %}
+        {% for link in linklists[section.settings.menu].links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
       </nav>
     </div>
 
     <a href="{{ routes.root_url }}" class="logo">
       {% if section.settings.logo != blank %}
         <img
-          src="{{ section.settings.logo | img_url: '200x' }}"
+          src="{{ section.settings.logo | image_url: width: 200 }}"
           alt="{{ shop.name }}"
           class="logo-image"
+          width="{{ section.settings.logo.width }}"
+          height="{{ section.settings.logo.height }}"
         />
       {% else %}
         <img
-          src="/Logo.png"
+          src="{{ 'logo.png' | asset_url }}"
           alt="{{ shop.name }}"
           class="logo-image"
+          width="200"
+          height="100"
         />
       {% endif %}
     </a>
@@ -112,15 +110,9 @@
   <!-- Mobile Menu Drawer -->
   <div class="mobile-menu" data-mobile-menu>
     <nav class="mobile-nav">
-      <a href="{{ routes.all_products_collection_url }}">Shop</a>
-      {% if linklists.main-menu.links.size > 0 %}
-        {% for link in linklists.main-menu.links limit: 2 %}
-          <a href="{{ link.url }}">{{ link.title }}</a>
-        {% endfor %}
-      {% else %}
-        <a href="/collections/all">New Arrivals</a>
-        <a href="/pages/about">About</a>
-      {% endif %}
+      {% for link in linklists[section.settings.menu].links %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% endfor %}
       <a href="/pages/wishlist">Saved Items</a>
       {% if customer %}
         <a href="{{ routes.account_url }}">My Account</a>

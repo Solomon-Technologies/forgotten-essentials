@@ -254,8 +254,10 @@
 
           {% if gift_card.pass_url %}
             <div class="gift-card-qr">
-              <img src="{{ gift_card.qr_identifier | img_url: '200x200' }}"
+              <img src="{{ gift_card.qr_identifier | image_url: width: 200, height: 200 }}"
                    alt="Gift card QR code"
+                   width="200"
+                   height="200"
                    loading="lazy">
             </div>
           {% endif %}

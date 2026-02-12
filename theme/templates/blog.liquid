@@ -3,6 +3,7 @@
   Displays blog posts in a grid
 {% endcomment %}
 
+{% paginate blog.articles by 12 %}
 <main class="blog-page">
   <div class="blog-header">
     <h1>{{ blog.title }}</h1>
@@ -58,8 +59,10 @@
               {% if article.image %}
                 <a href="{{ article.url }}" class="article-image">
                   <img
-                    src="{{ article.image | img_url: 'large' }}"
+                    src="{{ article.image | image_url: width: 800 }}"
                     alt="{{ article.title | escape }}"
+                    width="{{ article.image.width }}"
+                    height="{{ article.image.height }}"
                     loading="lazy"
                   >
                 </a>
@@ -161,9 +164,6 @@
     {% endif %}
   </div>
 </main>
-
-{% paginate blog.articles by 12 %}
-  {{ content_for_layout }}
 {% endpaginate %}
 
 <style>

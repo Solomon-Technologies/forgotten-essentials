@@ -1,4 +1,11 @@
 {
+  "accessibility": {
+    "skip_to_text": "Skip to content",
+    "refresh_page": "Choosing a selection results in a full page refresh.",
+    "link_messages": {
+      "new_window": "Opens in a new window."
+    }
+  },
   "general": {
     "accessibility": {
       "skip_to_content": "Skip to content",
@@ -21,6 +28,9 @@
     },
     "password_page": {
       "opening_soon": "Opening Soon"
+    },
+    "share": {
+      "success_message": "Link copied to clipboard"
     },
     "social": {
       "share": "Share",

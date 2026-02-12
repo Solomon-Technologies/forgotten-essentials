@@ -328,3 +328,9 @@ input, select, textarea {
     height: 200px !important;
   }
 }
+
+/* Kill Instafeed hover image animation */
+#insta-feed .instafeed-new-layout-item > img.instafeed-lazy-image {
+  transition: none !important;
+  transform: translate(-50%, -50%) !important;
+}

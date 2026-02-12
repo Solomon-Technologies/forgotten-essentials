@@ -7,17 +7,21 @@
   <div class="product-image-wrapper">
     {% if product.featured_image %}
       <img
-        src="{{ product.featured_image | img_url: 'medium' }}"
+        src="{{ product.featured_image | image_url: width: 800 }}"
         alt="{{ product.featured_image.alt | escape }}"
         class="product-image"
+        width="{{ product.featured_image.width }}"
+        height="{{ product.featured_image.height }}"
         loading="lazy"
       />
     {% endif %}
     {% if product.images[1] %}
       <img
-        src="{{ product.images[1] | img_url: 'medium' }}"
+        src="{{ product.images[1] | image_url: width: 800 }}"
         alt="{{ product.images[1].alt | escape }}"
         class="product-image-hover"
+        width="{{ product.images[1].width }}"
+        height="{{ product.images[1].height }}"
         loading="lazy"
       />
     {% endif %}
