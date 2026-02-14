@@ -34,32 +34,33 @@
     </div>
 
     <!-- Footer Links -->
-    <div class="footer-links">
-      <div class="footer-column">
-        <h4>Shop</h4>
-        <a href="{{ routes.all_products_collection_url }}">All Products</a>
-        <a href="{{ routes.collections_url }}">Collections</a>
-        <a href="{{ routes.collections_url }}/new-arrivals">New Arrivals</a>
-      </div>
-      <div class="footer-column">
-        <h4>Help</h4>
-        <a href="/pages/about">About Us</a>
-        <a href="/pages/contact">Contact</a>
-        <a href="/pages/faq">FAQ</a>
-      </div>
-      <div class="footer-column">
-        <h4>Account</h4>
-        {% if customer %}
-          <a href="{{ routes.account_url }}">My Account</a>
-          <a href="/pages/wishlist">Saved Items</a>
-          <a href="{{ routes.account_logout_url }}">Sign Out</a>
-        {% else %}
-          <a href="{{ routes.account_login_url }}">Sign In</a>
-          <a href="{{ routes.account_register_url }}">Create Account</a>
-          <a href="/pages/wishlist">Saved Items</a>
+    {% if section.blocks.size > 0 or section.settings.show_account_column %}
+      <div class="footer-links">
+        {% for block in section.blocks %}
+          <div class="footer-column" {{ block.shopify_attributes }}>
+            {% assign menu = block.settings.menu %}
+            <h4>{{ block.settings.heading | default: menu.title }}</h4>
+            {% if menu != blank %}
+              {% for link in menu.links %}
+                <a href="{{ link.url }}">{{ link.title }}</a>
+              {% endfor %}
+            {% endif %}
+          </div>
+        {% endfor %}
+        {% if section.settings.show_account_column %}
+          <div class="footer-column">
+            <h4>{{ section.settings.account_heading | default: 'Account' }}</h4>
+            {% if customer %}
+              <a href="{{ routes.account_url }}">My Account</a>
+              <a href="{{ routes.account_logout_url }}">Sign Out</a>
+            {% else %}
+              <a href="{{ routes.account_login_url }}">Sign In</a>
+              <a href="{{ routes.account_register_url }}">Create Account</a>
+            {% endif %}
+          </div>
         {% endif %}
       </div>
-    </div>
+    {% endif %}
 
     <!-- Social Links -->
     <div class="footer-social">
@@ -206,7 +207,7 @@
 /* Footer Links */
 .footer-links {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 32px;
   margin-bottom: 48px;
   padding-bottom: 32px;
@@ -345,6 +346,23 @@
     },
     {
       "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account_column",
+      "label": "Show Account Column",
+      "info": "Adds a column with Sign In / My Account links",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "account_heading",
+      "label": "Account Column Heading",
+      "default": "Account"
+    },
+    {
+      "type": "header",
       "content": "Social Media"
     },
     {
@@ -362,6 +380,27 @@
       "id": "social_tiktok",
       "label": "TikTok URL"
     }
-  ]
+  ],
+  "blocks": [
+    {
+      "type": "menu_column",
+      "name": "Menu Column",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "default": "footer"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "info": "Leave blank to use the menu title"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4
 }
 {% endschema %}

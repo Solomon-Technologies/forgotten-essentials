@@ -1,0 +1,260 @@
+{% comment %}
+  FAQ / Accordion Section - Collapsible Q&A blocks
+  Smooth open/close with chevron rotation
+{% endcomment %}
+
+<section class="faq-section" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="faq-container">
+    {% if section.settings.heading != blank %}
+      <h2 class="faq-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    {% if section.settings.subheading != blank %}
+      <p class="faq-subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="faq-list" data-faq-section="{{ section.id }}">
+        {% for block in section.blocks %}
+          <div class="faq-item" {{ block.shopify_attributes }}>
+            <button class="faq-question" data-faq-toggle aria-expanded="false">
+              <span>{{ block.settings.question }}</span>
+              <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner rte">
+                {{ block.settings.answer }}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="faq-empty">
+        <p>Add questions in the theme editor to build your FAQ.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+.faq-section {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.faq-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.faq-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin: 0 0 1rem;
+  text-align: center;
+  color: var(--color-text);
+}
+
+.faq-subheading {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  text-align: center;
+  margin: 0 0 3rem;
+  line-height: 1.6;
+}
+
+.faq-list {
+  border-top: 2px solid var(--color-border);
+}
+
+.faq-item {
+  border-bottom: 2px solid var(--color-border);
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.25rem 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: left;
+  color: var(--color-text);
+  gap: 1rem;
+}
+
+.faq-question:hover {
+  color: var(--color-muted);
+}
+
+.faq-chevron {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-chevron {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.faq-answer-inner {
+  padding: 0 0 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: var(--color-muted);
+}
+
+.faq-answer-inner p {
+  margin: 0 0 1rem;
+}
+
+.faq-answer-inner p:last-child {
+  margin-bottom: 0;
+}
+
+.faq-empty {
+  text-align: center;
+  padding: 3rem;
+  color: var(--color-muted);
+  border: 2px dashed var(--color-border);
+}
+
+@media (max-width: 768px) {
+  .faq-section {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .faq-heading {
+    font-size: 1.25rem;
+  }
+
+  .faq-question {
+    font-size: 0.875rem;
+    padding: 1rem 0;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var section = document.querySelector('[data-faq-section="{{ section.id }}"]');
+  if (!section) return;
+
+  section.addEventListener('click', function(e) {
+    var toggle = e.target.closest('[data-faq-toggle]');
+    if (!toggle) return;
+
+    var item = toggle.closest('.faq-item');
+    var answer = item.querySelector('.faq-answer');
+    var inner = answer.querySelector('.faq-answer-inner');
+    var isActive = item.classList.contains('active');
+
+    // Close all other items
+    var allItems = section.querySelectorAll('.faq-item.active');
+    allItems.forEach(function(openItem) {
+      if (openItem !== item) {
+        openItem.classList.remove('active');
+        openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        openItem.querySelector('.faq-answer').style.maxHeight = '0';
+      }
+    });
+
+    // Toggle current
+    if (isActive) {
+      item.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+      answer.style.maxHeight = '0';
+    } else {
+      item.classList.add('active');
+      toggle.setAttribute('aria-expanded', 'true');
+      answer.style.maxHeight = inner.scrollHeight + 'px';
+    }
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "class": "faq-section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is your question?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Provide a detailed answer to the question here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "question" },
+        { "type": "question" },
+        { "type": "question" }
+      ]
+    }
+  ]
+}
+{% endschema %}

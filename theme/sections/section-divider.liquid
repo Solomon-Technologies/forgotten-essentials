@@ -1,0 +1,135 @@
+{% comment %}
+  Divider Section - Spacing and decorative divider
+  Configurable spacing and divider style
+{% endcomment %}
+
+<section class="divider-section" style="padding-top: {{ section.settings.spacing_top }}px; padding-bottom: {{ section.settings.spacing_bottom }}px;">
+  {% if section.settings.divider_style != 'none' %}
+    <div class="divider-container divider--{{ section.settings.line_width }}">
+      {% if section.settings.divider_style == 'line' %}
+        <hr class="divider-line" />
+      {% elsif section.settings.divider_style == 'dots' %}
+        <div class="divider-dots">
+          <span></span><span></span><span></span>
+        </div>
+      {% elsif section.settings.divider_style == 'stars' %}
+        <div class="divider-stars">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</section>
+
+<style>
+.divider-container {
+  margin: 0 auto;
+}
+
+.divider--narrow {
+  max-width: 200px;
+}
+
+.divider--medium {
+  max-width: 600px;
+}
+
+.divider--full {
+  max-width: 100%;
+  padding: 0 3rem;
+}
+
+.divider-line {
+  border: none;
+  border-top: 2px solid var(--color-border);
+  margin: 0;
+}
+
+.divider-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.divider-dots span {
+  width: 6px;
+  height: 6px;
+  background: var(--color-text);
+  border-radius: 50%;
+}
+
+.divider-stars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--color-text);
+}
+
+@media (max-width: 768px) {
+  .divider--full {
+    padding: 0 1.5rem;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Divider",
+  "tag": "section",
+  "class": "divider-section-wrapper",
+  "settings": [
+    {
+      "type": "select",
+      "id": "divider_style",
+      "label": "Divider Style",
+      "options": [
+        { "value": "none", "label": "None (Spacer Only)" },
+        { "value": "line", "label": "Line" },
+        { "value": "dots", "label": "Dots" },
+        { "value": "stars", "label": "Stars" }
+      ],
+      "default": "line"
+    },
+    {
+      "type": "select",
+      "id": "line_width",
+      "label": "Divider Width",
+      "options": [
+        { "value": "narrow", "label": "Narrow (200px)" },
+        { "value": "medium", "label": "Medium (600px)" },
+        { "value": "full", "label": "Full Width" }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "range",
+      "id": "spacing_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Spacing Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Spacing Bottom",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Divider"
+    }
+  ]
+}
+{% endschema %}

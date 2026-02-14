@@ -1,0 +1,316 @@
+{% comment %}
+  Video Section - YouTube/Vimeo embed with optional text
+  Lazy-loads on click of cover image for performance
+{% endcomment %}
+
+<section class="video-section" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="video-container video-layout--{{ section.settings.layout }}">
+    <div class="video-wrapper">
+      {% if section.settings.heading != blank and section.settings.layout == 'stacked' %}
+        <h2 class="video-heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      <div class="video-player" data-video-section="{{ section.id }}" data-video-url="{{ section.settings.video_url }}">
+        {% if section.settings.cover_image != blank %}
+          <div class="video-cover" data-video-cover>
+            <img
+              src="{{ section.settings.cover_image | image_url: width: 1200 }}"
+              alt="{{ section.settings.heading | escape }}"
+              loading="lazy"
+              width="1200"
+              height="675"
+            />
+            <button class="video-play-btn" aria-label="Play video">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="white" stroke="none">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </button>
+          </div>
+        {% else %}
+          <div class="video-cover video-cover--empty" data-video-cover>
+            <button class="video-play-btn" aria-label="Play video">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="white" stroke="none">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </button>
+          </div>
+        {% endif %}
+        <div class="video-iframe" data-video-iframe></div>
+      </div>
+    </div>
+
+    {% if section.settings.layout == 'with-text' %}
+      <div class="video-text">
+        {% if section.settings.heading != blank %}
+          <h2 class="video-heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <div class="video-description rte">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+      </div>
+    {% elsif section.settings.layout == 'stacked' and section.settings.description != blank %}
+      <div class="video-text video-text--stacked">
+        <div class="video-description rte">
+          {{ section.settings.description }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+.video-section {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.video-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.video-layout--with-text {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.video-layout--stacked {
+  max-width: 1000px;
+}
+
+.video-player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #1a1a1a;
+  overflow: hidden;
+}
+
+.video-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.video-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-cover--empty {
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.video-play-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.video-play-btn svg {
+  margin-left: 4px;
+}
+
+.video-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-iframe iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin: 0 0 1.5rem;
+  color: var(--color-text);
+}
+
+.video-layout--stacked .video-heading {
+  text-align: center;
+}
+
+.video-description {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--color-muted);
+}
+
+.video-description p {
+  margin: 0 0 1rem;
+}
+
+.video-text--stacked {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .video-section {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .video-layout--with-text {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .video-heading {
+    font-size: 1.25rem;
+  }
+
+  .video-play-btn {
+    width: 60px;
+    height: 60px;
+  }
+
+  .video-play-btn svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var player = document.querySelector('[data-video-section="{{ section.id }}"]');
+  if (!player) return;
+
+  var url = player.getAttribute('data-video-url');
+  var cover = player.querySelector('[data-video-cover]');
+  var iframeContainer = player.querySelector('[data-video-iframe]');
+  if (!cover || !url) return;
+
+  cover.addEventListener('click', function() {
+    var embedUrl = getEmbedUrl(url);
+    if (!embedUrl) return;
+
+    iframeContainer.innerHTML = '<iframe src="' + embedUrl + '&autoplay=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    cover.style.display = 'none';
+  });
+
+  function getEmbedUrl(url) {
+    var ytMatch = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    if (ytMatch) return 'https://www.youtube.com/embed/' + ytMatch[1] + '?rel=0';
+
+    var vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+    if (vimeoMatch) return 'https://player.vimeo.com/video/' + vimeoMatch[1] + '?';
+
+    return null;
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Video",
+  "tag": "section",
+  "class": "video-section-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video URL",
+      "info": "Supports YouTube and Vimeo URLs"
+    },
+    {
+      "type": "image_picker",
+      "id": "cover_image",
+      "label": "Cover Image",
+      "info": "Displayed before video plays. Click to load video."
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "stacked", "label": "Stacked (Full Width)" },
+        { "value": "with-text", "label": "Side by Side" }
+      ],
+      "default": "stacked"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video"
+    }
+  ]
+}
+{% endschema %}

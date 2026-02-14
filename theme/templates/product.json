@@ -6,11 +6,65 @@
         "show_breadcrumbs": true,
         "show_vendor": true,
         "show_sku": false,
-        "enable_image_zoom": true,
         "show_thumbnails": true,
-        "show_measurements": true,
-        "show_shipping_info": true
-      }
+        "image_position": "left",
+        "max_width": 1400
+      },
+      "blocks": {
+        "description": {
+          "type": "description"
+        },
+        "details": {
+          "type": "details"
+        },
+        "measurements": {
+          "type": "measurements"
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "label": "Select Option"
+          }
+        },
+        "buy_button": {
+          "type": "buy_button",
+          "settings": {
+            "add_to_cart_text": "Add to Cart",
+            "sold_out_text": "Sold Out"
+          }
+        },
+        "perk_1": {
+          "type": "perk",
+          "settings": {
+            "icon": "shipping",
+            "text": "Free shipping over $200"
+          }
+        },
+        "perk_2": {
+          "type": "perk",
+          "settings": {
+            "icon": "returns",
+            "text": "14-day returns"
+          }
+        },
+        "perk_3": {
+          "type": "perk",
+          "settings": {
+            "icon": "shield",
+            "text": "Authenticity guaranteed"
+          }
+        }
+      },
+      "block_order": [
+        "description",
+        "details",
+        "measurements",
+        "variant_picker",
+        "buy_button",
+        "perk_1",
+        "perk_2",
+        "perk_3"
+      ]
     },
     "related-products": {
       "type": "featured-products",

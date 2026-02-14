@@ -1,0 +1,109 @@
+{
+  "sections": {
+    "banner": {
+      "type": "section-image-banner",
+      "settings": {
+        "banner_height": 500,
+        "overlay_opacity": 40,
+        "heading": "Welcome to Our World",
+        "subheading": "Discover curated vintage finds and one-of-a-kind essentials",
+        "button_text": "Shop Now",
+        "button_link": "shopify:\/\/collections\/all",
+        "text_position": "center",
+        "text_color": "light"
+      }
+    },
+    "intro": {
+      "type": "section-rich-text",
+      "settings": {
+        "heading": "Our Story",
+        "body": "<p>We believe in the beauty of pre-loved fashion. Every piece in our collection has been carefully curated to bring you unique, high-quality vintage finds that stand the test of time.<\/p>",
+        "text_alignment": "center",
+        "section_width": "narrow",
+        "padding_top": 60,
+        "padding_bottom": 40
+      }
+    },
+    "image_text": {
+      "type": "section-image-with-text",
+      "settings": {
+        "heading": "Curated With Care",
+        "body": "<p>Each item is hand-selected, inspected, and prepared for its next chapter. We take pride in finding pieces that tell a story and bring character to your wardrobe.<\/p>",
+        "button_text": "Learn More",
+        "button_link": "shopify:\/\/pages\/about",
+        "image_position": "left",
+        "image_width": "50",
+        "section_height": "auto",
+        "padding_top": 40,
+        "padding_bottom": 60
+      }
+    },
+    "features": {
+      "type": "section-multi-column",
+      "settings": {
+        "heading": "Why Shop With Us",
+        "columns_per_row": "3",
+        "enable_border": true,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "divider_1": {
+      "type": "section-divider",
+      "settings": {
+        "divider_style": "dots",
+        "line_width": "narrow",
+        "spacing_top": 20,
+        "spacing_bottom": 20
+      }
+    },
+    "testimonials": {
+      "type": "section-testimonials",
+      "settings": {
+        "heading": "What Our Customers Say",
+        "columns": "2",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "faq": {
+      "type": "section-faq",
+      "settings": {
+        "heading": "Common Questions",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "divider_2": {
+      "type": "section-divider",
+      "settings": {
+        "divider_style": "line",
+        "line_width": "medium",
+        "spacing_top": 20,
+        "spacing_bottom": 20
+      }
+    },
+    "contact": {
+      "type": "section-contact-form",
+      "settings": {
+        "heading": "Get in Touch",
+        "description": "<p>Have a question about an item or need help with your order? We'd love to hear from you.<\/p>",
+        "show_phone": false,
+        "show_order_number": true,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "intro",
+    "image_text",
+    "features",
+    "divider_1",
+    "testimonials",
+    "faq",
+    "divider_2",
+    "contact"
+  ]
+}

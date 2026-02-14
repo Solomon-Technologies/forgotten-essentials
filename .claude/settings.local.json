@@ -31,7 +31,8 @@
       "Bash(npm install:*)",
       "Bash(node convert-heic.js:*)",
       "Bash(npm run build:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(shopify theme check:*)"
     ],
     "deny": [],
     "ask": []

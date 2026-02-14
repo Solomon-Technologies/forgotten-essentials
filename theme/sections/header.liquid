@@ -110,18 +110,33 @@
   <!-- Mobile Menu Drawer -->
   <div class="mobile-menu" data-mobile-menu>
     <nav class="mobile-nav">
-      {% for link in linklists[section.settings.menu].links %}
-        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% assign mobile_menu_handle = section.settings.mobile_menu | default: section.settings.menu %}
+      {% for link in linklists[mobile_menu_handle].links %}
+        {% if link.links.size > 0 %}
+          <div class="mobile-nav-group">
+            <a href="{{ link.url }}" class="mobile-nav-parent">{{ link.title }}</a>
+            <div class="mobile-nav-children">
+              {% for child_link in link.links %}
+                <a href="{{ child_link.url }}" class="mobile-nav-child">{{ child_link.title }}</a>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endif %}
       {% endfor %}
-      <a href="/pages/wishlist">Saved Items</a>
-      {% if customer %}
-        <a href="{{ routes.account_url }}">My Account</a>
-        <a href="{{ routes.account_logout_url }}" class="mobile-logout">Sign Out</a>
-      {% else %}
-        <a href="{{ routes.account_login_url }}">Sign In</a>
-        <a href="{{ routes.account_register_url }}">Create Account</a>
-      {% endif %}
     </nav>
+    {% if section.settings.show_mobile_account %}
+      <div class="mobile-nav-account">
+        {% if customer %}
+          <a href="{{ routes.account_url }}">My Account</a>
+          <a href="{{ routes.account_logout_url }}" class="mobile-logout">Sign Out</a>
+        {% else %}
+          <a href="{{ routes.account_login_url }}">Sign In</a>
+          <a href="{{ routes.account_register_url }}">Create Account</a>
+        {% endif %}
+      </div>
+    {% endif %}
   </div>
 
   <!-- Mobile menu overlay -->
@@ -384,7 +399,8 @@
   padding: 1rem 0;
 }
 
-.mobile-nav a {
+.mobile-nav > a,
+.mobile-nav-parent {
   display: block;
   padding: 1rem 1.5rem;
   font-size: 0.9rem;
@@ -396,7 +412,58 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.mobile-nav a:hover {
+.mobile-nav > a:hover,
+.mobile-nav-parent:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.mobile-nav-group {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobile-nav-group .mobile-nav-parent {
+  border-bottom: none;
+}
+
+.mobile-nav-children {
+  padding-bottom: 0.5rem;
+}
+
+.mobile-nav-child {
+  display: block;
+  padding: 0.6rem 1.5rem 0.6rem 2.5rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+.mobile-nav-child:hover {
+  color: var(--color-text);
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.mobile-nav-account {
+  border-top: 2px solid var(--color-border);
+  padding: 0.5rem 0;
+  margin-top: auto;
+}
+
+.mobile-nav-account a {
+  display: block;
+  padding: 0.85rem 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+.mobile-nav-account a:hover {
+  color: var(--color-text);
   background: rgba(0, 0, 0, 0.05);
 }
 
@@ -596,9 +663,22 @@ document.addEventListener('DOMContentLoaded', function() {
     {
       "type": "link_list",
       "id": "menu",
-      "label": "Main Menu",
+      "label": "Desktop Menu",
       "default": "main-menu",
-      "info": "Select menu for header navigation. Displays first 2-3 links."
+      "info": "Menu for desktop header navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "mobile_menu",
+      "label": "Mobile Menu",
+      "default": "main-menu",
+      "info": "Menu for mobile drawer. Supports nested links. Falls back to desktop menu if not set."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mobile_account",
+      "label": "Show Account Links in Mobile Menu",
+      "default": true
     },
     {
       "type": "header",

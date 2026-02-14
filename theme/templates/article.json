@@ -1,0 +1,60 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-article",
+      "settings": {
+        "show_breadcrumbs": true,
+        "content_width": 800,
+        "show_tags": true,
+        "show_author": true,
+        "show_date": true,
+        "show_comment_count": true,
+        "image_height": "medium"
+      },
+      "blocks": {
+        "title": {
+          "type": "title"
+        },
+        "featured_image": {
+          "type": "featured_image"
+        },
+        "content": {
+          "type": "content"
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "show_facebook": true,
+            "show_twitter": true,
+            "show_pinterest": true
+          }
+        },
+        "next_prev": {
+          "type": "next_prev"
+        },
+        "comments": {
+          "type": "comments"
+        },
+        "related": {
+          "type": "related",
+          "settings": {
+            "heading": "More from the Blog",
+            "articles_count": 3
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "featured_image",
+        "content",
+        "share",
+        "next_prev",
+        "comments",
+        "related"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

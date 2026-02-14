@@ -1,0 +1,196 @@
+{% comment %}
+  Rich Text Section - Versatile text content block
+  Heading, subheading, rich text body, optional button
+{% endcomment %}
+
+<section class="rich-text-section" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="rich-text-container rich-text--{{ section.settings.section_width }}" style="text-align: {{ section.settings.text_alignment }};">
+    {% if section.settings.heading != blank %}
+      <h2 class="rich-text-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    {% if section.settings.subheading != blank %}
+      <p class="rich-text-subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+    {% if section.settings.body != blank %}
+      <div class="rich-text-body rte">
+        {{ section.settings.body }}
+      </div>
+    {% endif %}
+    {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="rich-text-btn">
+        {{ section.settings.button_text }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+.rich-text-section {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.rich-text-container {
+  margin: 0 auto;
+}
+
+.rich-text--narrow {
+  max-width: 800px;
+}
+
+.rich-text--wide {
+  max-width: 1200px;
+}
+
+.rich-text-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin: 0 0 1rem;
+  color: var(--color-text);
+}
+
+.rich-text-subheading {
+  font-size: 1rem;
+  color: var(--color-muted);
+  margin: 0 0 2rem;
+  line-height: 1.6;
+}
+
+.rich-text-body {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--color-text);
+  margin-bottom: 2rem;
+}
+
+.rich-text-body p {
+  margin: 0 0 1.25rem;
+}
+
+.rich-text-body p:last-child {
+  margin-bottom: 0;
+}
+
+.rich-text-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-text);
+  color: var(--color-bg);
+  border: 2px solid var(--color-text);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
+}
+
+.rich-text-btn:hover {
+  background: transparent;
+  color: var(--color-text);
+}
+
+@media (max-width: 768px) {
+  .rich-text-section {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .rich-text-heading {
+    font-size: 1.25rem;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Rich Text",
+  "tag": "section",
+  "class": "rich-text-section-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Talk about your brand"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body Text",
+      "default": "<p>Share your story, explain your process, or describe what makes your brand unique. Use this section anywhere you need clean, readable text content.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section Width",
+      "options": [
+        { "value": "narrow", "label": "Narrow (800px)" },
+        { "value": "wide", "label": "Wide (1200px)" }
+      ],
+      "default": "narrow"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rich Text"
+    }
+  ]
+}
+{% endschema %}

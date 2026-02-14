@@ -1,0 +1,306 @@
+{% comment %}
+  Collection List Section - Curated collections grid
+  Each block picks a collection with optional custom image/title
+{% endcomment %}
+
+<section class="collist-section" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="collist-container">
+    {% if section.settings.heading != blank %}
+      <h2 class="collist-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="collist-grid collist-grid--{{ section.settings.columns }}">
+        {% for block in section.blocks %}
+          {% assign col = block.settings.collection %}
+          <a href="{{ col.url | default: '#' }}" class="collist-card collist-card--{{ section.settings.image_ratio }}" {{ block.shopify_attributes }}>
+            <div class="collist-image">
+              {% if block.settings.custom_image != blank %}
+                <img
+                  src="{{ block.settings.custom_image | image_url: width: 800 }}"
+                  alt="{{ block.settings.custom_title | default: col.title | escape }}"
+                  loading="lazy"
+                  width="800"
+                  height="800"
+                />
+              {% elsif col.image != blank %}
+                <img
+                  src="{{ col.image | image_url: width: 800 }}"
+                  alt="{{ col.title | escape }}"
+                  loading="lazy"
+                  width="800"
+                  height="800"
+                />
+              {% elsif col.products.first.featured_image != blank %}
+                <img
+                  src="{{ col.products.first.featured_image | image_url: width: 800 }}"
+                  alt="{{ col.title | escape }}"
+                  loading="lazy"
+                  width="800"
+                  height="800"
+                />
+              {% else %}
+                <div class="collist-placeholder">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                    <rect width="7" height="7" x="3" y="3" rx="1"></rect>
+                    <rect width="7" height="7" x="14" y="3" rx="1"></rect>
+                    <rect width="7" height="7" x="14" y="14" rx="1"></rect>
+                    <rect width="7" height="7" x="3" y="14" rx="1"></rect>
+                  </svg>
+                </div>
+              {% endif %}
+            </div>
+            <div class="collist-overlay">
+              <h3 class="collist-title">
+                {{ block.settings.custom_title | default: col.title | default: 'Collection' }}
+              </h3>
+              {% if col.products_count > 0 %}
+                <span class="collist-count">{{ col.products_count }} {{ col.products_count | pluralize: 'product', 'products' }}</span>
+              {% endif %}
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="collist-empty">
+        <p>Add collections in the theme editor.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+.collist-section {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.collist-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.collist-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin: 0 0 2.5rem;
+  text-align: center;
+  color: var(--color-text);
+}
+
+.collist-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.collist-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.collist-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.collist-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+.collist-card {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+  border: 2px solid var(--color-border);
+}
+
+.collist-card--square .collist-image,
+.collist-card--square .collist-placeholder {
+  aspect-ratio: 1 / 1;
+}
+
+.collist-card--portrait .collist-image,
+.collist-card--portrait .collist-placeholder {
+  aspect-ratio: 3 / 4;
+}
+
+.collist-card--landscape .collist-image,
+.collist-card--landscape .collist-placeholder {
+  aspect-ratio: 4 / 3;
+}
+
+.collist-image {
+  width: 100%;
+  overflow: hidden;
+}
+
+.collist-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.collist-card:hover .collist-image img {
+  transform: scale(1.05);
+}
+
+.collist-placeholder {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  color: var(--color-muted);
+}
+
+.collist-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+}
+
+.collist-title {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.collist-count {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.collist-empty {
+  text-align: center;
+  padding: 3rem;
+  color: var(--color-muted);
+  border: 2px dashed var(--color-border);
+}
+
+@media (max-width: 1024px) {
+  .collist-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .collist-section {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .collist-grid--2,
+  .collist-grid--3,
+  .collist-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .collist-heading {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .collist-grid--2,
+  .collist-grid--3,
+  .collist-grid--4 {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Collection List",
+  "tag": "section",
+  "class": "collist-section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Category"
+    },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Columns",
+      "options": [
+        { "value": "2", "label": "2 Columns" },
+        { "value": "3", "label": "3 Columns" },
+        { "value": "4", "label": "4 Columns" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image Ratio",
+      "options": [
+        { "value": "square", "label": "Square (1:1)" },
+        { "value": "portrait", "label": "Portrait (3:4)" },
+        { "value": "landscape", "label": "Landscape (4:3)" }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Image",
+          "info": "Override the collection image"
+        },
+        {
+          "type": "text",
+          "id": "custom_title",
+          "label": "Custom Title",
+          "info": "Override the collection title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection List",
+      "blocks": [
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}
