@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "contact-form": {
+      "type": "section-contact-form",
+      "settings": {
+        "heading": "Contact Us",
+        "show_order_number": true,
+        "show_subject": true,
+        "padding_top": 60,
+        "padding_bottom": 40
+      }
+    },
+    "faq": {
+      "type": "section-faq",
+      "settings": {}
+    }
+  },
+  "order": [
+    "contact-form",
+    "faq"
+  ]
+}

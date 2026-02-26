@@ -4,7 +4,7 @@
 
 <section class="about-process">
   <div class="process-grid">
-    <div class="process-content">
+    <div class="process-content" style="font-size: {{ section.settings.body_font_size }}rem;">
       <h2>{{ section.settings.heading }}</h2>
       <div class="process-steps">
         {% for block in section.blocks %}
@@ -140,6 +140,16 @@
       "type": "image_picker",
       "id": "image",
       "label": "Process Image"
+    },
+    {
+      "type": "range",
+      "id": "body_font_size",
+      "min": 0.8,
+      "max": 1.2,
+      "step": 0.1,
+      "label": "Body Font Size",
+      "default": 0.9,
+      "info": "Controls text size for process step content"
     }
   ],
   "blocks": [

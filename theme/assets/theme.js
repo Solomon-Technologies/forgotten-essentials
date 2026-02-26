@@ -275,6 +275,87 @@
     }
   }
 
+  // Wishlist (Favorites) functionality using localStorage
+  class Wishlist {
+    constructor() {
+      this.storageKey = 'wishlist';
+      this.updateHeaderBadge();
+      this.initProductPageButton();
+    }
+
+    getItems() {
+      try {
+        return JSON.parse(localStorage.getItem(this.storageKey)) || [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    saveItems(items) {
+      localStorage.setItem(this.storageKey, JSON.stringify(items));
+    }
+
+    isInWishlist(handle) {
+      return this.getItems().includes(handle);
+    }
+
+    add(handle) {
+      const items = this.getItems();
+      if (!items.includes(handle)) {
+        items.push(handle);
+        this.saveItems(items);
+      }
+      this.updateHeaderBadge();
+    }
+
+    remove(handle) {
+      const items = this.getItems().filter(h => h !== handle);
+      this.saveItems(items);
+      this.updateHeaderBadge();
+    }
+
+    toggle(handle) {
+      if (this.isInWishlist(handle)) {
+        this.remove(handle);
+        return false;
+      } else {
+        this.add(handle);
+        return true;
+      }
+    }
+
+    updateHeaderBadge() {
+      const count = this.getItems().length;
+      const badge = document.querySelector('.wishlist-count');
+      if (badge) {
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'flex' : 'none';
+      }
+    }
+
+    initProductPageButton() {
+      const btn = document.querySelector('[data-wishlist-toggle]');
+      if (!btn) return;
+
+      const handle = btn.getAttribute('data-product-handle');
+      if (!handle) return;
+
+      // Set initial state
+      if (this.isInWishlist(handle)) {
+        btn.classList.add('active');
+        const text = btn.querySelector('.wishlist-text');
+        if (text) text.textContent = 'Added to Favorites';
+      }
+
+      btn.addEventListener('click', () => {
+        const added = this.toggle(handle);
+        btn.classList.toggle('active', added);
+        const text = btn.querySelector('.wishlist-text');
+        if (text) text.textContent = added ? 'Added to Favorites' : 'Add to Favorites';
+      });
+    }
+  }
+
   // Initialize on DOM ready
   function init() {
     // Initialize cart
@@ -285,6 +366,9 @@
 
     // Initialize sidebar toggle
     new SidebarToggle();
+
+    // Initialize wishlist
+    window.wishlist = new Wishlist();
   }
 
   // Run on DOM ready

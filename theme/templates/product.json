@@ -33,6 +33,9 @@
             "sold_out_text": "Sold Out"
           }
         },
+        "wishlist_button": {
+          "type": "wishlist_button"
+        },
         "perk_1": {
           "type": "perk",
           "settings": {
@@ -61,6 +64,7 @@
         "measurements",
         "variant_picker",
         "buy_button",
+        "wishlist_button",
         "perk_1",
         "perk_2",
         "perk_3"

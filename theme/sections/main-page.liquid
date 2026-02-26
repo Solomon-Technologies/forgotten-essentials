@@ -14,7 +14,7 @@
   </div>
 
   <div class="page-content">
-    <article class="page-article">
+    <article class="page-article" style="font-size: {{ section.settings.body_font_size }}rem;">
       {% if page.content != blank %}
         <div class="rte">
           {{ page.content }}
@@ -285,6 +285,17 @@
   "name": "Page Content",
   "tag": "section",
   "class": "main-page-section",
-  "settings": []
+  "settings": [
+    {
+      "type": "range",
+      "id": "body_font_size",
+      "min": 0.8,
+      "max": 1.2,
+      "step": 0.1,
+      "label": "Body Font Size",
+      "default": 0.9,
+      "info": "Controls text size for page content"
+    }
+  ]
 }
 {% endschema %}

@@ -19,7 +19,7 @@
         </div>
       {% endif %}
     </div>
-    <div class="story-content">
+    <div class="story-content" style="font-size: {{ section.settings.body_font_size }}rem;">
       <h2>{{ section.settings.heading }}</h2>
       <div class="story-text">
         {{ section.settings.content }}
@@ -116,6 +116,16 @@
       "id": "content",
       "label": "Content",
       "default": "<p>We're dedicated to giving exceptional vintage and pre-loved clothing a second life, connecting discerning shoppers with garments that tell a story.</p><p>Every item in our collection is hand-selected for its quality, condition, and timeless appeal.</p>"
+    },
+    {
+      "type": "range",
+      "id": "body_font_size",
+      "min": 0.8,
+      "max": 1.2,
+      "step": 0.1,
+      "label": "Body Font Size",
+      "default": 0.9,
+      "info": "Controls text size for story content"
     }
   ],
   "presets": [

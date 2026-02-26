@@ -4,7 +4,7 @@
 
 <section class="about-values">
   <h2>{{ section.settings.heading }}</h2>
-  <div class="values-grid">
+  <div class="values-grid" style="font-size: {{ section.settings.body_font_size }}rem;">
     {% for block in section.blocks %}
       <div class="value-card" {{ block.shopify_attributes }}>
         <h3>{{ block.settings.title }}</h3>
@@ -84,6 +84,16 @@
       "id": "heading",
       "label": "Heading",
       "default": "What We Stand For"
+    },
+    {
+      "type": "range",
+      "id": "body_font_size",
+      "min": 0.8,
+      "max": 1.2,
+      "step": 0.1,
+      "label": "Body Font Size",
+      "default": 0.9,
+      "info": "Controls text size for value card content"
     }
   ],
   "blocks": [

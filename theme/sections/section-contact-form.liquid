@@ -1,6 +1,6 @@
 {% comment %}
-  Contact Form Section - Shopify contact form with heading and description
-  Optional phone and order number fields
+  Contact Form Section - Clean minimal style (Aged Ivy inspired)
+  Single column layout with subject dropdown
 {% endcomment %}
 
 <section class="contact-section" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
@@ -9,7 +9,7 @@
       <h2 class="contact-heading">{{ section.settings.heading }}</h2>
     {% endif %}
     {% if section.settings.description != blank %}
-      <div class="contact-description rte">
+      <div class="contact-description">
         {{ section.settings.description }}
       </div>
     {% endif %}
@@ -28,41 +28,17 @@
       {% endif %}
 
       <div class="contact-fields">
-        <div class="contact-row">
-          <div class="contact-field">
-            <label for="contact-name-{{ section.id }}">Name</label>
-            <input
-              type="text"
-              id="contact-name-{{ section.id }}"
-              name="contact[name]"
-              value="{{ form.name }}"
-              required
-            />
-          </div>
-          <div class="contact-field">
-            <label for="contact-email-{{ section.id }}">Email</label>
-            <input
-              type="email"
-              id="contact-email-{{ section.id }}"
-              name="contact[email]"
-              value="{{ form.email }}"
-              autocapitalize="off"
-              required
-            />
-          </div>
+        <div class="contact-field">
+          <label for="contact-name-{{ section.id }}">Name</label>
+          <input
+            type="text"
+            id="contact-name-{{ section.id }}"
+            name="contact[name]"
+            value="{{ form.name }}"
+            placeholder="Your full name"
+            required
+          />
         </div>
-
-        {% if section.settings.show_phone %}
-          <div class="contact-field">
-            <label for="contact-phone-{{ section.id }}">Phone</label>
-            <input
-              type="tel"
-              id="contact-phone-{{ section.id }}"
-              name="contact[phone]"
-              value="{{ form.phone }}"
-            />
-          </div>
-        {% endif %}
 
         {% if section.settings.show_order_number %}
           <div class="contact-field">
@@ -77,17 +53,61 @@
         {% endif %}
 
         <div class="contact-field">
+          <label for="contact-email-{{ section.id }}">Email</label>
+          <input
+            type="email"
+            id="contact-email-{{ section.id }}"
+            name="contact[email]"
+            value="{{ form.email }}"
+            placeholder="your@email.com"
+            autocapitalize="off"
+            required
+          />
+        </div>
+
+        {% if section.settings.show_phone %}
+          <div class="contact-field">
+            <label for="contact-phone-{{ section.id }}">Phone</label>
+            <input
+              type="tel"
+              id="contact-phone-{{ section.id }}"
+              name="contact[phone]"
+              value="{{ form.phone }}"
+              placeholder="(555) 000-0000"
+            />
+          </div>
+        {% endif %}
+
+        {% if section.settings.show_subject %}
+          <div class="contact-field">
+            <label for="contact-subject-{{ section.id }}">Subject</label>
+            <select
+              id="contact-subject-{{ section.id }}"
+              name="contact[subject]"
+            >
+              <option value="" disabled selected>Please Select</option>
+              {% assign subjects = section.settings.subject_options | split: ',' %}
+              {% for subject in subjects %}
+                {% assign subject_trimmed = subject | strip %}
+                <option value="{{ subject_trimmed }}">{{ subject_trimmed }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
+
+        <div class="contact-field">
           <label for="contact-message-{{ section.id }}">Message</label>
           <textarea
             id="contact-message-{{ section.id }}"
             name="contact[body]"
             rows="6"
+            placeholder="How can we help?"
             required
           >{{ form.body }}</textarea>
         </div>
 
         <button type="submit" class="contact-submit">
-          Send Message
+          Send
         </button>
       </div>
     {% endform %}
@@ -96,31 +116,34 @@
 
 <style>
 .contact-section {
-  padding-left: 3rem;
-  padding-right: 3rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .contact-container {
-  max-width: 700px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
 .contact-heading {
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0;
-  margin: 0 0 1rem;
+  font-size: 1.75rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.75rem;
   text-align: center;
   color: var(--color-text);
 }
 
 .contact-description {
   font-size: 0.9rem;
-  line-height: 1.8;
+  line-height: 1.7;
   color: var(--color-muted);
   text-align: center;
   margin-bottom: 2.5rem;
+}
+
+.contact-description p {
+  margin: 0;
 }
 
 .contact-fields {
@@ -129,59 +152,71 @@
   gap: 1.25rem;
 }
 
-.contact-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-}
-
 .contact-field label {
   display: block;
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.65rem;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0;
-  margin-bottom: 0.5rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.4rem;
   color: var(--color-text);
 }
 
 .contact-field input,
-.contact-field textarea {
+.contact-field textarea,
+.contact-field select {
   width: 100%;
-  padding: 0.75rem 1rem;
-  border: 2px solid var(--color-border);
+  padding: 0.75rem 0.85rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   font-family: var(--font-sans);
   font-size: 0.9rem;
   color: var(--color-text);
   background: var(--color-bg);
   transition: border-color 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+.contact-field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+.contact-field input::placeholder,
+.contact-field textarea::placeholder {
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .contact-field input:focus,
-.contact-field textarea:focus {
+.contact-field textarea:focus,
+.contact-field select:focus {
   outline: none;
-  border-color: var(--color-muted);
+  border-color: rgba(0, 0, 0, 0.4);
 }
 
 .contact-field textarea {
   resize: vertical;
-  min-height: 150px;
+  min-height: 140px;
 }
 
 .contact-submit {
-  display: inline-block;
-  padding: 0.75rem 2rem;
+  width: 100%;
+  padding: 0.875rem;
   background: var(--color-text);
   color: var(--color-bg);
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-text);
   font-family: var(--font-sans);
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.2s ease;
-  width: 100%;
+  margin-top: 0.5rem;
 }
 
 .contact-submit:hover {
@@ -191,7 +226,7 @@
 
 .contact-success {
   padding: 1rem 1.5rem;
-  border: 2px solid var(--color-text);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   background: var(--color-bg);
   margin-bottom: 2rem;
   text-align: center;
@@ -199,16 +234,15 @@
 
 .contact-success p {
   margin: 0;
-  font-size: 0.875rem;
-  font-weight: 700;
+  font-size: 0.9rem;
 }
 
 .contact-errors {
   padding: 1rem 1.5rem;
-  border: 2px solid var(--color-accent);
-  color: var(--color-accent);
+  border: 1px solid var(--color-accent, #c00);
+  color: var(--color-accent, #c00);
   margin-bottom: 2rem;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
 }
 
 @media (max-width: 768px) {
@@ -217,12 +251,8 @@
     padding-right: 1.5rem;
   }
 
-  .contact-row {
-    grid-template-columns: 1fr;
-  }
-
   .contact-heading {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
 }
 </style>
@@ -237,7 +267,7 @@
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Get in Touch"
+      "default": "Contact Us"
     },
     {
       "type": "richtext",
@@ -255,7 +285,20 @@
       "type": "checkbox",
       "id": "show_order_number",
       "label": "Show Order Number Field",
-      "default": false
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subject",
+      "label": "Show Subject Dropdown",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "subject_options",
+      "label": "Subject Options",
+      "default": "Order Status, Return an Order, Shipping/Tracking, Report an Issue, Other",
+      "info": "Comma-separated list of subject dropdown options"
     },
     {
       "type": "range",
