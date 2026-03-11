@@ -37,8 +37,10 @@
     {% endif %}
     <h3 class="product-name">{{ product.title }}</h3>
     <p class="product-meta">
-      {% if product.metafields.custom.size %}
-        Size {{ product.metafields.custom.size }}
+      {% assign _sizes = product.metafields.shopify.size.value %}
+      {% if _sizes != blank %}
+        {% assign _s = _sizes | first %}
+        Size {{ _s.system.handle | upcase | default: _s }}
       {% endif %}
       {% if product.metafields.custom.condition %}
         · {{ product.metafields.custom.condition }}

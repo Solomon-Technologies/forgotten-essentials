@@ -32,7 +32,9 @@
       "Bash(node convert-heic.js:*)",
       "Bash(npm run build:*)",
       "Bash(npx tsc:*)",
-      "Bash(shopify theme check:*)"
+      "Bash(shopify theme check:*)",
+      "WebFetch(domain:shopify.dev)",
+      "WebFetch(domain:community.shopify.com)"
     ],
     "deny": [],
     "ask": []
